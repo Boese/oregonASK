@@ -1,0 +1,31 @@
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-7">
+        <h4>Providers</h4>
+      </div>
+      <div class="col-md-3 btn-grp pull-right">
+        <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+      </div>
+      <div class="col-md-2 pull-right">
+        <input ng-model="query" class="form-control" placeholder="filter...">
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <p>
+      <table ng-table="tableParams" class="table">
+        <tr ng-repeat="provider in $data | filter:query">
+          <td align="center" data-title="'Name'" sortable="'name'">
+            <a href="#/providers/{{provider.id}}">{{provider.name}}</a>
+          </td>
+          <td align="center" data-title="'Address'" sortable="'street'">
+            {{provider.street}} {{provider.city}}, {{provider.state}} {{provider.zip}}
+          </td>
+          <td align="center" data-title="'Phone'" sortable="'phone'">
+            {{provider.phone}}
+          </td>
+        </tr>
+      </table>
+  </div>
+</div>
