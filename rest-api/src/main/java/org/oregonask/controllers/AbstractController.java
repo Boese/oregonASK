@@ -84,8 +84,8 @@ public abstract class AbstractController {
 			
 			try {
 				Long id = Long.parseLong(request.params(":id"));
-				abstractService.delete(id);
-				return new ReturnMessage("success");
+				//**DELETE REMOVED **   abstractService.delete(id);
+				return new ReturnMessage("failed");
 			} catch (Exception ex) {
 			    logger.error("DELETE /api/" + path + "/:id" + " failed." + ex);
 				ex.printStackTrace();
