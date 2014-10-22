@@ -57,7 +57,8 @@ public abstract class AbstractController {
 			} catch (Exception ex) {
 			    logger.error("POST /api/" + path + " failed." + ex);
 				ex.printStackTrace();
-				return new ReturnMessage("failed");
+				//CHANGED FROM FAILED TO ERROR MESSAGE
+				return new ReturnMessage("POST /api/" + path + " failed." + ex);
 			}
 			
 		}, new JsonTransformer());
@@ -84,7 +85,7 @@ public abstract class AbstractController {
 			
 			try {
 				Long id = Long.parseLong(request.params(":id"));
-				//**DELETE REMOVED **   abstractService.delete(id);
+				abstractService.delete(id);
 				return new ReturnMessage("failed");
 			} catch (Exception ex) {
 			    logger.error("DELETE /api/" + path + "/:id" + " failed." + ex);

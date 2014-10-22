@@ -41,6 +41,9 @@ public class School implements IEntity, Serializable {
 	@Column(name = "GRADE_LEVEL", nullable = false, length = 25)
 	private String gradeLevel;
 	
+	@Column(name = "SCHOOL_NAME", nullable = true, length = 100)
+	private String schoolName;
+	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "LOCATION_ID", nullable = false)
 	private Location schoolLocation;
@@ -92,6 +95,15 @@ public class School implements IEntity, Serializable {
 		this.gradeLevel = gradeLevel;
 	}
 
+	@JsonProperty("schoolName")
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
 	@JsonProperty("location")
 	public Location getLocation() {
 		return schoolLocation;
@@ -123,6 +135,7 @@ public class School implements IEntity, Serializable {
 	public void deepCopy(Object obj) {
 		setSchoolCode(((School) obj).getSchoolCode());
 		setGradeLevel(((School) obj).getGradeLevel());
+		setSchoolName(((School) obj).getSchoolName());
 		setLocation(((School) obj).getLocation());
 		setPrograms(((School) obj).getPrograms());
 		setStudentCount(((School) obj).getStudentCount());
