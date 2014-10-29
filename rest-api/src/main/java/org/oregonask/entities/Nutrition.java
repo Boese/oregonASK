@@ -43,11 +43,9 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	public Nutrition() {
 	}
 	
-	@OneToOne
-    @JoinTable(
-    		name="NUTRITION_LINK",
-    		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
-    		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
+	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="NUTRITION_LINK", joinColumns = @JoinColumn(name="NUTRITION_ID"),
+	inverseJoinColumns = @JoinColumn(name="SCHOOL_ID"))
 	private School school;
 //	
 //	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })  
