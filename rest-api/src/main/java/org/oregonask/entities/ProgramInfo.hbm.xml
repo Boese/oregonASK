@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ProgramInfo" table="PROGRAM_INFO" catalog="OREGONASKDB" optimistic-lock="version">
+        <id name="programInfoId" type="java.lang.Integer">
+            <column name="PROGRAM_INFO_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="averageDailyAttendance" type="string">
+            <column name="AVERAGE_DAILY_ATTENDANCE" length="45" />
+        </property>
+        <property name="maxCapacity" type="string">
+            <column name="MAX_CAPACITY" length="45" />
+        </property>
+        <property name="offeredBeforeSchool" type="java.lang.Boolean">
+            <column name="OFFERED_BEFORE_SCHOOL" />
+        </property>
+        <property name="offeredAfterSchool" type="java.lang.Boolean">
+            <column name="OFFERED_AFTER_SCHOOL" />
+        </property>
+        <property name="offeredMonday" type="java.lang.Boolean">
+            <column name="OFFERED_MONDAY" />
+        </property>
+        <property name="offeredTuesday" type="java.lang.Boolean">
+            <column name="OFFERED_TUESDAY" />
+        </property>
+        <property name="offeredWednesday" type="java.lang.Boolean">
+            <column name="OFFERED_WEDNESDAY" />
+        </property>
+        <property name="offeredThursday" type="java.lang.Boolean">
+            <column name="OFFERED_THURSDAY" />
+        </property>
+        <property name="offeredFriday" type="java.lang.Boolean">
+            <column name="OFFERED_FRIDAY" />
+        </property>
+        <property name="offeredSaturday" type="java.lang.Boolean">
+            <column name="OFFERED_SATURDAY" />
+        </property>
+        <property name="offeredSunday" type="java.lang.Boolean">
+            <column name="OFFERED_SUNDAY" />
+        </property>
+        <property name="offeredWeekends" type="java.lang.Boolean">
+            <column name="OFFERED_WEEKENDS" />
+        </property>
+        <property name="offeredEvenings" type="java.lang.Boolean">
+            <column name="OFFERED_EVENINGS" />
+        </property>
+        <property name="offeredBreaks" type="java.lang.Boolean">
+            <column name="OFFERED_BREAKS" />
+        </property>
+        <property name="averageHoursPerWeek" type="string">
+            <column name="AVERAGE_HOURS_PER_WEEK" length="45" />
+        </property>
+        <property name="foodProvidedBeforeSchool" type="java.lang.Boolean">
+            <column name="FOOD_PROVIDED_BEFORE_SCHOOL" />
+        </property>
+        <property name="foodProvidedAfterSchool" type="java.lang.Boolean">
+            <column name="FOOD_PROVIDED_AFTER_SCHOOL" />
+        </property>
+        <property name="foodProvidedDuringBreaks" type="java.lang.Boolean">
+            <column name="FOOD_PROVIDED_DURING_BREAKS" />
+        </property>
+        <property name="stemOffered" type="java.lang.Boolean">
+            <column name="STEM_OFFERED" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="SchoolInfoByYear" table="SCHOOL_INFO_BY_YEAR" catalog="OREGONASKDB" optimistic-lock="version">
+        <id name="schoolInfoByYearId" type="java.lang.Integer">
+            <column name="SCHOOL_INFO_BY_YEAR_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="year" type="int">
+            <column name="YEAR" not-null="true" />
+        </property>
+        <property name="schoolId" type="int">
+            <column name="SCHOOL_ID" not-null="true" />
+        </property>
+        <property name="schoolInfoId" type="int">
+            <column name="SCHOOL_INFO_ID" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

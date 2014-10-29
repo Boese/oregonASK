@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="SummerfoodInfoByYear" table="SUMMERFOOD_INFO_BY_YEAR" catalog="OREGONASKDB" optimistic-lock="version">
+        <id name="summerfoodInfoByYearId" type="java.lang.Integer">
+            <column name="SUMMERFOOD_INFO_BY_YEAR_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="year" type="int">
+            <column name="YEAR" not-null="true" />
+        </property>
+        <property name="summerfoodId" type="int">
+            <column name="SUMMERFOOD_ID" not-null="true" />
+        </property>
+        <property name="summerfoodInfoId" type="int">
+            <column name="SUMMERFOOD_INFO_ID" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

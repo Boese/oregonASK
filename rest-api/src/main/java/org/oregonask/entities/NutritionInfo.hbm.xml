@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="NutritionInfo" table="NUTRITION_INFO" catalog="OREGONASKDB" optimistic-lock="version">
+        <id name="nutritionInfoId" type="java.lang.Integer">
+            <column name="NUTRITION_INFO_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="breakfastServed" type="java.lang.Boolean">
+            <column name="BREAKFAST_SERVED" />
+        </property>
+        <property name="pmSnackServed" type="java.lang.Boolean">
+            <column name="PM_SNACK_SERVED" />
+        </property>
+        <property name="supperServed" type="java.lang.Boolean">
+            <column name="SUPPER_SERVED" />
+        </property>
+    </class>
+</hibernate-mapping>

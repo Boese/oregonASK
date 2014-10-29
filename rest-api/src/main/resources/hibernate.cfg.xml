@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password"></property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/OREGONASKDB</property>
@@ -14,20 +14,14 @@
 		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
 		<property name="hibernate.current_session_context_class">thread</property>
 		
-		<mapping class="org.oregonask.entities.Provider"></mapping>
-		<mapping class="org.oregonask.entities.Program"></mapping>
-		<mapping class="org.oregonask.entities.Location"></mapping>
-		<mapping class="org.oregonask.entities.SchoolDistrict"></mapping>
-		<mapping class="org.oregonask.entities.EducationServiceDistrict"></mapping>
-		<mapping class="org.oregonask.entities.County"></mapping>
-		<mapping class="org.oregonask.entities.School"></mapping>
-		<mapping class="org.oregonask.entities.Ethnicity"></mapping>
-		<mapping class="org.oregonask.entities.EthnicityCount"></mapping>
-		<mapping class="org.oregonask.entities.CongressionalDistrict"></mapping>
-		<mapping class="org.oregonask.entities.ProgramType"></mapping>
-		<mapping class="org.oregonask.entities.ActiveDate"></mapping>
-		<mapping class="org.oregonask.entities.KidsServed"></mapping>
-		<mapping class="org.oregonask.entities.GradeCount"></mapping>
-		<mapping class="org.oregonask.entities.StudentCount"></mapping>
-	</session-factory>
+        <mapping class="org.oregonask.entities.Summerfood" />
+        <mapping class="org.oregonask.entities.SummerfoodInfo" />
+        <mapping class="org.oregonask.entities.Program" />
+        <mapping class="org.oregonask.entities.Nutrition" />
+        <mapping class="org.oregonask.entities.Sponsor" />
+        <mapping class="org.oregonask.entities.SchoolInfo" />
+        <mapping class="org.oregonask.entities.NutritionInfo" />
+        <mapping class="org.oregonask.entities.ProgramInfo" />
+        <mapping class="org.oregonask.entities.School" />
+    </session-factory>
 </hibernate-configuration>

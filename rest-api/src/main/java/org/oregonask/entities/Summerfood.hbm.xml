@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Summerfood" table="SUMMERFOOD" catalog="OREGONASKDB" optimistic-lock="version">
+        <id name="summerfoodId" type="java.lang.Integer">
+            <column name="SUMMERFOOD_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="siteName" type="string">
+            <column name="SITE_NAME" length="250" not-null="true" />
+        </property>
+        <property name="siteNumber" type="string">
+            <column name="SITE_NUMBER" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="street" type="string">
+            <column name="STREET" length="250" />
+        </property>
+        <property name="city" type="string">
+            <column name="CITY" length="45" />
+        </property>
+        <property name="zip" type="string">
+            <column name="ZIP" length="45" />
+        </property>
+        <property name="state" type="string">
+            <column name="STATE" length="45" />
+        </property>
+        <property name="county" type="string">
+            <column name="COUNTY" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>
