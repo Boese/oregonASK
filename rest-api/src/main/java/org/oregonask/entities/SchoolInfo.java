@@ -4,7 +4,9 @@ package org.oregonask.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,6 +29,9 @@ public class SchoolInfo implements java.io.Serializable {
 	private String percentFr;
 	private String loGradeOffered;
 	private String hiGradeOffered;
+	
+	@Column(name = "YEAR")
+	private Integer year;
 
 	public SchoolInfo() {
 	}

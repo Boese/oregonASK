@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -29,8 +29,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Nutrition implements java.io.Serializable,IEntity {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 3881655254037514101L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUTRITION_ID", unique = true, nullable = false)
@@ -57,17 +57,11 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	@Column(name = "COUNTY", length = 45)
 	private String county;
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="NUTRITION_LINK", 
-		joinColumns=@JoinColumn(name="NUTRITION_ID"),  
-		inverseJoinColumns=@JoinColumn(name="SCHOOL_ID")) 
-	private School school;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "nutritionsBySchool")
+	private Set<School> school;
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="NUTRITION_LINK", 
-		joinColumns=@JoinColumn(name="NUTRITION_ID"),  
-		inverseJoinColumns=@JoinColumn(name="SPONSOR_ID")) 
-	private Sponsor sponsor;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "nutritionsBySponsor")
+	private Set<Sponsor> sponsor;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="NUTRITION_INFO_BY_YEAR", 
@@ -157,24 +151,22 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.county = county;
 	}
 	
-	//** Get School & Sponsor & Nutrition Info
-	
-	@JsonProperty("school")
-	public School getSchool() {
-		return this.school;
-	}
-	
-	public void setSchool(School school) {
-		this.school = school;
-	}
-
 	@JsonProperty("sponsor")
-	public Sponsor getSponsor() {
+	public Set<Sponsor> getSponsor() {
 		return sponsor;
 	}
 
-	public void setSponsor(Sponsor sponsor) {
+	public void setSponsor(Set<Sponsor> sponsor) {
 		this.sponsor = sponsor;
+	}
+	
+	@JsonProperty("school")
+	public Set<School> getSchool() {
+		return this.school;
+	}
+	
+	public void setSchool(Set<School> school) {
+		this.school = school;
 	}
 
 	@JsonProperty("nutrition_info")

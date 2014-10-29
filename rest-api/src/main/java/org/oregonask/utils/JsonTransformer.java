@@ -12,7 +12,7 @@ public class JsonTransformer implements ResponseTransformer {
 	private final ObjectMapper mapper = new ObjectMapper();
 	
 	public JsonTransformer() {
-		mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		mapper.registerModule(new Hibernate4Module());
 	}
 	

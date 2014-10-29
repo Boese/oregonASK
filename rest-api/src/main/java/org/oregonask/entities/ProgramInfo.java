@@ -4,7 +4,9 @@ package org.oregonask.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -37,6 +39,9 @@ public class ProgramInfo implements java.io.Serializable {
 	private Boolean foodProvidedAfterSchool;
 	private Boolean foodProvidedDuringBreaks;
 	private Boolean stemOffered;
+	
+	@Column(name = "YEAR")
+	private Integer year;
 
 	public ProgramInfo() {
 	}

@@ -32,8 +32,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Sponsor implements java.io.Serializable,IEntity {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -4263127826708928763L;
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "SPONSOR_ID", unique = true, nullable = false)
@@ -52,7 +52,7 @@ public class Sponsor implements java.io.Serializable,IEntity {
 	@JoinTable(name="NUTRITION_LINK",  
 		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
 		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
-	Set<Nutrition> nutritions;
+	Set<Nutrition> nutritionsBySponsor;
 
 	public Sponsor() {
 	}
@@ -95,11 +95,11 @@ public class Sponsor implements java.io.Serializable,IEntity {
 	
 	@JsonProperty("nutritions")
 	public Set<Nutrition> getNutritions() {
-		return nutritions;
+		return nutritionsBySponsor;
 	}
 
 	public void setNutritions(Set<Nutrition> nutritions) {
-		this.nutritions = nutritions;
+		this.nutritionsBySponsor = nutritions;
 	}
 
 	@Override

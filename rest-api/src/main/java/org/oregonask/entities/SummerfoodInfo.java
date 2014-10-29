@@ -4,7 +4,9 @@ package org.oregonask.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,6 +25,9 @@ public class SummerfoodInfo implements java.io.Serializable {
 	private String supper;
 	private String amSnack;
 	private String pmSnack;
+	
+	@Column(name = "YEAR")
+	private Integer year;
 
 	public SummerfoodInfo() {
 	}

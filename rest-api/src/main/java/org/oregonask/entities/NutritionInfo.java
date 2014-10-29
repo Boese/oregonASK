@@ -1,11 +1,11 @@
 package org.oregonask.entities;
 // Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -36,7 +36,10 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 	
 	@Column(name = "SUPPER_SERVED")
 	private Boolean supperServed;
-
+	
+	@Column(name = "YEAR")
+	private Integer year;
+	
 	public NutritionInfo() {
 	}
 
@@ -76,11 +79,20 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 		this.supperServed = supperServed;
 	}
 
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	@Override
 	public void deepCopy(Object obj) {
 		setNutritionInfoId(((NutritionInfo) obj).getNutritionInfoId());
 		setBreakfastServed(((NutritionInfo) obj).getBreakfastServed());
 		setPmSnackServed(((NutritionInfo) obj).getPmSnackServed());
 		setSupperServed(((NutritionInfo) obj).getSupperServed());
+		setYear(((NutritionInfo) obj).getYear());
 	}
 }

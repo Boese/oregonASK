@@ -77,7 +77,7 @@ public class School implements java.io.Serializable,IEntity {
     	@JoinTable(name="NUTRITION_LINK",  
     		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
     		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
-	Set<Nutrition> nutritions;
+	Set<Nutrition> nutritionsBySchool;
 	
 	public School() {
 	}
@@ -214,11 +214,11 @@ public class School implements java.io.Serializable,IEntity {
 
 	@JsonProperty("nutritions")
 	public Set<Nutrition> getNutritions() {
-		return nutritions;
+		return nutritionsBySchool;
 	}
 
 	public void setNutritions(Set<Nutrition> nutritions) {
-		this.nutritions = nutritions;
+		this.nutritionsBySchool = nutritions;
 	}
 
 	@Override
