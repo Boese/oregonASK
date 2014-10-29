@@ -15,6 +15,8 @@ import javax.persistence.Table;
 @Table(name = "SCHOOL_INFO", catalog = "OREGONASKDB")
 public class SchoolInfo implements java.io.Serializable {
 
+	private static final long serialVersionUID = 5443992434125924778L;
+	
 	private Integer schoolInfoId;
 	private String totalStudentCount;
 	private String freeLunchCount;

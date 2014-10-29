@@ -15,6 +15,8 @@ import javax.persistence.Table;
 @Table(name = "PROGRAM_INFO", catalog = "OREGONASKDB")
 public class ProgramInfo implements java.io.Serializable {
 
+	private static final long serialVersionUID = -5792767535618769423L;
+	
 	private Integer programInfoId;
 	private String averageDailyAttendance;
 	private String maxCapacity;

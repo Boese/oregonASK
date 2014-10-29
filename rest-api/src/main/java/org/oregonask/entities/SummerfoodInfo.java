@@ -15,6 +15,8 @@ import javax.persistence.Table;
 @Table(name = "SUMMERFOOD_INFO", catalog = "OREGONASKDB")
 public class SummerfoodInfo implements java.io.Serializable {
 
+	private static final long serialVersionUID = -4611757794087937577L;
+	
 	private Integer summerfoodInfoId;
 	private String breakfast;
 	private String lunch;

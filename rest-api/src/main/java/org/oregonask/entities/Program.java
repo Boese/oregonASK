@@ -19,6 +19,8 @@ import javax.persistence.UniqueConstraint;
 		"NAME", "CITY", "SCHOOL_SERVED" }))
 public class Program implements java.io.Serializable,IEntity {
 
+	private static final long serialVersionUID = 8618940262002043855L;
+	
 	private Integer programId;
 	private String name;
 	private String licenseNumber;
