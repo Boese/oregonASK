@@ -1,14 +1,18 @@
 package org.oregonask.entities;
 // Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -23,35 +27,62 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "SCHOOL", catalog = "OREGONASKDB", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "NAME", "COUNTY" }),
 		@UniqueConstraint(columnNames = "INSTITUTION_ID") })
-
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class School implements java.io.Serializable,IEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5054829261229547595L;
 	
-	private Integer schoolId;
-	private Integer institutionId;
-	private String name;
-	private Boolean elementary;
-	private Boolean middle;
-	private Boolean high;
-	private String city;
-	private String state;
-	private String zip;
-	private String street;
-	private String congressionalDistrict;
-	private String county;
-	private String schoolDistrict;
-
-	public School() {
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SCHOOL_ID", unique = true, nullable = false)
+	private Integer schoolId;
+	
+	@Column(name = "INSTITUTION_ID", unique = true)
+	private Integer institutionId;
+	
+	@Column(name = "NAME", nullable = false, length = 250)
+	private String name;
+	
+	@Column(name = "ELEMENTARY")
+	private Boolean elementary;
+	
+	@Column(name = "MIDDLE")
+	private Boolean middle;
+	
+	@Column(name = "HIGH")
+	private Boolean high;
+	
+	@Column(name = "CITY", length = 45)
+	private String city;
+	
+	@Column(name = "STATE", length = 45)
+	private String state;
+	
+	@Column(name = "ZIP", length = 45)
+	private String zip;
+	
+	@Column(name = "STREET", length = 45)
+	private String street;
+	
+	@Column(name = "CONGRESSIONAL_DISTRICT", length = 45)
+	private String congressionalDistrict;
+	
+	@Column(name = "COUNTY", length = 45)
+	private String county;
+	
+	@Column(name = "SCHOOL_DISTRICT", length = 45)
+	private String schoolDistrict;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+    	@JoinTable(name="NUTRITION_LINK",  
+    		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
+    		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
+	Set<Nutrition> nutritions;
+	
+	public School() {
+	}
+
+	
 	@JsonProperty("id")
 	public Integer getSchoolId() {
 		return this.schoolId;
@@ -61,7 +92,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.schoolId = schoolId;
 	}
 
-	@Column(name = "INSTITUTION_ID", unique = true)
+	
 	@JsonProperty("institution_id")
 	public Integer getInstitutionId() {
 		return this.institutionId;
@@ -71,7 +102,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.institutionId = institutionId;
 	}
 
-	@Column(name = "NAME", nullable = false, length = 250)
+	
 	@JsonProperty("name")
 	public String getName() {
 		return this.name;
@@ -81,7 +112,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.name = name;
 	}
 
-	@Column(name = "ELEMENTARY")
+	
 	@JsonProperty("elementary")
 	public Boolean getElementary() {
 		return this.elementary;
@@ -91,7 +122,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.elementary = elementary;
 	}
 
-	@Column(name = "MIDDLE")
+	
 	@JsonProperty("middle")
 	public Boolean getMiddle() {
 		return this.middle;
@@ -101,7 +132,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.middle = middle;
 	}
 
-	@Column(name = "HIGH")
+	
 	@JsonProperty("high")
 	public Boolean getHigh() {
 		return this.high;
@@ -111,7 +142,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.high = high;
 	}
 
-	@Column(name = "CITY", length = 45)
+	
 	@JsonProperty("city")
 	public String getCity() {
 		return this.city;
@@ -121,7 +152,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.city = city;
 	}
 
-	@Column(name = "STATE", length = 45)
+	
 	@JsonProperty("state")
 	public String getState() {
 		return this.state;
@@ -131,7 +162,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.state = state;
 	}
 
-	@Column(name = "ZIP", length = 45)
+	
 	@JsonProperty("zip")
 	public String getZip() {
 		return this.zip;
@@ -141,7 +172,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.zip = zip;
 	}
 
-	@Column(name = "STREET", length = 45)
+	
 	@JsonProperty("street")
 	public String getStreet() {
 		return this.street;
@@ -151,7 +182,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.street = street;
 	}
 
-	@Column(name = "CONGRESSIONAL_DISTRICT", length = 45)
+	
 	@JsonProperty("congressional_district")
 	public String getCongressionalDistrict() {
 		return this.congressionalDistrict;
@@ -161,7 +192,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.congressionalDistrict = congressionalDistrict;
 	}
 
-	@Column(name = "COUNTY", length = 45)
+	
 	@JsonProperty("county")
 	public String getCounty() {
 		return this.county;
@@ -171,7 +202,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.county = county;
 	}
 
-	@Column(name = "SCHOOL_DISTRICT", length = 45)
+	
 	@JsonProperty("school_district")
 	public String getSchoolDistrict() {
 		return this.schoolDistrict;
@@ -179,6 +210,15 @@ public class School implements java.io.Serializable,IEntity {
 
 	public void setSchoolDistrict(String schoolDistrict) {
 		this.schoolDistrict = schoolDistrict;
+	}
+
+	@JsonProperty("nutritions")
+	public Set<Nutrition> getNutritions() {
+		return nutritions;
+	}
+
+	public void setNutritions(Set<Nutrition> nutritions) {
+		this.nutritions = nutritions;
 	}
 
 	@Override
@@ -196,6 +236,7 @@ public class School implements java.io.Serializable,IEntity {
 		setCongressionalDistrict(((School) obj).getCongressionalDistrict());
 		setCounty(((School) obj).getCounty());
 		setSchoolDistrict(((School) obj).getSchoolDistrict());
+		setNutritions(((School) obj).getNutritions());
 	}
 
 }

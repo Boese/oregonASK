@@ -1,22 +1,16 @@
 package org.oregonask.entities;
 // Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -29,23 +23,24 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "NUTRITION_INFO_ID", unique = true, nullable = false)
 	private Integer nutritionInfoId;
-	private Boolean breakfastServed;
-	private Boolean pmSnackServed;
-	private Boolean supperServed;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@JoinTable(name="nutrition_info_by_year", catalog = "OREGONASKDB",  
-    joinColumns={@JoinColumn(name="nutrition_id", nullable = false, updatable = false)},  
-    inverseJoinColumns={@JoinColumn(name="nutrition_info_id", nullable = false, updatable = false)})
-	private Set<Nutrition> nutrition;
+	@Column(name = "BREAKFAST_SERVED")
+	private Boolean breakfastServed;
+	
+	@Column(name = "PM_SNACK_SERVED")
+	private Boolean pmSnackServed;
+	
+	@Column(name = "SUPPER_SERVED")
+	private Boolean supperServed;
 
 	public NutritionInfo() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "NUTRITION_INFO_ID", unique = true, nullable = false)
+	@JsonProperty("id")
 	public Integer getNutritionInfoId() {
 		return this.nutritionInfoId;
 	}
@@ -54,7 +49,7 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 		this.nutritionInfoId = nutritionInfoId;
 	}
 
-	@Column(name = "BREAKFAST_SERVED")
+	@JsonProperty("breakfast_served")
 	public Boolean getBreakfastServed() {
 		return this.breakfastServed;
 	}
@@ -63,7 +58,7 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 		this.breakfastServed = breakfastServed;
 	}
 
-	@Column(name = "PM_SNACK_SERVED")
+	@JsonProperty("pm_snack_served")
 	public Boolean getPmSnackServed() {
 		return this.pmSnackServed;
 	}
@@ -72,7 +67,7 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 		this.pmSnackServed = pmSnackServed;
 	}
 
-	@Column(name = "SUPPER_SERVED")
+	@JsonProperty("supper_served")
 	public Boolean getSupperServed() {
 		return this.supperServed;
 	}

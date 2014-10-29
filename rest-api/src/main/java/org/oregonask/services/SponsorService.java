@@ -3,24 +3,24 @@ package org.oregonask.services;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
-import org.oregonask.entities.School;
+import org.oregonask.entities.Sponsor;
 import org.oregonask.utils.HibernateUtil;
 
-public class SchoolService extends AbstractService {
-	
-	public SchoolService() {
-		super(School.class);
+public class SponsorService extends AbstractService {
+
+	public SponsorService() {
+		super(Sponsor.class);
 	}
-	
+
 	@Override
 	public Object find(int id) {
 		
-		School school = null;
+		Sponsor sponsor = null;
 		
 		try {
 			startOperation();
-			school = (School) getSession().createCriteria(School.class).add(Restrictions.idEq(id)).uniqueResult();
-			Hibernate.initialize(school.getNutritions());
+			sponsor = (Sponsor) getSession().createCriteria(Sponsor.class).add(Restrictions.idEq(id)).uniqueResult();
+			Hibernate.initialize(sponsor.getNutritions());
 			getTransaction().commit();
 		} catch (HibernateException e) {
 			handleException(e);
@@ -28,7 +28,6 @@ public class SchoolService extends AbstractService {
 			HibernateUtil.close(getSession());
 		}
 		
-		return school;
+		return sponsor;
 	}
-
 }

@@ -1,9 +1,16 @@
 package org.oregonask.entities;
 // Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -12,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -26,17 +34,30 @@ public class Sponsor implements java.io.Serializable,IEntity {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "SPONSOR_ID", unique = true, nullable = false)
 	private Integer sponsorId;
+	
+	@Column(name = "NAME", unique = true, nullable = false, length = 250)
 	private String name;
+	
+	@Column(name = "AGR_NUMBER", unique = true, length = 45)
 	private String agrNumber;
+	
+	@Column(name = "SPONSOR_TYPE", length = 45)
 	private String sponsorType;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="NUTRITION_LINK",  
+		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
+		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
+	Set<Nutrition> nutritions;
 
 	public Sponsor() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "SPONSOR_ID", unique = true, nullable = false)
+	@JsonProperty("id")
 	public Integer getSponsorId() {
 		return this.sponsorId;
 	}
@@ -45,7 +66,7 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.sponsorId = sponsorId;
 	}
 
-	@Column(name = "NAME", unique = true, nullable = false, length = 250)
+	@JsonProperty("name")
 	public String getName() {
 		return this.name;
 	}
@@ -54,7 +75,7 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.name = name;
 	}
 
-	@Column(name = "AGR_NUMBER", unique = true, length = 45)
+	@JsonProperty("agr_number")
 	public String getAgrNumber() {
 		return this.agrNumber;
 	}
@@ -63,7 +84,7 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.agrNumber = agrNumber;
 	}
 
-	@Column(name = "SPONSOR_TYPE", length = 45)
+	@JsonProperty("sponsor_type")
 	public String getSponsorType() {
 		return this.sponsorType;
 	}
@@ -72,6 +93,15 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.sponsorType = sponsorType;
 	}
 	
+	@JsonProperty("nutritions")
+	public Set<Nutrition> getNutritions() {
+		return nutritions;
+	}
+
+	public void setNutritions(Set<Nutrition> nutritions) {
+		this.nutritions = nutritions;
+	}
+
 	@Override
 	public void deepCopy(Object obj) {
 		setSponsorId(((Sponsor) obj).getSponsorId());

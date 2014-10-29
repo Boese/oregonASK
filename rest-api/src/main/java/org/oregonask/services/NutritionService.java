@@ -21,8 +21,8 @@ public class NutritionService extends AbstractService{
 			startOperation();
 			nutrition = (Nutrition) getSession().createCriteria(Nutrition.class).add(Restrictions.idEq(id)).uniqueResult();
 			Hibernate.initialize(nutrition.getSchool());
-			//Hibernate.initialize(nutrition.getSponsor());
-			//Hibernate.initialize(nutrition.getNutritionInfo());
+			Hibernate.initialize(nutrition.getSponsor());
+			Hibernate.initialize(nutrition.getNutritionInfo());
 			getTransaction().commit();
 		} catch (HibernateException e) {
 			handleException(e);

@@ -5,16 +5,16 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;  
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;  
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;  
-import javax.persistence.JoinColumn;  
-import javax.persistence.JoinTable;  
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;  
+import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -31,40 +31,53 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer nutritionId;
-	private String siteName;
-	private String cnpWebSchoolNumber;
-	private String street;
-	private String city;
-	private String zip;
-	private String state;
-	private String county;
-	
-	public Nutrition() {
-	}
-	
-	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="NUTRITION_LINK", joinColumns = @JoinColumn(name="NUTRITION_ID"),
-	inverseJoinColumns = @JoinColumn(name="SCHOOL_ID"))
-	private School school;
-//	
-//	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })  
-//    @JoinTable(name="NUTRITION_LINK", catalog = "OREGONASKDB",  
-//    joinColumns={@JoinColumn(name="SPONSOR_ID", nullable = false, updatable = false)},  
-//    inverseJoinColumns={@JoinColumn(name="NUTRITION_ID", nullable = false, updatable = false)})
-//	private Sponsor sponsor;
-	
-//	@OneToMany
-//	@JoinTable(
-//            name="NUTRITION_INFO_BY_YEAR",
-//            joinColumns = @JoinColumn( name="NUTRITION_ID"),
-//            inverseJoinColumns = @JoinColumn( name="NUTRITION_INFO_ID")
-//    )
-	private Set<NutritionInfo> nutrition;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUTRITION_ID", unique = true, nullable = false)
+	private Integer nutritionId;
+	
+	@Column(name = "SITE_NAME", nullable = false, length = 250)
+	private String siteName;
+	
+	@Column(name = "CNP_WEB_SCHOOL_NUMBER", unique = true, nullable = false, length = 45)
+	private String cnpWebSchoolNumber;
+	
+	@Column(name = "STREET", length = 250)
+	private String street;
+	
+	@Column(name = "CITY", length = 45)
+	private String city;
+	
+	@Column(name = "ZIP", length = 45)
+	private String zip;
+	
+	@Column(name = "STATE", length = 45)
+	private String state;
+	
+	@Column(name = "COUNTY", length = 45)
+	private String county;
+	
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="NUTRITION_LINK", 
+		joinColumns=@JoinColumn(name="NUTRITION_ID"),  
+		inverseJoinColumns=@JoinColumn(name="SCHOOL_ID")) 
+	private School school;
+	
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="NUTRITION_LINK", 
+		joinColumns=@JoinColumn(name="NUTRITION_ID"),  
+		inverseJoinColumns=@JoinColumn(name="SPONSOR_ID")) 
+	private Sponsor sponsor;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="NUTRITION_INFO_BY_YEAR", 
+			joinColumns=@JoinColumn(name="NUTRITION_ID"),
+			inverseJoinColumns=@JoinColumn(name="NUTRITION_INFO_ID"))
+	private Set<NutritionInfo> nutritionInfo;
+	
+	public Nutrition() {
+	}
+
 	@JsonProperty("id")
 	public Integer getNutritionId() {
 		return this.nutritionId;
@@ -74,7 +87,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.nutritionId = nutritionId;
 	}
 
-	@Column(name = "SITE_NAME", nullable = false, length = 250)
+	
 	@JsonProperty("site_name")
 	public String getSiteName() {
 		return this.siteName;
@@ -84,7 +97,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.siteName = siteName;
 	}
 
-	@Column(name = "CNP_WEB_SCHOOL_NUMBER", unique = true, nullable = false, length = 45)
+	
 	@JsonProperty("cnp_web_school_number")
 	public String getCnpWebSchoolNumber() {
 		return this.cnpWebSchoolNumber;
@@ -94,7 +107,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.cnpWebSchoolNumber = cnpWebSchoolNumber;
 	}
 
-	@Column(name = "STREET", length = 250)
+	
 	@JsonProperty("street")
 	public String getStreet() {
 		return this.street;
@@ -104,7 +117,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.street = street;
 	}
 
-	@Column(name = "CITY", length = 45)
+	
 	@JsonProperty("city")
 	public String getCity() {
 		return this.city;
@@ -114,7 +127,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.city = city;
 	}
 
-	@Column(name = "ZIP", length = 45)
+	
 	@JsonProperty("zip")
 	public String getZip() {
 		return this.zip;
@@ -124,7 +137,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.zip = zip;
 	}
 
-	@Column(name = "STATE", length = 45)
+	
 	@JsonProperty("state")
 	public String getState() {
 		return this.state;
@@ -134,7 +147,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.state = state;
 	}
 
-	@Column(name = "COUNTY", length = 45)
+	
 	@JsonProperty("county")
 	public String getCounty() {
 		return this.county;
@@ -144,7 +157,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		this.county = county;
 	}
 	
-	//** Get School & Sponsor
+	//** Get School & Sponsor & Nutrition Info
 	
 	@JsonProperty("school")
 	public School getSchool() {
@@ -154,24 +167,24 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	public void setSchool(School school) {
 		this.school = school;
 	}
-//	
-//	@JsonProperty("sponsor")
-//	public Sponsor getSponsor() {
-//		return this.sponsor;
-//	}
-//
-//	public void setSponsor(Sponsor sponsor) {
-//		this.sponsor = sponsor;
-//	}
 
-//	@JsonProperty("nutrition")
-//	public Set<NutritionInfo> getNutritionInfo() {
-//		return nutrition;
-//	}
-//
-//	public void setNutritionInfo(Set<NutritionInfo> nutritionInfo) {
-//		this.nutrition = nutritionInfo;
-//	}
+	@JsonProperty("sponsor")
+	public Sponsor getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(Sponsor sponsor) {
+		this.sponsor = sponsor;
+	}
+
+	@JsonProperty("nutrition_info")
+	public Set<NutritionInfo> getNutritionInfo() {
+		return nutritionInfo;
+	}
+
+	public void setNutritionInfo(Set<NutritionInfo> nutritionInfo) {
+		this.nutritionInfo = nutritionInfo;
+	}
 
 	@Override
 	public void deepCopy(Object obj) {
@@ -184,8 +197,8 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		setState(((Nutrition) obj).getState());
 		setCounty(((Nutrition) obj).getCounty());
 		setSchool(((Nutrition) obj).getSchool());
-		//setSponsor(((Nutrition) obj).getSponsor());
-		//setNutritionInfo(((Nutrition) obj).getNutritionInfo());
+		setSponsor(((Nutrition) obj).getSponsor());
+		setNutritionInfo(((Nutrition) obj).getNutritionInfo());
 	}
 
 }
