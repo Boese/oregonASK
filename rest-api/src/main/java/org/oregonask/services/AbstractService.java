@@ -63,7 +63,7 @@ public abstract class AbstractService {
 		}
 	}
 	
-	public Object find(Long id) {
+	public Object find(int id) {
 		
 		Object obj = null;
 		

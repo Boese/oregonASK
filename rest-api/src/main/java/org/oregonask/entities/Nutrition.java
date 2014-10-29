@@ -3,14 +3,17 @@ package org.oregonask.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;  
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;  
 import javax.persistence.GenerationType;
 import javax.persistence.Id;  
 import javax.persistence.JoinColumn;  
 import javax.persistence.JoinTable;  
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;  
 import javax.persistence.UniqueConstraint;
 
@@ -40,11 +43,12 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	public Nutrition() {
 	}
 	
-//	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })  
-//    @JoinTable(name="NUTRITION_LINK", catalog = "OREGONASKDB",  
-//    joinColumns={@JoinColumn(name="SCHOOL_ID", nullable = false, updatable = false)},  
-//    inverseJoinColumns={@JoinColumn(name="NUTRITION_ID", nullable = false, updatable = false)}) 
-//	private School school;
+	@OneToOne
+    @JoinTable(
+    		name="NUTRITION_LINK",
+    		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
+    		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
+	private School school;
 //	
 //	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })  
 //    @JoinTable(name="NUTRITION_LINK", catalog = "OREGONASKDB",  
@@ -52,17 +56,18 @@ public class Nutrition implements java.io.Serializable,IEntity {
 //    inverseJoinColumns={@JoinColumn(name="NUTRITION_ID", nullable = false, updatable = false)})
 //	private Sponsor sponsor;
 	
-	@OneToMany
-	@JoinTable(
-            name="NUTRITION_INFO_BY_YEAR",
-            joinColumns = @JoinColumn( name="NUTRITION_ID"),
-            inverseJoinColumns = @JoinColumn( name="NUTRITION_INFO_ID")
-    )
+//	@OneToMany
+//	@JoinTable(
+//            name="NUTRITION_INFO_BY_YEAR",
+//            joinColumns = @JoinColumn( name="NUTRITION_ID"),
+//            inverseJoinColumns = @JoinColumn( name="NUTRITION_INFO_ID")
+//    )
 	private Set<NutritionInfo> nutrition;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUTRITION_ID", unique = true, nullable = false)
+	@JsonProperty("id")
 	public Integer getNutritionId() {
 		return this.nutritionId;
 	}
@@ -72,7 +77,7 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "SITE_NAME", nullable = false, length = 250)
-	@JsonProperty("name")
+	@JsonProperty("site_name")
 	public String getSiteName() {
 		return this.siteName;
 	}
@@ -143,14 +148,14 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	
 	//** Get School & Sponsor
 	
-//	@JsonProperty("school")
-//	public School getSchool() {
-//		return this.school;
-//	}
-//	
-//	public void setSchool(School school) {
-//		this.school = school;
-//	}
+	@JsonProperty("school")
+	public School getSchool() {
+		return this.school;
+	}
+	
+	public void setSchool(School school) {
+		this.school = school;
+	}
 //	
 //	@JsonProperty("sponsor")
 //	public Sponsor getSponsor() {
@@ -161,14 +166,14 @@ public class Nutrition implements java.io.Serializable,IEntity {
 //		this.sponsor = sponsor;
 //	}
 
-	@JsonProperty("nutrition")
-	public Set<NutritionInfo> getNutritionInfo() {
-		return nutrition;
-	}
-
-	public void setNutritionInfo(Set<NutritionInfo> nutritionInfo) {
-		this.nutrition = nutritionInfo;
-	}
+//	@JsonProperty("nutrition")
+//	public Set<NutritionInfo> getNutritionInfo() {
+//		return nutrition;
+//	}
+//
+//	public void setNutritionInfo(Set<NutritionInfo> nutritionInfo) {
+//		this.nutrition = nutritionInfo;
+//	}
 
 	@Override
 	public void deepCopy(Object obj) {
@@ -180,9 +185,9 @@ public class Nutrition implements java.io.Serializable,IEntity {
 		setZip(((Nutrition) obj).getZip());
 		setState(((Nutrition) obj).getState());
 		setCounty(((Nutrition) obj).getCounty());
-		//setSchool(((Nutrition) obj).getSchool());
+		setSchool(((Nutrition) obj).getSchool());
 		//setSponsor(((Nutrition) obj).getSponsor());
-		setNutritionInfo(((Nutrition) obj).getNutritionInfo());
+		//setNutritionInfo(((Nutrition) obj).getNutritionInfo());
 	}
 
 }

@@ -12,7 +12,7 @@ public class SchoolService extends AbstractService {
 	}
 	
 	@Override
-	public Object find(Long id) {
+	public Object find(int id) {
 		
 		School school = null;
 		

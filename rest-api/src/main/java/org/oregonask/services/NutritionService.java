@@ -13,16 +13,16 @@ public class NutritionService extends AbstractService{
 	}
 	
 	@Override
-	public Object find(Long id) {
+	public Object find(int id) {
 		
 		Nutrition nutrition = null;
 		
 		try {
 			startOperation();
 			nutrition = (Nutrition) getSession().createCriteria(Nutrition.class).add(Restrictions.idEq(id)).uniqueResult();
-			//Hibernate.initialize(nutrition.getSchool());
+			Hibernate.initialize(nutrition.getSchool());
 			//Hibernate.initialize(nutrition.getSponsor());
-			Hibernate.initialize(nutrition.getNutritionInfo());
+			//Hibernate.initialize(nutrition.getNutritionInfo());
 			getTransaction().commit();
 		} catch (HibernateException e) {
 			handleException(e);

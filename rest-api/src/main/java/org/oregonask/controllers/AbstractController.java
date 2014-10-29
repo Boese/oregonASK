@@ -38,7 +38,7 @@ public abstract class AbstractController {
 		get(API_CONTEXT + "/" + path + "/:id", "application/json", (request, response) -> {
 
 			try {
-				return abstractService.find(Long.parseLong(request.params(":id")));
+				return abstractService.find(Integer.parseInt(request.params(":id")));
 			} catch (Exception ex) {
 			    logger.error("GET /api/" + path + "/:id" + " failed." + ex);
 				ex.printStackTrace();
@@ -66,7 +66,7 @@ public abstract class AbstractController {
 		put(API_CONTEXT + "/" + path + "/:id", "application/json", (request, response) -> {
 
 			try {
-				Long id = Long.parseLong(request.params(":id"));
+				int id = Integer.parseInt(request.params(":id"));
 				IEntity newObj = (IEntity) mapper.readValue(request.body(), clazz);
 				IEntity obj = (IEntity) abstractService.find(id);
 				obj.deepCopy(newObj);

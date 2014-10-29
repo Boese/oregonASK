@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -31,11 +32,7 @@ public class School implements java.io.Serializable,IEntity {
 	 */
 	private static final long serialVersionUID = 5054829261229547595L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SCHOOL_ID")
 	private Integer schoolId;
-	
 	private Integer institutionId;
 	private String name;
 	private Boolean elementary;
@@ -53,8 +50,9 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SCHOOL_ID", unique = true, nullable = false)
+	@JsonProperty("id")
 	public Integer getSchoolId() {
 		return this.schoolId;
 	}
@@ -64,6 +62,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "INSTITUTION_ID", unique = true)
+	@JsonProperty("institution_id")
 	public Integer getInstitutionId() {
 		return this.institutionId;
 	}
@@ -73,6 +72,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "NAME", nullable = false, length = 250)
+	@JsonProperty("name")
 	public String getName() {
 		return this.name;
 	}
@@ -82,6 +82,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "ELEMENTARY")
+	@JsonProperty("elementary")
 	public Boolean getElementary() {
 		return this.elementary;
 	}
@@ -91,6 +92,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "MIDDLE")
+	@JsonProperty("middle")
 	public Boolean getMiddle() {
 		return this.middle;
 	}
@@ -100,6 +102,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "HIGH")
+	@JsonProperty("high")
 	public Boolean getHigh() {
 		return this.high;
 	}
@@ -109,6 +112,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "CITY", length = 45)
+	@JsonProperty("city")
 	public String getCity() {
 		return this.city;
 	}
@@ -118,6 +122,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STATE", length = 45)
+	@JsonProperty("state")
 	public String getState() {
 		return this.state;
 	}
@@ -127,6 +132,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "ZIP", length = 45)
+	@JsonProperty("zip")
 	public String getZip() {
 		return this.zip;
 	}
@@ -136,6 +142,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STREET", length = 45)
+	@JsonProperty("street")
 	public String getStreet() {
 		return this.street;
 	}
@@ -145,6 +152,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "CONGRESSIONAL_DISTRICT", length = 45)
+	@JsonProperty("congressional_district")
 	public String getCongressionalDistrict() {
 		return this.congressionalDistrict;
 	}
@@ -154,6 +162,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "COUNTY", length = 45)
+	@JsonProperty("county")
 	public String getCounty() {
 		return this.county;
 	}
@@ -163,6 +172,7 @@ public class School implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "SCHOOL_DISTRICT", length = 45)
+	@JsonProperty("school_district")
 	public String getSchoolDistrict() {
 		return this.schoolDistrict;
 	}
