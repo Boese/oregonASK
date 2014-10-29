@@ -143,4 +143,12 @@ public class SchoolInfo implements java.io.Serializable {
 		this.hiGradeOffered = hiGradeOffered;
 	}
 
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 }

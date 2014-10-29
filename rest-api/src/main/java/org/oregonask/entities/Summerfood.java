@@ -1,10 +1,20 @@
 package org.oregonask.entities;
 // Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -28,6 +38,18 @@ public class Summerfood implements java.io.Serializable {
 	private String zip;
 	private String state;
 	private String county;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "summerfoodBySchool")
+	private Set<School> school;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "summerfoodBySponsor")
+	private Set<Sponsor> sponsor;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="SUMMERFOOD_INFO_BY_YEAR", 
+			joinColumns=@JoinColumn(name="SUMMERFOOD_ID"),
+			inverseJoinColumns=@JoinColumn(name="SUMMERFOOD_INFO_ID"))
+	private Set<SummerfoodInfo> summerfoodInfo;
 
 	public Summerfood() {
 	}

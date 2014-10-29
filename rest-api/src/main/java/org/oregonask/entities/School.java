@@ -77,7 +77,25 @@ public class School implements java.io.Serializable,IEntity {
     	@JoinTable(name="NUTRITION_LINK",  
     		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
     		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
-	Set<Nutrition> nutritionsBySchool;
+	Set<Nutrition> nutritionBySchool;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="SUMMERFOOD_LINK",  
+		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
+		inverseJoinColumns=@JoinColumn(name="SUMMERFOOD_ID")) 
+	Set<Summerfood> summerfoodBySchool;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="YMCACW_LINK",  
+		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
+		inverseJoinColumns=@JoinColumn(name="program_ID")) 
+	Set<Summerfood> programBySchool;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="SCHOOL_INFO_BY_YEAR", 
+			joinColumns=@JoinColumn(name="SCHOOL_ID"),
+			inverseJoinColumns=@JoinColumn(name="SCHOOL_INFO_ID"))
+	private Set<SchoolInfo> schoolInfo;
 	
 	public School() {
 	}
@@ -212,14 +230,46 @@ public class School implements java.io.Serializable,IEntity {
 		this.schoolDistrict = schoolDistrict;
 	}
 
-	@JsonProperty("nutritions")
-	public Set<Nutrition> getNutritions() {
-		return nutritionsBySchool;
+	@JsonProperty("nutrition")
+	public Set<Nutrition> getNutritionBySchool() {
+		return nutritionBySchool;
 	}
 
-	public void setNutritions(Set<Nutrition> nutritions) {
-		this.nutritionsBySchool = nutritions;
+
+	public void setNutritionBySchool(Set<Nutrition> nutritionBySchool) {
+		this.nutritionBySchool = nutritionBySchool;
 	}
+
+	@JsonProperty("summerfood")
+	public Set<Summerfood> getSummerfoodBySchool() {
+		return summerfoodBySchool;
+	}
+
+
+	public void setSummerfoodBySchool(Set<Summerfood> summerfoodBySchool) {
+		this.summerfoodBySchool = summerfoodBySchool;
+	}
+
+	@JsonProperty("program")
+	public Set<Summerfood> getProgramBySchool() {
+		return programBySchool;
+	}
+
+
+	public void setProgramBySchool(Set<Summerfood> programBySchool) {
+		this.programBySchool = programBySchool;
+	}
+
+	@JsonProperty("school_info")
+	public Set<SchoolInfo> getSchoolInfo() {
+		return schoolInfo;
+	}
+
+
+	public void setSchoolInfo(Set<SchoolInfo> schoolInfo) {
+		this.schoolInfo = schoolInfo;
+	}
+
 
 	@Override
 	public void deepCopy(Object obj) {
@@ -236,7 +286,10 @@ public class School implements java.io.Serializable,IEntity {
 		setCongressionalDistrict(((School) obj).getCongressionalDistrict());
 		setCounty(((School) obj).getCounty());
 		setSchoolDistrict(((School) obj).getSchoolDistrict());
-		setNutritions(((School) obj).getNutritions());
+		setNutritionBySchool(((School) obj).getNutritionBySchool());
+		setSummerfoodBySchool(((School) obj).getSummerfoodBySchool());
+		setProgramBySchool(((School) obj).getProgramBySchool());
+		setSchoolInfo(((School) obj).getSchoolInfo());
 	}
 
 }

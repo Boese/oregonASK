@@ -20,7 +20,10 @@ public class SchoolService extends AbstractService {
 		try {
 			startOperation();
 			school = (School) getSession().createCriteria(School.class).add(Restrictions.idEq(id)).uniqueResult();
-			Hibernate.initialize(school.getNutritions());
+			Hibernate.initialize(school.getNutritionBySchool());
+			Hibernate.initialize(school.getSummerfoodBySchool());
+			Hibernate.initialize(school.getProgramBySchool());
+			Hibernate.initialize(school.getSchoolInfo());
 			getTransaction().commit();
 		} catch (HibernateException e) {
 			handleException(e);

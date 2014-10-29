@@ -20,7 +20,9 @@ public class SponsorService extends AbstractService {
 		try {
 			startOperation();
 			sponsor = (Sponsor) getSession().createCriteria(Sponsor.class).add(Restrictions.idEq(id)).uniqueResult();
-			Hibernate.initialize(sponsor.getNutritions());
+			Hibernate.initialize(sponsor.getNutritionBySponsor());
+			Hibernate.initialize(sponsor.getSummerfoodBySponsor());
+			Hibernate.initialize(sponsor.getProgramBySponsor());
 			getTransaction().commit();
 		} catch (HibernateException e) {
 			handleException(e);

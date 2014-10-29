@@ -57,10 +57,10 @@ public class Nutrition implements java.io.Serializable,IEntity {
 	@Column(name = "COUNTY", length = 45)
 	private String county;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "nutritionsBySchool")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "nutritionBySchool")
 	private Set<School> school;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "nutritionsBySponsor")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "nutritionBySponsor")
 	private Set<Sponsor> sponsor;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

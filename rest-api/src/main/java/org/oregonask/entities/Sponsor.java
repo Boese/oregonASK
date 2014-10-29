@@ -52,7 +52,19 @@ public class Sponsor implements java.io.Serializable,IEntity {
 	@JoinTable(name="NUTRITION_LINK",  
 		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
 		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
-	Set<Nutrition> nutritionsBySponsor;
+	Set<Nutrition> nutritionBySponsor;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="SUMMERFOOD_LINK",  
+		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
+		inverseJoinColumns=@JoinColumn(name="SUMMERFOOD_ID")) 
+	Set<Summerfood> summerfoodBySponsor;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinTable(name="YMCACW_LINK",  
+		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
+		inverseJoinColumns=@JoinColumn(name="program_ID")) 
+	Set<Summerfood> programBySponsor;
 
 	public Sponsor() {
 	}
@@ -93,13 +105,31 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.sponsorType = sponsorType;
 	}
 	
-	@JsonProperty("nutritions")
-	public Set<Nutrition> getNutritions() {
-		return nutritionsBySponsor;
+	@JsonProperty("nutrition")
+	public Set<Nutrition> getNutritionBySponsor() {
+		return nutritionBySponsor;
 	}
 
-	public void setNutritions(Set<Nutrition> nutritions) {
-		this.nutritionsBySponsor = nutritions;
+	public void setNutritionBySponsor(Set<Nutrition> nutritionBySponsor) {
+		this.nutritionBySponsor = nutritionBySponsor;
+	}
+
+	@JsonProperty("summerfood")
+	public Set<Summerfood> getSummerfoodBySponsor() {
+		return summerfoodBySponsor;
+	}
+
+	public void setSummerfoodBySponsor(Set<Summerfood> summerfoodBySponsor) {
+		this.summerfoodBySponsor = summerfoodBySponsor;
+	}
+
+	@JsonProperty("program")
+	public Set<Summerfood> getProgramBySponsor() {
+		return programBySponsor;
+	}
+
+	public void setProgramBySponsor(Set<Summerfood> programBySponsor) {
+		this.programBySponsor = programBySponsor;
 	}
 
 	@Override
@@ -108,6 +138,9 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		setName(((Sponsor) obj).getName());
 		setAgrNumber(((Sponsor) obj).getAgrNumber());
 		setSponsorType(((Sponsor) obj).getSponsorType());
+		setNutritionBySponsor(((Sponsor) obj).getNutritionBySponsor());
+		setSummerfoodBySponsor(((Sponsor) obj).getSummerfoodBySponsor());
+		setProgramBySponsor(((Sponsor) obj).getProgramBySponsor());
 	}
 
 }
