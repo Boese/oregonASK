@@ -29,26 +29,9 @@ public class SchoolInfo implements java.io.Serializable {
 	private String percentFr;
 	private String loGradeOffered;
 	private String hiGradeOffered;
-	
-	@Column(name = "YEAR")
 	private Integer year;
 
 	public SchoolInfo() {
-	}
-
-	public SchoolInfo(String totalStudentCount, String freeLunchCount,
-			String reducedLunchCount, String percentMeetReading,
-			String percentMinority, String percentWhite, String percentFr,
-			String loGradeOffered, String hiGradeOffered) {
-		this.totalStudentCount = totalStudentCount;
-		this.freeLunchCount = freeLunchCount;
-		this.reducedLunchCount = reducedLunchCount;
-		this.percentMeetReading = percentMeetReading;
-		this.percentMinority = percentMinority;
-		this.percentWhite = percentWhite;
-		this.percentFr = percentFr;
-		this.loGradeOffered = loGradeOffered;
-		this.hiGradeOffered = hiGradeOffered;
 	}
 
 	@Id
@@ -143,6 +126,7 @@ public class SchoolInfo implements java.io.Serializable {
 		this.hiGradeOffered = hiGradeOffered;
 	}
 
+	@Column(name = "YEAR", nullable = false)
 	public Integer getYear() {
 		return year;
 	}

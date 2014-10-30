@@ -39,8 +39,6 @@ public class ProgramInfo implements java.io.Serializable {
 	private Boolean foodProvidedAfterSchool;
 	private Boolean foodProvidedDuringBreaks;
 	private Boolean stemOffered;
-	
-	@Column(name = "YEAR")
 	private Integer year;
 
 	public ProgramInfo() {
@@ -257,6 +255,15 @@ public class ProgramInfo implements java.io.Serializable {
 
 	public void setStemOffered(Boolean stemOffered) {
 		this.stemOffered = stemOffered;
+	}
+
+	@Column(name = "YEAR", nullable = false)
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 
 }

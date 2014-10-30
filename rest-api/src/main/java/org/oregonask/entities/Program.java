@@ -38,28 +38,6 @@ public class Program implements java.io.Serializable,IEntity {
 	public Program() {
 	}
 
-	public Program(String name) {
-		this.name = name;
-	}
-
-	public Program(String name, String licenseNumber, String notes,
-			String contactName, String email, String phone, String city,
-			String state, String zip, String street, String county,
-			String schoolServed) {
-		this.name = name;
-		this.licenseNumber = licenseNumber;
-		this.notes = notes;
-		this.contactName = contactName;
-		this.email = email;
-		this.phone = phone;
-		this.city = city;
-		this.state = state;
-		this.zip = zip;
-		this.street = street;
-		this.county = county;
-		this.schoolServed = schoolServed;
-	}
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PROGRAM_ID", unique = true, nullable = false)

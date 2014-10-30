@@ -25,20 +25,9 @@ public class SummerfoodInfo implements java.io.Serializable {
 	private String supper;
 	private String amSnack;
 	private String pmSnack;
-	
-	@Column(name = "YEAR")
 	private Integer year;
 
 	public SummerfoodInfo() {
-	}
-
-	public SummerfoodInfo(String breakfast, String lunch, String supper,
-			String amSnack, String pmSnack) {
-		this.breakfast = breakfast;
-		this.lunch = lunch;
-		this.supper = supper;
-		this.amSnack = amSnack;
-		this.pmSnack = pmSnack;
 	}
 
 	@Id
@@ -95,6 +84,15 @@ public class SummerfoodInfo implements java.io.Serializable {
 
 	public void setPmSnack(String pmSnack) {
 		this.pmSnack = pmSnack;
+	}
+
+	@Column(name = "YEAR", nullable = false)
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
 	}
 
 }
