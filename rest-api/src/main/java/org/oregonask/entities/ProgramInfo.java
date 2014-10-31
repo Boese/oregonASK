@@ -44,37 +44,6 @@ public class ProgramInfo implements java.io.Serializable {
 	public ProgramInfo() {
 	}
 
-	public ProgramInfo(String averageDailyAttendance, String maxCapacity,
-			Boolean offeredBeforeSchool, Boolean offeredAfterSchool,
-			Boolean offeredMonday, Boolean offeredTuesday,
-			Boolean offeredWednesday, Boolean offeredThursday,
-			Boolean offeredFriday, Boolean offeredSaturday,
-			Boolean offeredSunday, Boolean offeredWeekends,
-			Boolean offeredEvenings, Boolean offeredBreaks,
-			String averageHoursPerWeek, Boolean foodProvidedBeforeSchool,
-			Boolean foodProvidedAfterSchool, Boolean foodProvidedDuringBreaks,
-			Boolean stemOffered) {
-		this.averageDailyAttendance = averageDailyAttendance;
-		this.maxCapacity = maxCapacity;
-		this.offeredBeforeSchool = offeredBeforeSchool;
-		this.offeredAfterSchool = offeredAfterSchool;
-		this.offeredMonday = offeredMonday;
-		this.offeredTuesday = offeredTuesday;
-		this.offeredWednesday = offeredWednesday;
-		this.offeredThursday = offeredThursday;
-		this.offeredFriday = offeredFriday;
-		this.offeredSaturday = offeredSaturday;
-		this.offeredSunday = offeredSunday;
-		this.offeredWeekends = offeredWeekends;
-		this.offeredEvenings = offeredEvenings;
-		this.offeredBreaks = offeredBreaks;
-		this.averageHoursPerWeek = averageHoursPerWeek;
-		this.foodProvidedBeforeSchool = foodProvidedBeforeSchool;
-		this.foodProvidedAfterSchool = foodProvidedAfterSchool;
-		this.foodProvidedDuringBreaks = foodProvidedDuringBreaks;
-		this.stemOffered = stemOffered;
-	}
-
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PROGRAM_INFO_ID", unique = true, nullable = false)

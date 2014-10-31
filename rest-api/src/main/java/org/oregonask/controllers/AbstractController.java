@@ -84,7 +84,7 @@ public abstract class AbstractController {
 		delete(API_CONTEXT + "/" + path + "/:id", "application/json", (request, response) -> {
 			
 			try {
-				Long id = Long.parseLong(request.params(":id"));
+				int id = Integer.parseInt(request.params(":id"));
 				abstractService.delete(id);
 				return new ReturnMessage("failed");
 			} catch (Exception ex) {

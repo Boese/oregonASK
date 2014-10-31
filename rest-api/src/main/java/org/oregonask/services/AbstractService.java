@@ -47,7 +47,7 @@ public abstract class AbstractService {
 		}
 	}
 	
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		
 		Object obj = null;
 		

@@ -24,19 +24,34 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "SUMMERFOOD", catalog = "OREGONASKDB", uniqueConstraints = @UniqueConstraint(columnNames = "SITE_NUMBER"))
-public class Summerfood implements java.io.Serializable {
+public class Summerfood implements java.io.Serializable,IEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "SUMMERFOOD_ID", unique = true, nullable = false)
 	private Integer summerfoodId;
+	
+	@Column(name = "SITE_NAME", nullable = false, length = 250)
 	private String siteName;
+	
+	@Column(name = "SITE_NUMBER", unique = true, nullable = false, length = 45)
 	private String siteNumber;
+	
+	@Column(name = "STREET", length = 250)
 	private String street;
+	
+	@Column(name = "CITY", length = 45)
 	private String city;
+	
+	@Column(name = "ZIP", length = 45)
 	private String zip;
+	
+	@Column(name = "STATE", length = 45)
 	private String state;
+	
+	@Column(name = "COUNTY", length = 45)
 	private String county;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "summerfoodBySchool")
@@ -54,25 +69,7 @@ public class Summerfood implements java.io.Serializable {
 	public Summerfood() {
 	}
 
-	public Summerfood(String siteName, String siteNumber) {
-		this.siteName = siteName;
-		this.siteNumber = siteNumber;
-	}
-
-	public Summerfood(String siteName, String siteNumber, String street,
-			String city, String zip, String state, String county) {
-		this.siteName = siteName;
-		this.siteNumber = siteNumber;
-		this.street = street;
-		this.city = city;
-		this.zip = zip;
-		this.state = state;
-		this.county = county;
-	}
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "SUMMERFOOD_ID", unique = true, nullable = false)
+	
 	public Integer getSummerfoodId() {
 		return this.summerfoodId;
 	}
@@ -81,7 +78,7 @@ public class Summerfood implements java.io.Serializable {
 		this.summerfoodId = summerfoodId;
 	}
 
-	@Column(name = "SITE_NAME", nullable = false, length = 250)
+	
 	public String getSiteName() {
 		return this.siteName;
 	}
@@ -90,7 +87,7 @@ public class Summerfood implements java.io.Serializable {
 		this.siteName = siteName;
 	}
 
-	@Column(name = "SITE_NUMBER", unique = true, nullable = false, length = 45)
+	
 	public String getSiteNumber() {
 		return this.siteNumber;
 	}
@@ -99,7 +96,7 @@ public class Summerfood implements java.io.Serializable {
 		this.siteNumber = siteNumber;
 	}
 
-	@Column(name = "STREET", length = 250)
+	
 	public String getStreet() {
 		return this.street;
 	}
@@ -108,7 +105,7 @@ public class Summerfood implements java.io.Serializable {
 		this.street = street;
 	}
 
-	@Column(name = "CITY", length = 45)
+	
 	public String getCity() {
 		return this.city;
 	}
@@ -117,7 +114,7 @@ public class Summerfood implements java.io.Serializable {
 		this.city = city;
 	}
 
-	@Column(name = "ZIP", length = 45)
+	
 	public String getZip() {
 		return this.zip;
 	}
@@ -126,7 +123,7 @@ public class Summerfood implements java.io.Serializable {
 		this.zip = zip;
 	}
 
-	@Column(name = "STATE", length = 45)
+	
 	public String getState() {
 		return this.state;
 	}
@@ -135,13 +132,52 @@ public class Summerfood implements java.io.Serializable {
 		this.state = state;
 	}
 
-	@Column(name = "COUNTY", length = 45)
+	
 	public String getCounty() {
 		return this.county;
 	}
 
 	public void setCounty(String county) {
 		this.county = county;
+	}
+
+	public Set<School> getSchool() {
+		return school;
+	}
+
+	public void setSchool(Set<School> school) {
+		this.school = school;
+	}
+
+	public Set<Sponsor> getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(Set<Sponsor> sponsor) {
+		this.sponsor = sponsor;
+	}
+
+	public Set<SummerfoodInfo> getSummerfoodInfo() {
+		return summerfoodInfo;
+	}
+
+	public void setSummerfoodInfo(Set<SummerfoodInfo> summerfoodInfo) {
+		this.summerfoodInfo = summerfoodInfo;
+	}
+	
+	@Override
+	public void deepCopy(Object obj) {
+		setCity(((Summerfood) obj).getCity());
+		setCounty(((Summerfood) obj).getCounty());
+		setSchool(((Summerfood) obj).getSchool());
+		setSiteName(((Summerfood) obj).getSiteName());
+		setSiteNumber(((Summerfood) obj).getSiteNumber());
+		setSponsor(((Summerfood) obj).getSponsor());
+		setState(((Summerfood) obj).getState());
+		setStreet(((Summerfood) obj).getStreet());
+		setSummerfoodId(((Summerfood) obj).getSummerfoodId());
+		setSummerfoodInfo(((Summerfood) obj).getSummerfoodInfo());
+		setZip(((Summerfood) obj).getZip());
 	}
 
 }

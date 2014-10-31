@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "NUTRITION_INFO", catalog = "OREGONASKDB")
-public class NutritionInfo implements java.io.Serializable,IEntity {
+public class NutritionInfo implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -72,14 +72,5 @@ public class NutritionInfo implements java.io.Serializable,IEntity {
 
 	public void setYear(Integer year) {
 		this.year = year;
-	}
-
-	@Override
-	public void deepCopy(Object obj) {
-		setNutritionInfoId(((NutritionInfo) obj).getNutritionInfoId());
-		setBreakfastServed(((NutritionInfo) obj).getBreakfastServed());
-		setPmSnackServed(((NutritionInfo) obj).getPmSnackServed());
-		setSupperServed(((NutritionInfo) obj).getSupperServed());
-		setYear(((NutritionInfo) obj).getYear());
 	}
 }
