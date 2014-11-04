@@ -1,6 +1,5 @@
 package org.oregonask.controllers;
 
-import static spark.Spark.before;
 import static spark.Spark.after;
 import static spark.Spark.delete;
 import static spark.Spark.get;
@@ -96,9 +95,6 @@ public abstract class AbstractController {
 			
 		}, new JsonTransformer());
 		
-		before((req, res) -> {
-			res.header("Access-Control-Allow-Origin", "*");
-		});
 		after((req, res) -> {
 			res.type("application/json");
 		});
