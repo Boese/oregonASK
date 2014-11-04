@@ -1,6 +1,7 @@
 package org.oregonask.controllers;
 
 import static spark.Spark.after;
+import static spark.Spark.before;
 import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -12,6 +13,10 @@ import org.oregonask.services.AbstractService;
 import org.oregonask.utils.JsonTransformer;
 import org.oregonask.utils.ReturnMessage;
 
+import spark.Filter;
+import spark.Request;
+import spark.Response;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AbstractController {
@@ -21,10 +26,23 @@ public abstract class AbstractController {
 	
 	private static Logger logger = Logger.getLogger(AbstractController.class);
 	
+	public AbstractController() {
+		enableCORS("*", "*", "*");
+	}
+	
+	private static void enableCORS(final String origin, final String methods, final String headers) {
+	    before(new Filter() {
+	        @Override
+	        public void handle(Request request, Response response) {
+	            response.header("Access-Control-Allow-Origin", origin);
+	            response.header("Access-Control-Request-Method", methods);
+	            response.header("Access-Control-Allow-Headers", headers);
+	        }
+	    });
+	}
+	
 	public AbstractController(AbstractService abstractService, Class<?> clazz, String path) {
-		
 		get(API_CONTEXT + "/" + path, "application/json", (request, response) -> {
-			
 			try {
 				return abstractService.findAll();
 			} catch (Exception ex) {
