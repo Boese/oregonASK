@@ -5,6 +5,6 @@ import org.oregonask.services.AbstractService;
 
 public class ProgramController extends AbstractController {
 	public ProgramController(AbstractService abstractService) {
-		super(abstractService,Program.class,"program");
+		super(abstractService,Program.class,"programs");
 	}
 }

@@ -17,6 +17,7 @@ import org.oregonask.services.SponsorService;
 import org.oregonask.services.SummerfoodService;
 import org.oregonask.utils.HibernateUtil;
 
+
 public class Application {
     
     static{
@@ -29,6 +30,7 @@ public class Application {
 		setPort(8080);
 		staticFileLocation("/public/app");
 		
+		
 		HibernateUtil.getSessionFactory();
 		
 		new NutritionController(new NutritionService());
@@ -37,5 +39,4 @@ public class Application {
 		new SchoolController(new SchoolService());
 		new SponsorController(new SponsorService());
 	}
-
 }
