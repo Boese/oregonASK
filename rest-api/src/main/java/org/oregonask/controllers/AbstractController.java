@@ -98,8 +98,6 @@ public abstract class AbstractController {
 		
 		before((req, res) -> {
 			res.header("Access-Control-Allow-Origin", "*");
-			res.header("Access-Control-Request-Method", "*");
-			res.header("Access-Control-Allow-Headers", "*");
 		});
 		after((req, res) -> {
 			res.type("application/json");
