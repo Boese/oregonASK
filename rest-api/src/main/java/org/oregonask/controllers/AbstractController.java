@@ -1,7 +1,6 @@
 package org.oregonask.controllers;
 
 import static spark.Spark.after;
-import static spark.Spark.before;
 import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -12,10 +11,6 @@ import org.oregonask.entities.IEntity;
 import org.oregonask.services.AbstractService;
 import org.oregonask.utils.JsonTransformer;
 import org.oregonask.utils.ReturnMessage;
-
-import spark.Filter;
-import spark.Request;
-import spark.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

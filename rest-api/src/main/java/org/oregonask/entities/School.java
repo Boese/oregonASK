@@ -68,29 +68,33 @@ public class School implements java.io.Serializable,IEntity {
 	@Column(name = "SCHOOL_DISTRICT", length = 45)
 	private String schoolDistrict;
 	
+	@Column(name = "NUTRITION")
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
     	@JoinTable(name="NUTRITION_LINK",  
     		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
     		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
 	Set<Nutrition> nutritionBySchool;
 	
+	@Column(name = "SUMMERFOOD")
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
 	@JoinTable(name="SUMMERFOOD_LINK",  
 		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
 		inverseJoinColumns=@JoinColumn(name="SUMMERFOOD_ID")) 
 	Set<Summerfood> summerfoodBySchool;
 	
+	@Column(name = "PROGRAMS")
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
 	@JoinTable(name="YMCACW_LINK",  
 		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
 		inverseJoinColumns=@JoinColumn(name="program_ID")) 
 	Set<Summerfood> programBySchool;
 	
+	@Column(name = "SCHOOL INFO")
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="SCHOOL_INFO_BY_YEAR", 
 			joinColumns=@JoinColumn(name="SCHOOL_ID"),
 			inverseJoinColumns=@JoinColumn(name="SCHOOL_INFO_ID"))
-	private Set<SchoolInfo> schoolInfo;
+	Set<SchoolInfo> schoolInfo;
 	
 	public School() {
 	}
@@ -203,7 +207,6 @@ public class School implements java.io.Serializable,IEntity {
 		return nutritionBySchool;
 	}
 
-
 	public void setNutritionBySchool(Set<Nutrition> nutritionBySchool) {
 		this.nutritionBySchool = nutritionBySchool;
 	}
@@ -211,7 +214,6 @@ public class School implements java.io.Serializable,IEntity {
 	public Set<Summerfood> getSummerfoodBySchool() {
 		return summerfoodBySchool;
 	}
-
 
 	public void setSummerfoodBySchool(Set<Summerfood> summerfoodBySchool) {
 		this.summerfoodBySchool = summerfoodBySchool;
