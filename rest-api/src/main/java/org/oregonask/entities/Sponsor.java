@@ -1,19 +1,10 @@
 package org.oregonask.entities;
-// Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
+// Generated Nov 11, 2014 2:42:57 PM by Hibernate Tools 4.3.1
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-
 import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,53 +16,42 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "SPONSOR", catalog = "OREGONASKDB", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "NAME"),
 		@UniqueConstraint(columnNames = "AGR_NUMBER") })
-public class Sponsor implements java.io.Serializable,IEntity {
+public class Sponsor implements java.io.Serializable {
 
-	private static final long serialVersionUID = -4263127826708928763L;
-
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "SPONSOR_ID", unique = true, nullable = false)
-	private Integer sponsorId;
-	
-	@Column(name = "NAME", unique = true, nullable = false, length = 250)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private String name;
-	
-	@Column(name = "AGR_NUMBER", unique = true, length = 45)
 	private String agrNumber;
-	
-	@Column(name = "SPONSOR_TYPE", length = 45)
 	private String sponsorType;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="NUTRITION_LINK",  
-		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
-		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
-	Set<Nutrition> nutritionBySponsor;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="SUMMERFOOD_LINK",  
-		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
-		inverseJoinColumns=@JoinColumn(name="SUMMERFOOD_ID")) 
-	Set<Summerfood> summerfoodBySponsor;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="YMCACW_LINK",  
-		joinColumns=@JoinColumn(name="SPONSOR_ID"),  
-		inverseJoinColumns=@JoinColumn(name="program_ID")) 
-	Set<Summerfood> programBySponsor;
 
 	public Sponsor() {
 	}
 
-	public Integer getSponsorId() {
-		return this.sponsorId;
+	public Sponsor(String name) {
+		this.name = name;
 	}
 
-	public void setSponsorId(Integer sponsorId) {
-		this.sponsorId = sponsorId;
+	public Sponsor(String name, String agrNumber, String sponsorType) {
+		this.name = name;
+		this.agrNumber = agrNumber;
+		this.sponsorType = sponsorType;
 	}
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "NAME", unique = true, nullable = false, length = 250)
 	public String getName() {
 		return this.name;
 	}
@@ -80,6 +60,7 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.name = name;
 	}
 
+	@Column(name = "AGR_NUMBER", unique = true, length = 45)
 	public String getAgrNumber() {
 		return this.agrNumber;
 	}
@@ -88,47 +69,13 @@ public class Sponsor implements java.io.Serializable,IEntity {
 		this.agrNumber = agrNumber;
 	}
 
+	@Column(name = "SPONSOR_TYPE", length = 45)
 	public String getSponsorType() {
 		return this.sponsorType;
 	}
 
 	public void setSponsorType(String sponsorType) {
 		this.sponsorType = sponsorType;
-	}
-	
-	public Set<Nutrition> getNutritionBySponsor() {
-		return nutritionBySponsor;
-	}
-
-	public void setNutritionBySponsor(Set<Nutrition> nutritionBySponsor) {
-		this.nutritionBySponsor = nutritionBySponsor;
-	}
-
-	public Set<Summerfood> getSummerfoodBySponsor() {
-		return summerfoodBySponsor;
-	}
-
-	public void setSummerfoodBySponsor(Set<Summerfood> summerfoodBySponsor) {
-		this.summerfoodBySponsor = summerfoodBySponsor;
-	}
-
-	public Set<Summerfood> getProgramBySponsor() {
-		return programBySponsor;
-	}
-
-	public void setProgramBySponsor(Set<Summerfood> programBySponsor) {
-		this.programBySponsor = programBySponsor;
-	}
-
-	@Override
-	public void deepCopy(Object obj) {
-		setSponsorId(((Sponsor) obj).getSponsorId());
-		setName(((Sponsor) obj).getName());
-		setAgrNumber(((Sponsor) obj).getAgrNumber());
-		setSponsorType(((Sponsor) obj).getSponsorType());
-		setNutritionBySponsor(((Sponsor) obj).getNutritionBySponsor());
-		setSummerfoodBySponsor(((Sponsor) obj).getSummerfoodBySponsor());
-		setProgramBySponsor(((Sponsor) obj).getProgramBySponsor());
 	}
 
 }

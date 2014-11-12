@@ -1,18 +1,11 @@
 package org.oregonask.entities;
-// Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
+// Generated Nov 11, 2014 2:42:57 PM by Hibernate Tools 4.3.1
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -23,90 +16,63 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "SCHOOL", catalog = "OREGONASKDB", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "NAME", "COUNTY" }),
 		@UniqueConstraint(columnNames = "INSTITUTION_ID") })
-public class School implements java.io.Serializable,IEntity {
+public class School implements java.io.Serializable {
 
-	private static final long serialVersionUID = 5054829261229547595L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SCHOOL_ID", unique = true, nullable = false)
-	private Integer schoolId;
-	
-	@Column(name = "INSTITUTION_ID", unique = true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private Integer institutionId;
-	
-	@Column(name = "NAME", nullable = false, length = 250)
 	private String name;
-	
-	@Column(name = "ELEMENTARY")
 	private Boolean elementary;
-	
-	@Column(name = "MIDDLE")
 	private Boolean middle;
-	
-	@Column(name = "HIGH")
 	private Boolean high;
-	
-	@Column(name = "CITY", length = 45)
 	private String city;
-	
-	@Column(name = "STATE", length = 45)
 	private String state;
-	
-	@Column(name = "ZIP", length = 45)
 	private String zip;
-	
-	@Column(name = "STREET", length = 45)
 	private String street;
-	
-	@Column(name = "CONGRESSIONAL_DISTRICT", length = 45)
 	private String congressionalDistrict;
-	
-	@Column(name = "COUNTY", length = 45)
 	private String county;
-	
-	@Column(name = "SCHOOL_DISTRICT", length = 45)
 	private String schoolDistrict;
-	
-	@Column(name = "NUTRITION")
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-    	@JoinTable(name="NUTRITION_LINK",  
-    		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
-    		inverseJoinColumns=@JoinColumn(name="NUTRITION_ID")) 
-	Set<Nutrition> nutritionBySchool;
-	
-	@Column(name = "SUMMERFOOD")
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="SUMMERFOOD_LINK",  
-		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
-		inverseJoinColumns=@JoinColumn(name="SUMMERFOOD_ID")) 
-	Set<Summerfood> summerfoodBySchool;
-	
-	@Column(name = "PROGRAMS")
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)  
-	@JoinTable(name="YMCACW_LINK",  
-		joinColumns=@JoinColumn(name="SCHOOL_ID"),  
-		inverseJoinColumns=@JoinColumn(name="program_ID")) 
-	Set<Summerfood> programBySchool;
-	
-	@Column(name = "SCHOOL INFO")
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinTable(name="SCHOOL_INFO_BY_YEAR", 
-			joinColumns=@JoinColumn(name="SCHOOL_ID"),
-			inverseJoinColumns=@JoinColumn(name="SCHOOL_INFO_ID"))
-	Set<SchoolInfo> schoolInfo;
-	
+
 	public School() {
 	}
 
-	public Integer getSchoolId() {
-		return this.schoolId;
+	public School(String name) {
+		this.name = name;
 	}
 
-	public void setSchoolId(Integer schoolId) {
-		this.schoolId = schoolId;
+	public School(Integer institutionId, String name, Boolean elementary,
+			Boolean middle, Boolean high, String city, String state,
+			String zip, String street, String congressionalDistrict,
+			String county, String schoolDistrict) {
+		this.institutionId = institutionId;
+		this.name = name;
+		this.elementary = elementary;
+		this.middle = middle;
+		this.high = high;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.street = street;
+		this.congressionalDistrict = congressionalDistrict;
+		this.county = county;
+		this.schoolDistrict = schoolDistrict;
 	}
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "INSTITUTION_ID", unique = true)
 	public Integer getInstitutionId() {
 		return this.institutionId;
 	}
@@ -115,6 +81,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.institutionId = institutionId;
 	}
 
+	@Column(name = "NAME", nullable = false, length = 250)
 	public String getName() {
 		return this.name;
 	}
@@ -123,6 +90,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.name = name;
 	}
 
+	@Column(name = "ELEMENTARY")
 	public Boolean getElementary() {
 		return this.elementary;
 	}
@@ -131,6 +99,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.elementary = elementary;
 	}
 
+	@Column(name = "MIDDLE")
 	public Boolean getMiddle() {
 		return this.middle;
 	}
@@ -139,6 +108,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.middle = middle;
 	}
 
+	@Column(name = "HIGH")
 	public Boolean getHigh() {
 		return this.high;
 	}
@@ -147,6 +117,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.high = high;
 	}
 
+	@Column(name = "CITY", length = 45)
 	public String getCity() {
 		return this.city;
 	}
@@ -155,6 +126,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.city = city;
 	}
 
+	@Column(name = "STATE", length = 45)
 	public String getState() {
 		return this.state;
 	}
@@ -163,6 +135,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.state = state;
 	}
 
+	@Column(name = "ZIP", length = 45)
 	public String getZip() {
 		return this.zip;
 	}
@@ -171,6 +144,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.zip = zip;
 	}
 
+	@Column(name = "STREET", length = 45)
 	public String getStreet() {
 		return this.street;
 	}
@@ -179,6 +153,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.street = street;
 	}
 
+	@Column(name = "CONGRESSIONAL_DISTRICT", length = 45)
 	public String getCongressionalDistrict() {
 		return this.congressionalDistrict;
 	}
@@ -187,6 +162,7 @@ public class School implements java.io.Serializable,IEntity {
 		this.congressionalDistrict = congressionalDistrict;
 	}
 
+	@Column(name = "COUNTY", length = 45)
 	public String getCounty() {
 		return this.county;
 	}
@@ -195,68 +171,13 @@ public class School implements java.io.Serializable,IEntity {
 		this.county = county;
 	}
 
+	@Column(name = "SCHOOL_DISTRICT", length = 45)
 	public String getSchoolDistrict() {
 		return this.schoolDistrict;
 	}
 
 	public void setSchoolDistrict(String schoolDistrict) {
 		this.schoolDistrict = schoolDistrict;
-	}
-
-	public Set<Nutrition> getNutritionBySchool() {
-		return nutritionBySchool;
-	}
-
-	public void setNutritionBySchool(Set<Nutrition> nutritionBySchool) {
-		this.nutritionBySchool = nutritionBySchool;
-	}
-
-	public Set<Summerfood> getSummerfoodBySchool() {
-		return summerfoodBySchool;
-	}
-
-	public void setSummerfoodBySchool(Set<Summerfood> summerfoodBySchool) {
-		this.summerfoodBySchool = summerfoodBySchool;
-	}
-
-	public Set<Summerfood> getProgramBySchool() {
-		return programBySchool;
-	}
-
-
-	public void setProgramBySchool(Set<Summerfood> programBySchool) {
-		this.programBySchool = programBySchool;
-	}
-
-	public Set<SchoolInfo> getSchoolInfo() {
-		return schoolInfo;
-	}
-
-
-	public void setSchoolInfo(Set<SchoolInfo> schoolInfo) {
-		this.schoolInfo = schoolInfo;
-	}
-
-
-	@Override
-	public void deepCopy(Object obj) {
-		setSchoolId(((School) obj).getSchoolId());
-		setInstitutionId(((School) obj).getInstitutionId());
-		setName(((School) obj).getName());
-		setElementary(((School) obj).getElementary());
-		setMiddle(((School) obj).getElementary());
-		setHigh(((School) obj).getHigh());
-		setCity(((School) obj).getCity());
-		setState(((School) obj).getState());
-		setZip(((School) obj).getZip());
-		setStreet(((School) obj).getStreet());
-		setCongressionalDistrict(((School) obj).getCongressionalDistrict());
-		setCounty(((School) obj).getCounty());
-		setSchoolDistrict(((School) obj).getSchoolDistrict());
-		setNutritionBySchool(((School) obj).getNutritionBySchool());
-		setSummerfoodBySchool(((School) obj).getSummerfoodBySchool());
-		setProgramBySchool(((School) obj).getProgramBySchool());
-		setSchoolInfo(((School) obj).getSchoolInfo());
 	}
 
 }

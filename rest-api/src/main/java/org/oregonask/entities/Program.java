@@ -1,20 +1,10 @@
 package org.oregonask.entities;
-// Generated Oct 28, 2014 11:43:30 AM by Hibernate Tools 4.3.1
+// Generated Nov 11, 2014 2:42:57 PM by Hibernate Tools 4.3.1
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-
 import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,76 +15,67 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "PROGRAM", catalog = "OREGONASKDB", uniqueConstraints = @UniqueConstraint(columnNames = {
 		"NAME", "CITY", "SCHOOL_SERVED" }))
-public class Program implements java.io.Serializable,IEntity {
+public class Program implements java.io.Serializable {
 
-	private static final long serialVersionUID = 8618940262002043855L;
-	
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "PROGRAM_ID", unique = true, nullable = false)
-	private Integer programId;
-	
-	@Column(name = "NAME", nullable = false, length = 250)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private String name;
-	
-	@Column(name = "LICENSE_NUMBER", length = 45)
 	private String licenseNumber;
-	
-	@Column(name = "NOTES", length = 1000)
 	private String notes;
-	
-	@Column(name = "CONTACT_NAME", length = 1000)
 	private String contactName;
-	
-	@Column(name = "EMAIL", length = 250)
 	private String email;
-	
-	@Column(name = "PHONE", length = 45)
 	private String phone;
-	
-	@Column(name = "CITY", length = 45)
 	private String city;
-	
-	@Column(name = "STATE", length = 45)
 	private String state;
-	
-	@Column(name = "ZIP", length = 45)
 	private String zip;
-	
-	@Column(name = "STREET", length = 45)
 	private String street;
-	
-	@Column(name = "COUNTY", length = 45)
 	private String county;
-	
-	@Column(name = "SCHOOL_SERVED", length = 250)
 	private String schoolServed;
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "programBySchool")
-	private Set<School> school;
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "programBySponsor")
-	private Set<Sponsor> sponsor;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinTable(name="PROGRAM_INFO_BY_YEAR", 
-			joinColumns=@JoinColumn(name="PROGRAM_ID"),
-			inverseJoinColumns=@JoinColumn(name="PROGRAM_INFO_ID"))
-	private Set<ProgramInfo> programInfo;
+	private Integer sponsorId;
+	private Integer schoolId;
 
 	public Program() {
 	}
 
-	
-	public Integer getProgramId() {
-		return this.programId;
+	public Program(String name) {
+		this.name = name;
 	}
 
-	public void setProgramId(Integer programId) {
-		this.programId = programId;
+	public Program(String name, String licenseNumber, String notes,
+			String contactName, String email, String phone, String city,
+			String state, String zip, String street, String county,
+			String schoolServed, Integer sponsorId, Integer schoolId) {
+		this.name = name;
+		this.licenseNumber = licenseNumber;
+		this.notes = notes;
+		this.contactName = contactName;
+		this.email = email;
+		this.phone = phone;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.street = street;
+		this.county = county;
+		this.schoolServed = schoolServed;
+		this.sponsorId = sponsorId;
+		this.schoolId = schoolId;
 	}
 
-	
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "NAME", nullable = false, length = 250)
 	public String getName() {
 		return this.name;
 	}
@@ -103,7 +84,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.name = name;
 	}
 
-	
+	@Column(name = "LICENSE_NUMBER", length = 45)
 	public String getLicenseNumber() {
 		return this.licenseNumber;
 	}
@@ -112,7 +93,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.licenseNumber = licenseNumber;
 	}
 
-	
+	@Column(name = "NOTES", length = 1000)
 	public String getNotes() {
 		return this.notes;
 	}
@@ -121,7 +102,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.notes = notes;
 	}
 
-	
+	@Column(name = "CONTACT_NAME", length = 1000)
 	public String getContactName() {
 		return this.contactName;
 	}
@@ -130,7 +111,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.contactName = contactName;
 	}
 
-	
+	@Column(name = "EMAIL", length = 250)
 	public String getEmail() {
 		return this.email;
 	}
@@ -139,7 +120,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.email = email;
 	}
 
-	
+	@Column(name = "PHONE", length = 45)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -148,7 +129,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.phone = phone;
 	}
 
-	
+	@Column(name = "CITY", length = 45)
 	public String getCity() {
 		return this.city;
 	}
@@ -157,7 +138,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.city = city;
 	}
 
-	
+	@Column(name = "STATE", length = 45)
 	public String getState() {
 		return this.state;
 	}
@@ -166,7 +147,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.state = state;
 	}
 
-	
+	@Column(name = "ZIP", length = 45)
 	public String getZip() {
 		return this.zip;
 	}
@@ -175,7 +156,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.zip = zip;
 	}
 
-	
+	@Column(name = "STREET", length = 45)
 	public String getStreet() {
 		return this.street;
 	}
@@ -184,7 +165,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.street = street;
 	}
 
-	
+	@Column(name = "COUNTY", length = 45)
 	public String getCounty() {
 		return this.county;
 	}
@@ -193,7 +174,7 @@ public class Program implements java.io.Serializable,IEntity {
 		this.county = county;
 	}
 
-	
+	@Column(name = "SCHOOL_SERVED", length = 250)
 	public String getSchoolServed() {
 		return this.schoolServed;
 	}
@@ -202,54 +183,22 @@ public class Program implements java.io.Serializable,IEntity {
 		this.schoolServed = schoolServed;
 	}
 
-	public Set<School> getSchool() {
-		return school;
+	@Column(name = "SPONSOR_ID")
+	public Integer getSponsorId() {
+		return this.sponsorId;
 	}
 
-
-	public void setSchool(Set<School> school) {
-		this.school = school;
+	public void setSponsorId(Integer sponsorId) {
+		this.sponsorId = sponsorId;
 	}
 
-
-	public Set<Sponsor> getSponsor() {
-		return sponsor;
+	@Column(name = "SCHOOL_ID")
+	public Integer getSchoolId() {
+		return this.schoolId;
 	}
 
-
-	public void setSponsor(Set<Sponsor> sponsor) {
-		this.sponsor = sponsor;
-	}
-
-
-	public Set<ProgramInfo> getProgramInfo() {
-		return programInfo;
-	}
-
-
-	public void setProgramInfo(Set<ProgramInfo> programInfo) {
-		this.programInfo = programInfo;
-	}
-
-
-	@Override
-	public void deepCopy(Object obj) {
-		setCity(((Program) obj).getCity());
-		setContactName(((Program) obj).getContactName());
-		setCounty(((Program) obj).getCounty());
-		setEmail(((Program) obj).getEmail());
-		setLicenseNumber(((Program) obj).getLicenseNumber());
-		setName(((Program) obj).getName());
-		setNotes(((Program) obj).getNotes());
-		setPhone(((Program) obj).getPhone());
-		setProgramId(((Program) obj).getProgramId());
-		setProgramInfo(((Program) obj).getProgramInfo());
-		setSchool(((Program) obj).getSchool());
-		setSchoolServed(((Program) obj).getSchoolServed());
-		setSponsor(((Program) obj).getSponsor());
-		setState(((Program) obj).getState());
-		setStreet(((Program) obj).getStreet());
-		setZip(((Program) obj).getZip());
+	public void setSchoolId(Integer schoolId) {
+		this.schoolId = schoolId;
 	}
 
 }
