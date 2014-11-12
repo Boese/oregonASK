@@ -35,47 +35,32 @@ public class MainController {
 	
 	public MainController() {
 		
-		get("/api/*/:id", (request, response) -> {
-			Object object = null;
-			try {
-				//String[] bars = request.splat();
-				try {
-					startOperation();
-					object = session.createQuery("from " + request.splat()[0] + " where id=" + request.params(":id")).uniqueResult();
-					tx.commit();
-				} catch (HibernateException e) {
-					handleException(e);
-				} finally {
-					HibernateUtil.close(session);
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return new ReturnMessage("failed");
-			}
-			
-			return object;
-		}, new JsonTransformer());
-		
+		// api/* -> return all *
+		// api/* /:id -> return * with id
 		get("/api/*", (request, response) -> {
-			List<?> objects = null;
-			try{
-				try {
-					startOperation();
-					objects = session.createQuery("from " + request.splat()[0]).list();
-					tx.commit();
-				} catch (HibernateException e) {
-					handleException(e);
-				} finally {
-					HibernateUtil.close(session);
+			try {
+				String[] wildcard = request.splat();
+				String[] params = wildcard[0].split("/");
+				switch(params.length) {
+				case 1: startOperation();
+				List<?> objects = session.createQuery("from " + params[0]).list();
+				tx.commit();
+					return objects;
+				case 2: startOperation();
+				Object object = session.createQuery("from " + params[0] + " where id=" + params[1])
+						.uniqueResult();
+				tx.commit();
+					return object;
 				}
-			}catch(Exception ex) {
-				ex.printStackTrace();
-				return new ReturnMessage("failed");
+			} catch (HibernateException e) {
+				handleException(e);
+			} finally {
+				HibernateUtil.close(session);
 			}
-			
-			return objects;
+			return new ReturnMessage("failed");
 		}, new JsonTransformer());
 
+		// api/* -> create or update *
 		put("/api/*", (request, response) -> {
 			try {
 				Class<?> clazz = Class.forName("org.oregonask.entities." + request.splat()[0]);
@@ -88,9 +73,12 @@ public class MainController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				return new ReturnMessage("failed");
+			} finally {
+				HibernateUtil.close(session);
 			}
 		}, new JsonTransformer());
 
+		// api/*/:id -> delete * where id=:id
 		delete("/api/*/:id", (request, response) -> {
 			try {
 				startOperation();
@@ -101,6 +89,8 @@ public class MainController {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				return new ReturnMessage("failed");
+			} finally {
+				HibernateUtil.close(session);
 			}
 		}, new JsonTransformer());
 		
