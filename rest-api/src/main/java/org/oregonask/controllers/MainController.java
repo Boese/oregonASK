@@ -8,14 +8,16 @@ import static spark.Spark.put;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.oregonask.entities.IEntity;
+import org.oregonask.exceptions.DataAccessLayerException;
 import org.oregonask.utils.HibernateUtil;
 import org.oregonask.utils.JsonTransformer;
 import org.oregonask.utils.ReturnMessage;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.oregonask.exceptions.DataAccessLayerException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class MainController {
 	private final ObjectMapper mapper = new ObjectMapper();
@@ -41,20 +43,27 @@ public class MainController {
 			try {
 				String[] wildcard = request.splat();
 				String[] params = wildcard[0].split("/");
+				List<?> objects;
+				Object object;
 				switch(params.length) {
-				case 1: startOperation();
-				List<?> objects = session.createQuery("from " + params[0]).list();
-				tx.commit();
+				case 1: 
+					startOperation();
+					objects = session.createQuery("from " + params[0]).list();
+					tx.commit();
 					return objects;
-				case 2: startOperation();
-				Object object = session.createQuery("from " + params[0] + " where id=" + params[1])
-						.uniqueResult();
-				tx.commit();
+				case 2: 
+					startOperation();
+					object = session.createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
+					((IEntity) object).initialize();
+					tx.commit();
 					return object;
 				}
 			} catch (HibernateException e) {
 				handleException(e);
-			} finally {
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			  finally {
 				HibernateUtil.close(session);
 			}
 			return new ReturnMessage("failed");
@@ -63,9 +72,9 @@ public class MainController {
 		// api/* -> create or update *
 		put("/api/*", (request, response) -> {
 			try {
+				startOperation();
 				Class<?> clazz = Class.forName("org.oregonask.entities." + request.splat()[0]);
 				Object obj = mapper.readValue(request.body(), clazz);
-				startOperation();
 				session.saveOrUpdate(obj);
 				tx.commit();
 				response.status(201);
