@@ -3,7 +3,6 @@ package org.oregonask.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -84,7 +83,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 		this.sponsorType = sponsorType;
 	}
 
-	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
 	public Set<Summerfood> getSummerfoods() {
 		return summerfoods;
 	}
@@ -93,7 +92,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 		this.summerfoods = summerfoods;
 	}
 
-	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
 	public Set<Nutrition> getNutritions() {
 		return nutritions;
 	}
@@ -102,7 +101,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 		this.nutritions = nutritions;
 	}
 
-	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
 	public Set<Program> getPrograms() {
 		return programs;
 	}

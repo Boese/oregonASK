@@ -5,7 +5,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.Hibernate;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -174,7 +172,7 @@ public class School implements java.io.Serializable, IEntity {
 		this.schoolDistrict = schoolDistrict;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
 	public Set<SchoolInfo> getSchoolinfos() {
 		return schoolinfos;
 	}
@@ -183,7 +181,7 @@ public class School implements java.io.Serializable, IEntity {
 		this.schoolinfos = schoolinfos;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
 	public Set<Summerfood> getSummerfoods() {
 		return summerfoods;
 	}
@@ -192,7 +190,7 @@ public class School implements java.io.Serializable, IEntity {
 		this.summerfoods = summerfoods;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
 	public Set<Nutrition> getNutritions() {
 		return nutritions;
 	}
@@ -201,7 +199,7 @@ public class School implements java.io.Serializable, IEntity {
 		this.nutritions = nutritions;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
 	public Set<Program> getPrograms() {
 		return programs;
 	}

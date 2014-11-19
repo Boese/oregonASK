@@ -5,11 +5,14 @@ import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.put;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.type.Type;
 import org.oregonask.entities.IEntity;
 import org.oregonask.exceptions.DataAccessLayerException;
 import org.oregonask.utils.HibernateUtil;
@@ -52,11 +55,40 @@ public class MainController {
 					tx.commit();
 					return objects;
 				case 2: 
-					startOperation();
-					object = session.createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
-					((IEntity) object).initialize();
-					tx.commit();
-					return object;
+					
+					// api/new/* -> return properties of class, for creating entity
+					if(params[0].equalsIgnoreCase("new")) {
+						startOperation();
+						Class<?> clazz = Class.forName("org.oregonask.entities." + params[1]);
+						
+						String[] columnNames = HibernateUtil.getSessionFactory().getClassMetadata(clazz).getPropertyNames();
+						Type[] columnTypes = HibernateUtil.getSessionFactory().getClassMetadata(clazz).getPropertyTypes();
+						Map<Object,Type> o = new HashMap<Object,Type>();
+						int i = 0;
+						for (String string : columnNames) {
+							o.put(string, columnTypes[i]);
+							i++;
+						}
+						Map<Object,Object> r = new HashMap<Object,Object>();
+						for (Map.Entry<Object, Type> ob : o.entrySet()) {
+							if(ob.getValue().isEntityType()) {
+								String tableName = ob.getKey().toString();
+								tableName = Character.toUpperCase(tableName.charAt(0)) + tableName.substring(1);
+								r.put(tableName, "id");
+							} else if(!ob.getValue().isCollectionType())  {
+								r.put(ob.getKey(), ob.getValue().getName());
+							}
+						}
+						
+						tx.commit();
+						return r;
+					} else {
+						startOperation();
+						object = session.createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
+						((IEntity) object).initialize();
+						tx.commit();
+						return object;
+					}
 				}
 			} catch (HibernateException e) {
 				handleException(e);
