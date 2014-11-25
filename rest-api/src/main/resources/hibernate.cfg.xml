@@ -23,5 +23,6 @@
 		<mapping class="org.oregonask.entities.SummerfoodInfo"></mapping>
 		<mapping class="org.oregonask.entities.Program"></mapping>
 		<mapping class="org.oregonask.entities.ProgramInfo"></mapping>
+		<mapping class="org.oregonask.entities.User"></mapping>
 	</session-factory>
 </hibernate-configuration>

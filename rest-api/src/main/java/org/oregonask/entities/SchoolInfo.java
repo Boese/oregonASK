@@ -44,7 +44,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	private String percentFr;
 	private String loGradeOffered;
 	private String hiGradeOffered;
-	private School school;
+	private School School;
 
 	public SchoolInfo() {
 	}
@@ -153,11 +153,11 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SCHOOL_ID")
 	public School getSchool() {
-		return school;
+		return School;
 	}
 
 	public void setSchool(School school) {
-		this.school = school;
+		this.School = school;
 	}
 
 	@Override

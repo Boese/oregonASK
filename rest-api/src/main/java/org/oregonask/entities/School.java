@@ -45,7 +45,7 @@ public class School implements java.io.Serializable, IEntity {
 	private String congressionalDistrict;
 	private String county;
 	private String schoolDistrict;
-	private Set<SchoolInfo> schoolinfos;
+	private Set<SchoolInfo> SchoolInfo;
 	private Set<Summerfood> summerfoods;
 	private Set<Nutrition> nutritions;
 	private Set<Program> programs;
@@ -173,12 +173,12 @@ public class School implements java.io.Serializable, IEntity {
 	}
 
 	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
-	public Set<SchoolInfo> getSchoolinfos() {
-		return schoolinfos;
+	public Set<SchoolInfo> getSchoolInfo() {
+		return SchoolInfo;
 	}
 
-	public void setSchoolinfos(Set<SchoolInfo> schoolinfos) {
-		this.schoolinfos = schoolinfos;
+	public void setSchoolInfo(Set<SchoolInfo> schoolInfo) {
+		SchoolInfo = schoolInfo;
 	}
 
 	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
@@ -210,7 +210,7 @@ public class School implements java.io.Serializable, IEntity {
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSchoolinfos());
+		Hibernate.initialize(this.getSchoolInfo());
 		Hibernate.initialize(this.getSummerfoods());
 		Hibernate.initialize(this.getNutritions());
 		Hibernate.initialize(this.getPrograms());
