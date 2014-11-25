@@ -168,23 +168,23 @@ public class MainController {
 							o.put(string, columnTypes[i]);
 							i++;
 						}
-						Map<Object,Object> r = new HashMap<Object,Object>();
+						Map<Object,Object> newModel = new HashMap<Object,Object>();
 						for (Map.Entry<Object, Type> ob : o.entrySet()) {
 							if(ob.getValue().isEntityType()) {
 								String tableName = ob.getKey().toString();
 								tableName = Character.toUpperCase(tableName.charAt(0)) + tableName.substring(1);
-								r.put(tableName, "id");
+								newModel.put(tableName, "id");
 							} else if(!ob.getValue().isCollectionType())  {
-								r.put(ob.getKey(), ob.getValue().getName());
+								newModel.put(ob.getKey(), ob.getValue().getName());
 							} else if(ob.getValue().isCollectionType() && ob.getKey().toString().contains("Info")) {
 								String tableName = ob.getKey().toString();
 								tableName = Character.toUpperCase(tableName.charAt(0)) + tableName.substring(1);
-								r.put(tableName, "Set");
+								newModel.put(tableName, "Set");
 							}
 						}
 						
 						tx.commit();
-						return r;
+						return newModel;
 						
 						// Normal get /api/Entity/id -> return single entity where id=:id
 					} else {
