@@ -13,7 +13,7 @@ import spark.Request;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RestService {
-	private final HibernateService hibService = new HibernateService();
+	private final HibernateService h = new HibernateService();
 	private final ObjectMapper mapper = new ObjectMapper();
 	
 	public RestService() {}
@@ -27,59 +27,59 @@ public class RestService {
 			switch(params.length) {
 			// Normal get /api/Entity -> return all entities
 			case 1: 
-				hibService.startOperation();
-				objects = hibService.getSession().createQuery("from " + params[0]).list();
-				hibService.getTx().commit();
+				h.startOperation();
+				objects = h.getSession().createQuery("from " + params[0]).list();
+				h.getTx().commit();
 				return objects;
 			case 2:
 				// Normal get /api/Entity/id -> return single entity where id=:id
-				hibService.startOperation();
-				object = hibService.getSession().createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
+				h.startOperation();
+				object = h.getSession().createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
 				((IEntity) object).initialize();
-				hibService.getTx().commit();
+				h.getTx().commit();
 				return object;
 			}
 		} catch (HibernateException e) {
-			hibService.handleException(e);
+			h.handleException(e);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		  finally {
-			HibernateUtil.close(hibService.getSession());
+			HibernateUtil.close(h.getSession());
 		}
 		return new ReturnMessage("failed");
 	}
 	
 	public Object put(Request request) {
 		try {
-			hibService.startOperation();
+			h.startOperation();
 			Class<?> clazz = Class.forName("org.oregonask.entities." + request.splat()[0]);
 			Object obj = mapper.readValue(request.body(), clazz);
-			if(obj.getClass().isInstance(User.class))
-				throw new Exception();
-			hibService.getSession().saveOrUpdate(obj);
-			hibService.getTx().commit();
+			h.getSession().saveOrUpdate(obj);
+			h.getTx().commit();
 			return new ReturnMessage("success");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ReturnMessage("failed");
 		} finally {
-			HibernateUtil.close(hibService.getSession());
+			HibernateUtil.close(h.getSession());
 		}
 	}
 	
 	public Object delete(Request request) {
 		try {
-			hibService.startOperation();
-			Object obj = hibService.getSession().createQuery("from " + request.splat()[0] + " where id=" + request.params(":id")).uniqueResult();
-			hibService.getSession().delete(obj);
-			hibService.getTx().commit();
+			h.startOperation();
+			Object obj = h.getSession().createQuery("from " + request.splat()[0] + " where id=" + request.params(":id")).uniqueResult();
+			if(obj.getClass().isInstance(User.class))
+				throw new Exception();
+			h.getSession().delete(obj);
+			h.getTx().commit();
 			return new ReturnMessage("success");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ReturnMessage("failed");
 		} finally {
-			HibernateUtil.close(hibService.getSession());
+			HibernateUtil.close(h.getSession());
 		}
 	}
 }

@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -193,7 +194,8 @@ public class Program implements java.io.Serializable,IEntity {
 		this.sponsor = sponsor;
 	}
 
-	@OneToMany(mappedBy="program", fetch=FetchType.LAZY)
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinColumn(name="program_id")
 	public Set<ProgramInfo> getPrograminfos() {
 		return programinfos;
 	}

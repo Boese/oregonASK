@@ -5,16 +5,19 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.Hibernate;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -172,7 +175,8 @@ public class School implements java.io.Serializable, IEntity {
 		this.schoolDistrict = schoolDistrict;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="school_id")
 	public Set<SchoolInfo> getSchoolInfo() {
 		return SchoolInfo;
 	}
@@ -215,5 +219,4 @@ public class School implements java.io.Serializable, IEntity {
 		Hibernate.initialize(this.getNutritions());
 		Hibernate.initialize(this.getPrograms());
 	}
-
 }

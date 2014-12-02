@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -142,7 +143,8 @@ public class Summerfood implements java.io.Serializable,IEntity {
 		this.sponsor = sponsor;
 	}
 
-	@OneToMany(mappedBy="summerfood", fetch=FetchType.LAZY)
+	@OneToMany(cascade = {CascadeType.ALL})
+	@JoinColumn(name="summerfood_id")
 	public Set<SummerfoodInfo> getSummerfoodinfos() {
 		return summerfoodinfos;
 	}

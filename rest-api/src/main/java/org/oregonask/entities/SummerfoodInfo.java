@@ -1,16 +1,14 @@
 package org.oregonask.entities;
 // Generated Nov 11, 2014 2:42:57 PM by Hibernate Tools 4.3.1
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -109,8 +107,8 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 		this.pmSnack = pmSnack;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SUMMERFOOD_ID")
+	@ManyToOne
+	@JoinColumn(name="summerfood_id", insertable = false, updatable = false)
 	public Summerfood getSummerfood() {
 		return summerfood;
 	}

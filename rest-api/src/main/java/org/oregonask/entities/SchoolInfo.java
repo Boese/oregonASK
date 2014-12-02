@@ -5,7 +5,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -150,8 +149,8 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 		this.hiGradeOffered = hiGradeOffered;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SCHOOL_ID")
+	@ManyToOne
+	@JoinColumn(name="school_id", insertable=false, updatable=false)
 	public School getSchool() {
 		return School;
 	}
