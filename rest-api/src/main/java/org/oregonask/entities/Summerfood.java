@@ -44,7 +44,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	private String county;
 	private School school;
 	private Sponsor sponsor;
-	private Set<SummerfoodInfo> summerfoodinfos;
+	private Set<SummerfoodInfo> SummerFoodInfo;
 
 	public Summerfood() {
 	}
@@ -146,11 +146,11 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="summerfood_id")
 	public Set<SummerfoodInfo> getSummerfoodinfos() {
-		return summerfoodinfos;
+		return SummerFoodInfo;
 	}
 
 	public void setSummerfoodinfos(Set<SummerfoodInfo> summerfoodinfos) {
-		this.summerfoodinfos = summerfoodinfos;
+		this.SummerFoodInfo = summerfoodinfos;
 	}
 
 	@Override

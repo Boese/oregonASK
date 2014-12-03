@@ -50,7 +50,7 @@ public class Program implements java.io.Serializable,IEntity {
 	private String schoolServed;
 	private School school;
 	private Sponsor sponsor;
-	private Set<ProgramInfo> programinfos;
+	private Set<ProgramInfo> ProgramInfo;
 
 	public Program() {
 	}
@@ -197,11 +197,11 @@ public class Program implements java.io.Serializable,IEntity {
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="program_id")
 	public Set<ProgramInfo> getPrograminfos() {
-		return programinfos;
+		return ProgramInfo;
 	}
 
 	public void setPrograminfos(Set<ProgramInfo> programinfos) {
-		this.programinfos = programinfos;
+		this.ProgramInfo = programinfos;
 	}
 
 	@Override

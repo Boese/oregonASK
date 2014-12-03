@@ -48,7 +48,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	private String county;
 	private School school;
 	private Sponsor sponsor;
-	private Set<NutritionInfo> nutritioninfos;
+	private Set<NutritionInfo> NutritionInfo;
 
 	public Nutrition() {
 	}
@@ -168,11 +168,11 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="nutrition_id")
 	public Set<NutritionInfo> getNutritioninfos() {
-		return nutritioninfos;
+		return NutritionInfo;
 	}
 
 	public void setNutritioninfos(Set<NutritionInfo> nutritioninfos) {
-		this.nutritioninfos = nutritioninfos;
+		this.NutritionInfo = nutritioninfos;
 	}
 
 	@Override

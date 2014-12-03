@@ -38,9 +38,9 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	private String name;
 	private String agrNumber;
 	private String sponsorType;
-	private Set<Summerfood> summerfoods;
-	private Set<Nutrition> nutritions;
-	private Set<Program> programs;
+	private Set<Summerfood> SummerFood;
+	private Set<Nutrition> Nutrition;
+	private Set<Program> Program;
 
 	public Sponsor() {
 	}
@@ -85,29 +85,29 @@ public class Sponsor implements java.io.Serializable, IEntity {
 
 	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
 	public Set<Summerfood> getSummerfoods() {
-		return summerfoods;
+		return SummerFood;
 	}
 
 	public void setSummerfoods(Set<Summerfood> summerfoods) {
-		this.summerfoods = summerfoods;
+		this.SummerFood = summerfoods;
 	}
 
 	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
 	public Set<Nutrition> getNutritions() {
-		return nutritions;
+		return Nutrition;
 	}
 
 	public void setNutritions(Set<Nutrition> nutritions) {
-		this.nutritions = nutritions;
+		this.Nutrition = nutritions;
 	}
 
 	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
 	public Set<Program> getPrograms() {
-		return programs;
+		return Program;
 	}
 
 	public void setPrograms(Set<Program> programs) {
-		this.programs = programs;
+		this.Program = programs;
 	}
 	
 	@Override
