@@ -17,7 +17,7 @@ public class MainController {
 	private final RestService restService = new RestService();
 	
 	public MainController() {
-		options("/api/*", (request, response) -> {
+		options("/*", (request, response) -> {
 			return 200;
 		});
 		// api/login -> login

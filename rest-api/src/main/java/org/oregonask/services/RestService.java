@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.oregonask.entities.IEntity;
-import org.oregonask.entities.User;
 import org.oregonask.utils.HibernateUtil;
 import org.oregonask.utils.ReturnMessage;
 
@@ -70,8 +69,6 @@ public class RestService {
 		try {
 			h.startOperation();
 			Object obj = h.getSession().createQuery("from " + request.splat()[0] + " where id=" + request.params(":id")).uniqueResult();
-			if(obj.getClass().isInstance(User.class))
-				throw new Exception();
 			h.getSession().delete(obj);
 			h.getTx().commit();
 			return new ReturnMessage("success");

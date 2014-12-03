@@ -17,7 +17,7 @@ import org.oregonask.utils.ReturnMessage;
 import spark.Request;
 
 public class AuthService {
-	private static final int TIME_OUT = (60*60*1000);
+	private static final int TIME_OUT = (8*60*60*1000);
 	private static final String KEY = "OREGONASK47KEY83_20_14";
 	private final HibernateService hibService = new HibernateService();
 	
