@@ -15,6 +15,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -67,6 +68,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "YEAR")
+	@JsonProperty("YEAR")
 	public Integer getYear() {
 		return this.year;
 	}
@@ -76,6 +78,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "AM_SNACK_SERVED")
+	@JsonProperty("AM_SNACK_SERVED")
 	public Boolean getAmSnackServed() {
 		return this.amSnackServed;
 	}
@@ -85,6 +88,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "BREAKFAST_SERVED")
+	@JsonProperty("BREAKFAST_SERVED")
 	public Boolean getBreakfastServed() {
 		return this.breakfastServed;
 	}
@@ -94,6 +98,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "LUNCH_SERVED")
+	@JsonProperty("LUNCH_SERVED")
 	public Boolean getLunchServed() {
 		return this.lunchServed;
 	}
@@ -103,6 +108,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PM_SNACK_SERVED")
+	@JsonProperty("PM_SNACK_SERVED")
 	public Boolean getPmSnackServed() {
 		return this.pmSnackServed;
 	}
@@ -112,6 +118,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "SUPPER_SERVED")
+	@JsonProperty("SUPPER_SERVED")
 	public Boolean getSupperServed() {
 		return this.supperServed;
 	}
@@ -121,6 +128,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "EVENING_SNACK_SERVED")
+	@JsonProperty("EVENING_SNACK_SERVED")
 	public Boolean getEveningSnackServed() {
 		return this.eveningSnackServed;
 	}
@@ -130,6 +138,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_JAN")
+	@JsonProperty("OPR_JAN")
 	public Boolean getOprJan() {
 		return this.oprJan;
 	}
@@ -139,6 +148,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_FEB")
+	@JsonProperty("OPR_FEB")
 	public Boolean getOprFeb() {
 		return this.oprFeb;
 	}
@@ -148,6 +158,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_MAR")
+	@JsonProperty("OPR_MAR")
 	public Boolean getOprMar() {
 		return this.oprMar;
 	}
@@ -157,6 +168,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_APR")
+	@JsonProperty("OPR_APR")
 	public Boolean getOprApr() {
 		return this.oprApr;
 	}
@@ -166,6 +178,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_MAY")
+	@JsonProperty("OPR_MAY")
 	public Boolean getOprMay() {
 		return this.oprMay;
 	}
@@ -175,6 +188,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_JUN")
+	@JsonProperty("OPR_JUN")
 	public Boolean getOprJun() {
 		return this.oprJun;
 	}
@@ -184,6 +198,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_JUL")
+	@JsonProperty("OPR_JUL")
 	public Boolean getOprJul() {
 		return this.oprJul;
 	}
@@ -193,6 +208,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_AUG")
+	@JsonProperty("OPR_AUG")
 	public Boolean getOprAug() {
 		return this.oprAug;
 	}
@@ -202,6 +218,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_SEP")
+	@JsonProperty("OPR_SEP")
 	public Boolean getOprSep() {
 		return this.oprSep;
 	}
@@ -211,6 +228,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_OCT")
+	@JsonProperty("OPR_OCT")
 	public Boolean getOprOct() {
 		return this.oprOct;
 	}
@@ -220,6 +238,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_NOV")
+	@JsonProperty("OPR_NOV")
 	public Boolean getOprNov() {
 		return this.oprNov;
 	}
@@ -229,6 +248,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "OPR_DEC")
+	@JsonProperty("OPR_DEC")
 	public Boolean getOprDec() {
 		return this.oprDec;
 	}
@@ -239,6 +259,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 
 	@ManyToOne
 	@JoinColumn(name="nutrition_id", insertable=false, updatable=false)
+	@JsonProperty("NUTRITION")
 	public Nutrition getNutrition() {
 		return nutrition;
 	}

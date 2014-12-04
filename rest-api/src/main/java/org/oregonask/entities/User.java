@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -42,6 +43,7 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "EMAIL")
+	@JsonProperty("EMAIL")
 	public String getEmail() {
 		return email;
 	}
@@ -51,6 +53,7 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "PASSWORD")
+	@JsonProperty("PASSWORD")
 	public String getPassword() {
 		return password;
 	}
@@ -60,6 +63,7 @@ public class User implements java.io.Serializable {
 	}
 
 	@Column(name = "SALT")
+	@JsonProperty("SALT")
 	public String getSalt() {
 		return salt;
 	}

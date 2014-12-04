@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -57,6 +58,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "NAME", unique = true, nullable = false, length = 250)
+	@JsonProperty("NAME")
 	public String getName() {
 		return this.name;
 	}
@@ -66,6 +68,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "AGR_NUMBER", unique = true, length = 45)
+	@JsonProperty("AGR_NUMBER")
 	public String getAgrNumber() {
 		return this.agrNumber;
 	}
@@ -75,6 +78,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "SPONSOR_TYPE", length = 45)
+	@JsonProperty("SPONSOR_TYPE")
 	public String getSponsorType() {
 		return this.sponsorType;
 	}
@@ -84,6 +88,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	}
 
 	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
+	@JsonProperty("SUMMERFOOD")
 	public Set<Summerfood> getSummerfoods() {
 		return SummerFood;
 	}
@@ -93,6 +98,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	}
 
 	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
+	@JsonProperty("NUTRITION")
 	public Set<Nutrition> getNutritions() {
 		return Nutrition;
 	}
@@ -102,6 +108,7 @@ public class Sponsor implements java.io.Serializable, IEntity {
 	}
 
 	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
+	@JsonProperty("PROGRAM")
 	public Set<Program> getPrograms() {
 		return Program;
 	}

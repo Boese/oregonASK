@@ -15,6 +15,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -60,6 +61,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "YEAR")
+	@JsonProperty("YEAR")
 	public Integer getYear() {
 		return this.year;
 	}
@@ -69,6 +71,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "TOTAL_STUDENT_COUNT", length = 45)
+	@JsonProperty("TOTAL_STUDENT_COUNT")
 	public String getTotalStudentCount() {
 		return this.totalStudentCount;
 	}
@@ -78,6 +81,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "FREE_LUNCH_COUNT", length = 45)
+	@JsonProperty("FREE_LUNCH_COUNT")
 	public String getFreeLunchCount() {
 		return this.freeLunchCount;
 	}
@@ -87,6 +91,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "REDUCED_LUNCH_COUNT", length = 45)
+	@JsonProperty("REDUCED_LUNCH_COUNT")
 	public String getReducedLunchCount() {
 		return this.reducedLunchCount;
 	}
@@ -96,6 +101,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PERCENT_MEET_READING", length = 45)
+	@JsonProperty("PERCENT_MEET_READING")
 	public String getPercentMeetReading() {
 		return this.percentMeetReading;
 	}
@@ -105,6 +111,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PERCENT_MINORITY", length = 45)
+	@JsonProperty("PERCENT_MINORITY")
 	public String getPercentMinority() {
 		return this.percentMinority;
 	}
@@ -114,6 +121,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PERCENT_WHITE", length = 45)
+	@JsonProperty("PERCENT_WHITE")
 	public String getPercentWhite() {
 		return this.percentWhite;
 	}
@@ -123,6 +131,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PERCENT_FR", length = 45)
+	@JsonProperty("PERCENT_FR")
 	public String getPercentFr() {
 		return this.percentFr;
 	}
@@ -132,6 +141,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "LO_GRADE_OFFERED", length = 45)
+	@JsonProperty("LO_GRADE_OFFERED")
 	public String getLoGradeOffered() {
 		return this.loGradeOffered;
 	}
@@ -141,6 +151,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "HI_GRADE_OFFERED", length = 45)
+	@JsonProperty("HI_GRADE_OFFERED")
 	public String getHiGradeOffered() {
 		return this.hiGradeOffered;
 	}
@@ -151,6 +162,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="school_id", insertable=false, updatable=false)
+	@JsonProperty("SCHOOL")
 	public School getSchool() {
 		return School;
 	}

@@ -15,6 +15,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -54,6 +55,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "YEAR")
+	@JsonProperty("YEAR")
 	public Integer getYear() {
 		return this.year;
 	}
@@ -63,6 +65,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "BREAKFAST", length = 45)
+	@JsonProperty("BREAKFAST")
 	public String getBreakfast() {
 		return this.breakfast;
 	}
@@ -72,6 +75,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "LUNCH", length = 45)
+	@JsonProperty("LUNCH")
 	public String getLunch() {
 		return this.lunch;
 	}
@@ -81,6 +85,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "SUPPER", length = 45)
+	@JsonProperty("SUPPER")
 	public String getSupper() {
 		return this.supper;
 	}
@@ -90,6 +95,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "AM_SNACK", length = 45)
+	@JsonProperty("AM_SNACK")
 	public String getAmSnack() {
 		return this.amSnack;
 	}
@@ -99,6 +105,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PM_SNACK", length = 45)
+	@JsonProperty("PM_SNACK")
 	public String getPmSnack() {
 		return this.pmSnack;
 	}
@@ -109,6 +116,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 
 	@ManyToOne
 	@JoinColumn(name="summerfood_id", insertable = false, updatable = false)
+	@JsonProperty("SUMMERFOOD")
 	public Summerfood getSummerfood() {
 		return summerfood;
 	}

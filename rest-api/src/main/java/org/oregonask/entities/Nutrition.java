@@ -20,6 +20,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -65,6 +66,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "SITE_NAME", nullable = false, length = 250)
+	@JsonProperty("SITE_NAME")
 	public String getSiteName() {
 		return this.siteName;
 	}
@@ -74,6 +76,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "SITE_NUMBER", unique = true, length = 45)
+	@JsonProperty("SITE_NUMBER")
 	public String getSiteNumber() {
 		return this.siteNumber;
 	}
@@ -83,6 +86,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "CNP_WEB_SCHOOL_NUMBER", unique = true, length = 45)
+	@JsonProperty("CNP_WEB_SCHOOL_NUMBER")
 	public String getCnpWebSchoolNumber() {
 		return this.cnpWebSchoolNumber;
 	}
@@ -92,6 +96,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "PROGRAM_TYPE", length = 100)
+	@JsonProperty("PROGRAM_TYPE")
 	public String getProgramType() {
 		return this.programType;
 	}
@@ -101,6 +106,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "STREET", length = 250)
+	@JsonProperty("STREET")
 	public String getStreet() {
 		return this.street;
 	}
@@ -110,6 +116,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "CITY", length = 45)
+	@JsonProperty("CITY")
 	public String getCity() {
 		return this.city;
 	}
@@ -119,6 +126,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "ZIP", length = 45)
+	@JsonProperty("ZIP")
 	public String getZip() {
 		return this.zip;
 	}
@@ -128,6 +136,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "STATE", length = 45)
+	@JsonProperty("STATE")
 	public String getState() {
 		return this.state;
 	}
@@ -137,6 +146,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 	}
 
 	@Column(name = "COUNTY", length = 45)
+	@JsonProperty("COUNTY")
 	public String getCounty() {
 		return this.county;
 	}
@@ -147,6 +157,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SCHOOL_ID")
+	@JsonProperty("School")
 	public School getSchool() {
 		return school;
 	}
@@ -157,6 +168,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SPONSOR_ID")
+	@JsonProperty("Sponsor")
 	public Sponsor getSponsor() {
 		return sponsor;
 	}
@@ -167,6 +179,7 @@ public class Nutrition implements java.io.Serializable, IEntity {
 
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="nutrition_id")
+	@JsonProperty("NUTRITION_INFO")
 	public Set<NutritionInfo> getNutritioninfos() {
 		return NutritionInfo;
 	}

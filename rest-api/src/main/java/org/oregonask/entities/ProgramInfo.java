@@ -15,6 +15,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -68,6 +69,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "YEAR")
+	@JsonProperty("YEAR")
 	public Integer getYear() {
 		return this.year;
 	}
@@ -77,6 +79,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "AVERAGE_DAILY_ATTENDANCE", length = 45)
+	@JsonProperty("AVERAGE_DAILY_ATTENDANCE")
 	public String getAverageDailyAttendance() {
 		return this.averageDailyAttendance;
 	}
@@ -86,6 +89,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "MAX_CAPACITY", length = 45)
+	@JsonProperty("MAX_CAPACITY")
 	public String getMaxCapacity() {
 		return this.maxCapacity;
 	}
@@ -95,6 +99,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_BEFORE_SCHOOL")
+	@JsonProperty("OFFERED_BEFORE_SCHOOL")
 	public Boolean getOfferedBeforeSchool() {
 		return this.offeredBeforeSchool;
 	}
@@ -104,6 +109,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_AFTER_SCHOOL")
+	@JsonProperty("OFFERED_AFTER_SCHOOL")
 	public Boolean getOfferedAfterSchool() {
 		return this.offeredAfterSchool;
 	}
@@ -113,6 +119,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_MONDAY")
+	@JsonProperty("OFFERED_MONDAY")
 	public Boolean getOfferedMonday() {
 		return this.offeredMonday;
 	}
@@ -122,6 +129,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_TUESDAY")
+	@JsonProperty("OFFERED_TUESDAY")
 	public Boolean getOfferedTuesday() {
 		return this.offeredTuesday;
 	}
@@ -131,6 +139,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_WEDNESDAY")
+	@JsonProperty("OFFERED_WEDNESDAY")
 	public Boolean getOfferedWednesday() {
 		return this.offeredWednesday;
 	}
@@ -140,6 +149,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_THURSDAY")
+	@JsonProperty("OFFERED_THURSDAY")
 	public Boolean getOfferedThursday() {
 		return this.offeredThursday;
 	}
@@ -149,6 +159,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_FRIDAY")
+	@JsonProperty("OFFERED_FRIDAY")
 	public Boolean getOfferedFriday() {
 		return this.offeredFriday;
 	}
@@ -158,6 +169,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_SATURDAY")
+	@JsonProperty("OFFERED_SATURDAY")
 	public Boolean getOfferedSaturday() {
 		return this.offeredSaturday;
 	}
@@ -167,6 +179,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_SUNDAY")
+	@JsonProperty("OFFERED_SUNDAY")
 	public Boolean getOfferedSunday() {
 		return this.offeredSunday;
 	}
@@ -176,6 +189,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_WEEKENDS")
+	@JsonProperty("OFFERED_WEEKENDS")
 	public Boolean getOfferedWeekends() {
 		return this.offeredWeekends;
 	}
@@ -185,6 +199,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_EVENINGS")
+	@JsonProperty("OFFERED_EVENINGS")
 	public Boolean getOfferedEvenings() {
 		return this.offeredEvenings;
 	}
@@ -194,6 +209,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "OFFERED_BREAKS")
+	@JsonProperty("OFFERED_BREAKS")
 	public Boolean getOfferedBreaks() {
 		return this.offeredBreaks;
 	}
@@ -203,6 +219,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "AVERAGE_HOURS_PER_WEEK", length = 45)
+	@JsonProperty("AVERAGE_HOURS_PER_WEEK")
 	public String getAverageHoursPerWeek() {
 		return this.averageHoursPerWeek;
 	}
@@ -212,6 +229,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "FOOD_PROVIDED_BEFORE_SCHOOL")
+	@JsonProperty("FOOD_PROVIDED_BEFORE_SCHOOL")
 	public Boolean getFoodProvidedBeforeSchool() {
 		return this.foodProvidedBeforeSchool;
 	}
@@ -221,6 +239,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "FOOD_PROVIDED_AFTER_SCHOOL")
+	@JsonProperty("FOOD_PROVIDED_AFTER_SCHOOL")
 	public Boolean getFoodProvidedAfterSchool() {
 		return this.foodProvidedAfterSchool;
 	}
@@ -230,6 +249,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "FOOD_PROVIDED_DURING_BREAKS")
+	@JsonProperty("FOOD_PROVIDED_DURING_BREAKS")
 	public Boolean getFoodProvidedDuringBreaks() {
 		return this.foodProvidedDuringBreaks;
 	}
@@ -239,6 +259,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STEM_OFFERED")
+	@JsonProperty("STEM_OFFERED")
 	public Boolean getStemOffered() {
 		return this.stemOffered;
 	}
@@ -249,6 +270,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 
 	@ManyToOne
 	@JoinColumn(name="program_id", insertable=false, updatable=false)
+	@JsonProperty("PROGRAM")
 	public Program getProgram() {
 		return program;
 	}

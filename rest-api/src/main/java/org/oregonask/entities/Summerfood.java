@@ -20,6 +20,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -61,6 +62,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "SITE_NAME", nullable = false, length = 250)
+	@JsonProperty("SITE_NAME")
 	public String getSiteName() {
 		return this.siteName;
 	}
@@ -70,6 +72,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "SITE_NUMBER", unique = true, nullable = false, length = 45)
+	@JsonProperty("SITE_NUMBER")
 	public String getSiteNumber() {
 		return this.siteNumber;
 	}
@@ -79,6 +82,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STREET", length = 250)
+	@JsonProperty("STREET")
 	public String getStreet() {
 		return this.street;
 	}
@@ -88,6 +92,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "CITY", length = 45)
+	@JsonProperty("CITY")
 	public String getCity() {
 		return this.city;
 	}
@@ -97,6 +102,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "ZIP", length = 45)
+	@JsonProperty("ZIP")
 	public String getZip() {
 		return this.zip;
 	}
@@ -106,6 +112,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STATE", length = 45)
+	@JsonProperty("STATE")
 	public String getState() {
 		return this.state;
 	}
@@ -115,6 +122,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "COUNTY", length = 45)
+	@JsonProperty("COUNTY")
 	public String getCounty() {
 		return this.county;
 	}
@@ -125,6 +133,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SCHOOL_ID")
+	@JsonProperty("School")
 	public School getSchool() {
 		return school;
 	}
@@ -135,6 +144,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SPONSOR_ID")
+	@JsonProperty("Sponsor")
 	public Sponsor getSponsor() {
 		return sponsor;
 	}
@@ -145,6 +155,7 @@ public class Summerfood implements java.io.Serializable,IEntity {
 
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="summerfood_id")
+	@JsonProperty("SUMMERFOOD_INFO")
 	public Set<SummerfoodInfo> getSummerfoodinfos() {
 		return SummerFoodInfo;
 	}

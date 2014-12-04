@@ -44,7 +44,7 @@ public class AuthService {
 		String pass = auths[1];
 		
 		hibService.startOperation();
-		User user = (User) hibService.getSession().createQuery("from User where email = :email")
+		User user = (User) hibService.getSession().createQuery("from User where EMAIL = :email")
 				.setParameter("email", email)
 				.uniqueResult();
 		hibService.getTx().commit();

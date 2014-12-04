@@ -20,6 +20,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -67,6 +68,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "NAME", nullable = false, length = 250)
+	@JsonProperty("NAME")
 	public String getName() {
 		return this.name;
 	}
@@ -76,6 +78,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "LICENSE_NUMBER", length = 45)
+	@JsonProperty("LICENSE_NUMBER")
 	public String getLicenseNumber() {
 		return this.licenseNumber;
 	}
@@ -85,6 +88,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "NOTES", length = 1000)
+	@JsonProperty("NOTES")
 	public String getNotes() {
 		return this.notes;
 	}
@@ -94,6 +98,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "CONTACT_NAME", length = 1000)
+	@JsonProperty("CONTACT_NAME")
 	public String getContactName() {
 		return this.contactName;
 	}
@@ -103,6 +108,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "EMAIL", length = 250)
+	@JsonProperty("EMAIL")
 	public String getEmail() {
 		return this.email;
 	}
@@ -112,6 +118,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "PHONE", length = 45)
+	@JsonProperty("PHONE")
 	public String getPhone() {
 		return this.phone;
 	}
@@ -121,6 +128,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "CITY", length = 45)
+	@JsonProperty("CITY")
 	public String getCity() {
 		return this.city;
 	}
@@ -130,6 +138,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STATE", length = 45)
+	@JsonProperty("STATE")
 	public String getState() {
 		return this.state;
 	}
@@ -139,6 +148,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "ZIP", length = 45)
+	@JsonProperty("ZIP")
 	public String getZip() {
 		return this.zip;
 	}
@@ -148,6 +158,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "STREET", length = 45)
+	@JsonProperty("STREET")
 	public String getStreet() {
 		return this.street;
 	}
@@ -157,6 +168,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "COUNTY", length = 45)
+	@JsonProperty("COUNTY")
 	public String getCounty() {
 		return this.county;
 	}
@@ -166,6 +178,7 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@Column(name = "SCHOOL_SERVED", length = 250)
+	@JsonProperty("SCHOOL_SERVED")
 	public String getSchoolServed() {
 		return this.schoolServed;
 	}
@@ -176,6 +189,7 @@ public class Program implements java.io.Serializable,IEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SCHOOL_ID")
+	@JsonProperty("School")
 	public School getSchool() {
 		return school;
 	}
@@ -186,6 +200,7 @@ public class Program implements java.io.Serializable,IEntity {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "SPONSOR_ID")
+	@JsonProperty("Sponsor")
 	public Sponsor getSponsor() {
 		return sponsor;
 	}
@@ -195,7 +210,8 @@ public class Program implements java.io.Serializable,IEntity {
 	}
 
 	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinColumn(name="program_id")
+	@JoinColumn(name="PROGRAM_ID")
+	@JsonProperty("PROGRAM_INFO")
 	public Set<ProgramInfo> getPrograminfos() {
 		return ProgramInfo;
 	}
