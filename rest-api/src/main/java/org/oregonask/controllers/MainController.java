@@ -13,7 +13,7 @@ import org.oregonask.utils.JsonTransformer;
 
 
 public class MainController {
-	private final AuthService authService = new AuthService();
+	private final AuthService authService = AuthService.getInstance();
 	private final RestService restService = new RestService();
 	
 	public MainController() {

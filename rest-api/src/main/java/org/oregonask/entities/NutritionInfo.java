@@ -51,6 +51,8 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	private Boolean oprOct;
 	private Boolean oprNov;
 	private Boolean oprDec;
+	private String timeStamp;
+	private String lastEditBy;
 	private Nutrition nutrition;
 
 	public NutritionInfo() {
@@ -255,6 +257,26 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 
 	public void setOprDec(Boolean oprDec) {
 		this.oprDec = oprDec;
+	}
+	
+	@Column(name = "TIME_STAMP")
+	@JsonProperty("TIME_STAMP")
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	@Column(name = "LAST_EDIT_BY", length = 100)
+	@JsonProperty("LAST_EDIT_BY")
+	public String getLastEditBy() {
+		return lastEditBy;
+	}
+
+	public void setLastEditBy(String lastEditBy) {
+		this.lastEditBy = lastEditBy;
 	}
 
 	@ManyToOne

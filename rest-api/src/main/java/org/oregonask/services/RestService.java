@@ -51,9 +51,12 @@ public class RestService {
 	
 	public Object put(Request request) {
 		try {
+			String token = request.headers("Token").toString().replace('"',' ').trim();
+			String email = AuthService.getInstance().getUserEmail(token);
 			h.startOperation();
 			Class<?> clazz = Class.forName("org.oregonask.entities." + request.splat()[0]);
 			Object obj = mapper.readValue(request.body(), clazz);
+			((IEntity) obj).setLastEditBy(email);
 			h.getSession().saveOrUpdate(obj);
 			h.getTx().commit();
 			return new ReturnMessage("success");

@@ -49,6 +49,8 @@ public class School implements java.io.Serializable, IEntity {
 	private String congressionalDistrict;
 	private String county;
 	private String schoolDistrict;
+	private String timeStamp;
+	private String lastEditBy;
 	private Set<SchoolInfo> SchoolInfo;
 	private Set<Summerfood> SummerFood;
 	private Set<Nutrition> Nutrition;
@@ -186,6 +188,26 @@ public class School implements java.io.Serializable, IEntity {
 
 	public void setSchoolDistrict(String schoolDistrict) {
 		this.schoolDistrict = schoolDistrict;
+	}
+
+	@Column(name = "TIME_STAMP")
+	@JsonProperty("TIME_STAMP")
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	@Column(name = "LAST_EDIT_BY", length = 100)
+	@JsonProperty("LAST_EDIT_BY")
+	public String getLastEditBy() {
+		return lastEditBy;
+	}
+
+	public void setLastEditBy(String lastEditBy) {
+		this.lastEditBy = lastEditBy;
 	}
 
 	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})

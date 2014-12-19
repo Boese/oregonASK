@@ -17,19 +17,47 @@ import org.oregonask.utils.ReturnMessage;
 import spark.Request;
 
 public class AuthService {
+	private static final AuthService INSTANCE = new AuthService();
 	private static final int TIME_OUT = (8*60*60*1000);
 	private static final String KEY = "OREGONASK47KEY83_20_14";
 	private final HibernateService hibService = new HibernateService();
 	
-	private Map<TimerToken,String> tokens = new HashMap<TimerToken,String>();
+	private Map<TimerToken,UserSession> tokens = new HashMap<TimerToken,UserSession>();
 	private Timer timer = new Timer();
 	
-	public AuthService() {}
+	private AuthService() {}
+	
+	public static AuthService getInstance() {
+		return AuthService.INSTANCE;
+	}
 	
 	private class TimerToken extends TimerTask {
 		@Override
 		public void run() {
 			tokens.remove(this);
+		}
+	}
+	
+	private class UserSession {
+		private String token;
+		private String email;
+		
+		UserSession(String token, String email) {
+			this.setToken(token);
+			this.setEmail(email);
+		}
+		
+		public String getToken() {
+			return token;
+		}
+		public void setToken(String token) {
+			this.token = token;
+		}
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
 		}
 	}
 	
@@ -54,7 +82,8 @@ public class AuthService {
 		if(pass.equals(user.getPassword())) {
 			TimerToken timertoken = new TimerToken();
 			timer.schedule(timertoken, TIME_OUT);
-			tokens.put(timertoken, random.toString());
+			UserSession userSession = new UserSession(random.toString(),email);
+			tokens.put(timertoken, userSession);
 			JSONObject tokenjson = new JSONObject();
 			tokenjson.put("Token", random.toString());
 			return tokenjson;
@@ -99,7 +128,7 @@ public class AuthService {
 		Object token = req.headers("Token");
 		if(token != null) {
 			token = token.toString().replace('"',' ').trim();
-			if(!tokens.containsValue(token.toString())) {
+			if(getUserEmail(token.toString()) == null) {
 				halt(401);
 			}
 		} else {
@@ -107,5 +136,15 @@ public class AuthService {
 				halt(401);
 			}
 		}
+	}
+	
+	public String getUserEmail(String token) {
+		String email = null;
+		for (UserSession user : tokens.values()) {
+			if(user.getToken().equals(token)) {
+				email = user.getEmail(); break;
+			}
+		}
+		return email;
 	}
 }

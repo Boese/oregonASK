@@ -43,6 +43,8 @@ public class Summerfood implements java.io.Serializable,IEntity {
 	private String zip;
 	private String state;
 	private String county;
+	private String timeStamp;
+	private String lastEditBy;
 	private School school;
 	private Sponsor sponsor;
 	private Set<SummerfoodInfo> SummerFoodInfo;
@@ -129,6 +131,26 @@ public class Summerfood implements java.io.Serializable,IEntity {
 
 	public void setCounty(String county) {
 		this.county = county;
+	}
+	
+	@Column(name = "TIME_STAMP")
+	@JsonProperty("TIME_STAMP")
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	@Column(name = "LAST_EDIT_BY", length = 100)
+	@JsonProperty("LAST_EDIT_BY")
+	public String getLastEditBy() {
+		return lastEditBy;
+	}
+
+	public void setLastEditBy(String lastEditBy) {
+		this.lastEditBy = lastEditBy;
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY)

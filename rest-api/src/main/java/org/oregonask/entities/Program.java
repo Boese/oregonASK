@@ -49,6 +49,8 @@ public class Program implements java.io.Serializable,IEntity {
 	private String street;
 	private String county;
 	private String schoolServed;
+	private String timeStamp;
+	private String lastEditBy;
 	private School school;
 	private Sponsor sponsor;
 	private Set<ProgramInfo> ProgramInfo;
@@ -185,6 +187,26 @@ public class Program implements java.io.Serializable,IEntity {
 
 	public void setSchoolServed(String schoolServed) {
 		this.schoolServed = schoolServed;
+	}
+	
+	@Column(name = "TIME_STAMP")
+	@JsonProperty("TIME_STAMP")
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	@Column(name = "LAST_EDIT_BY", length = 100)
+	@JsonProperty("LAST_EDIT_BY")
+	public String getLastEditBy() {
+		return lastEditBy;
+	}
+
+	public void setLastEditBy(String lastEditBy) {
+		this.lastEditBy = lastEditBy;
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY)
