@@ -61,7 +61,7 @@ public class AuthService {
 		}
 	}
 	
-	public JSONObject login(Request request) {
+	public Object login(Request request) {
 		try {
 		String req = request.headers("Authorization");
 		req = req.replace("Base", "").trim();

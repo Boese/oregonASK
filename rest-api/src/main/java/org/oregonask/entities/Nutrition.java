@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@UniqueConstraint(columnNames = "CNP_WEB_SCHOOL_NUMBER"),
 		@UniqueConstraint(columnNames = "SITE_NUMBER") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class Nutrition implements java.io.Serializable, IEntity {
+public class Nutrition implements java.io.Serializable, IEntity, IUpdateLastEditBy {
 
 	/**
 	 * 

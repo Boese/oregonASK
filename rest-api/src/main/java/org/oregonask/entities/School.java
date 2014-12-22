@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@UniqueConstraint(columnNames = { "NAME", "COUNTY" }),
 		@UniqueConstraint(columnNames = "INSTITUTION_ID") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class School implements java.io.Serializable, IEntity {
+public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 
 	/**
 	 * 

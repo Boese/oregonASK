@@ -1,17 +1,16 @@
 package org.oregonask.entities;
 // Generated Nov 11, 2014 2:42:57 PM by Hibernate Tools 4.3.1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
-
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -29,7 +28,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 		@UniqueConstraint(columnNames = "NAME"),
 		@UniqueConstraint(columnNames = "AGR_NUMBER") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class Sponsor implements java.io.Serializable, IEntity {
+public class Sponsor implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 
 	/**
 	 * 

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "SUMMERFOOD", catalog = "OREGONASKDB", uniqueConstraints = @UniqueConstraint(columnNames = "SITE_NUMBER"))
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class Summerfood implements java.io.Serializable,IEntity {
+public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditBy {
 
 	/**
 	 * 

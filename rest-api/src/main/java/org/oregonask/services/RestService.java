@@ -1,9 +1,11 @@
 package org.oregonask.services;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.oregonask.entities.IEntity;
+import org.oregonask.entities.IUpdateLastEditBy;
 import org.oregonask.utils.HibernateUtil;
 import org.oregonask.utils.ReturnMessage;
 
@@ -56,7 +58,8 @@ public class RestService {
 			h.startOperation();
 			Class<?> clazz = Class.forName("org.oregonask.entities." + request.splat()[0]);
 			Object obj = mapper.readValue(request.body(), clazz);
-			((IEntity) obj).setLastEditBy(email);
+			((IUpdateLastEditBy) obj).setLastEditBy(email);
+			((IUpdateLastEditBy) obj).setTimeStamp((new java.sql.Timestamp(Calendar.getInstance().getTime().getTime())).toString());
 			h.getSession().saveOrUpdate(obj);
 			h.getTx().commit();
 			return new ReturnMessage("success");

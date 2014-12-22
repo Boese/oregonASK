@@ -52,8 +52,6 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	private Boolean foodProvidedAfterSchool;
 	private Boolean foodProvidedDuringBreaks;
 	private Boolean stemOffered;
-	private String timeStamp;
-	private String lastEditBy;
 	private Program program;
 
 	public ProgramInfo() {
@@ -268,26 +266,6 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 
 	public void setStemOffered(Boolean stemOffered) {
 		this.stemOffered = stemOffered;
-	}
-	
-	@Column(name = "TIME_STAMP")
-	@JsonProperty("TIME_STAMP")
-	public String getTimeStamp() {
-		return timeStamp;
-	}
-
-	public void setTimeStamp(String timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-
-	@Column(name = "LAST_EDIT_BY", length = 100)
-	@JsonProperty("LAST_EDIT_BY")
-	public String getLastEditBy() {
-		return lastEditBy;
-	}
-
-	public void setLastEditBy(String lastEditBy) {
-		this.lastEditBy = lastEditBy;
 	}
 
 	@ManyToOne

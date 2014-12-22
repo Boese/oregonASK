@@ -38,8 +38,6 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	private String supper;
 	private String amSnack;
 	private String pmSnack;
-	private String timeStamp;
-	private String lastEditBy;
 	private Summerfood summerfood;
 
 	public SummerfoodInfo() {
@@ -114,26 +112,6 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 
 	public void setPmSnack(String pmSnack) {
 		this.pmSnack = pmSnack;
-	}
-	
-	@Column(name = "TIME_STAMP")
-	@JsonProperty("TIME_STAMP")
-	public String getTimeStamp() {
-		return timeStamp;
-	}
-
-	public void setTimeStamp(String timeStamp) {
-		this.timeStamp = timeStamp;
-	}
-
-	@Column(name = "LAST_EDIT_BY", length = 100)
-	@JsonProperty("LAST_EDIT_BY")
-	public String getLastEditBy() {
-		return lastEditBy;
-	}
-
-	public void setLastEditBy(String lastEditBy) {
-		this.lastEditBy = lastEditBy;
 	}
 
 	@ManyToOne
