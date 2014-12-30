@@ -1,1 +1,2 @@
-web: java $JAVA_OPTS -jar target/rest-api-1.0-SNAPSHOT.jar
+
+web: java -cp "target/dependency/*":target/classes Application
