@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS /src/main/java/org/oregonask/Application.java
+web: java $JAVA_OPTS -jar target/rest-api-1.0-SNAPSHOT.jar
