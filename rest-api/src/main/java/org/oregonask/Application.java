@@ -1,6 +1,5 @@
 package org.oregonask;
 
-import static spark.SparkBase.setIpAddress;
 import static spark.SparkBase.setPort;
 import static spark.SparkBase.staticFileLocation;
 
@@ -17,8 +16,16 @@ public class Application {
 
 	public static void main(String[] args) {
 	    
-		setIpAddress("localhost");
-		setPort(8080);
+		//Heroku assigns different port each time, hence reading it from process.
+        ProcessBuilder process = new ProcessBuilder();
+        Integer port;
+        if (process.environment().get("PORT") != null) {
+            port = Integer.parseInt(process.environment().get("PORT"));
+        } else {
+            port = 8080;
+        }
+        setPort(port);
+        
 		staticFileLocation("/public/app");
 		
 		
