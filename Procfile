@@ -1,2 +1,2 @@
 
-web: java -cp "target/dependency/*":target/classes Application
+web: java -cp "target/dependency/*":target/classes org.oregonask.Application
