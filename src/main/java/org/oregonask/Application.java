@@ -17,7 +17,6 @@ public class Application {
 
 	public static void main(String[] args) {
 	    
-		setIpAddress("localhost");
 		setPort(8080);
 		staticFileLocation("/public/app");
 		
