@@ -1,1 +1,1 @@
-web: -jar target/dependency/rest-api-1.0-SNAPSHOT.jar
+web: java $JAVA_OPTS -jar target/dependency/rest-api-1.0-SNAPSHOT.jar
