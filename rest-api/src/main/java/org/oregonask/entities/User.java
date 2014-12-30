@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "USER", catalog = "OREGONASKDB", uniqueConstraints = {
+@Table(name = "USER", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "email") })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User implements java.io.Serializable {

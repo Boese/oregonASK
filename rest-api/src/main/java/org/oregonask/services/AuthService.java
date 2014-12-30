@@ -9,9 +9,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
+import org.hibernate.Session;
 import org.json.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.oregonask.entities.User;
+import org.oregonask.utils.HibernateUtil;
 import org.oregonask.utils.ReturnMessage;
 
 import spark.Request;
@@ -19,8 +21,7 @@ import spark.Request;
 public class AuthService {
 	private static final AuthService INSTANCE = new AuthService();
 	private static final int TIME_OUT = (8*60*60*1000);
-	private static final String KEY = "OREGONASK47KEY83_20_14";
-	private final HibernateService hibService = new HibernateService();
+	private static final String HASHED_CREATE_KEY = "$2a$12$SL4bU5/cgfR1Y1YwFbVbEuKHMF47VZDK4Fk2Ry74ETaEfXL5i7la6";
 	
 	private Map<TimerToken,UserSession> tokens = new HashMap<TimerToken,UserSession>();
 	private Timer timer = new Timer();
@@ -62,6 +63,7 @@ public class AuthService {
 	}
 	
 	public Object login(Request request) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 		String req = request.headers("Authorization");
 		req = req.replace("Base", "").trim();
@@ -71,11 +73,14 @@ public class AuthService {
 		String email = auths[0];
 		String pass = auths[1];
 		
-		hibService.startOperation();
-		User user = (User) hibService.getSession().createQuery("from User where EMAIL = :email")
+		session.beginTransaction();
+		User user = (User) session.createQuery("from User where EMAIL = :email")
 				.setParameter("email", email)
 				.uniqueResult();
-		hibService.getTx().commit();
+		session.getTransaction().commit();
+		
+		if(user == null)
+			return null;
 		
 		UUID random = UUID.randomUUID();
 		pass = BCrypt.hashpw(pass, user.getSalt());
@@ -86,18 +91,23 @@ public class AuthService {
 			tokens.put(timertoken, userSession);
 			JSONObject tokenjson = new JSONObject();
 			tokenjson.put("Token", random.toString());
+			System.out.println("New user logged in : " + email);
 			return tokenjson;
 		}
 		else
-			throw new Exception();
-		} catch(Exception e) {
 			return null;
+		} catch(Exception e) {
+			e.printStackTrace();
+			HibernateUtil.rollback(session.getTransaction());
+			return null;
+		} finally {
+			HibernateUtil.close(session);
 		}
 	}
 	
 	public ReturnMessage createAccount(Request request) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-		hibService.startOperation();
 		String req = request.headers("Authorization");
 		req = req.replace("Base", "").trim();
 		byte[] decoded = Base64.getDecoder().decode(req.getBytes());
@@ -107,8 +117,8 @@ public class AuthService {
 		String pass = auths[1];
 		String key = auths[2];
 		
-		if(!key.equalsIgnoreCase(KEY))
-			throw new Exception();
+		if(!BCrypt.checkpw(key, HASHED_CREATE_KEY))
+			return null;
 		
 		User user = new User();
 		user.setEmail(email);
@@ -116,11 +126,18 @@ public class AuthService {
 		String password = BCrypt.hashpw(pass, salt);
 		user.setPassword(password);
 		user.setSalt(salt);
-		hibService.getSession().saveOrUpdate(user);
-		hibService.getTx().commit();
+		
+		session.beginTransaction();
+		session.saveOrUpdate(user);
+		session.getTransaction().commit();
+		
 		return new ReturnMessage("success");
 		} catch(Exception e) {
+			e.printStackTrace();
+			HibernateUtil.rollback(session.getTransaction());
 			return new ReturnMessage("failed");
+		} finally {
+			HibernateUtil.close(session);
 		}
 	}
 	

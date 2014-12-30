@@ -35,12 +35,20 @@ public class HibernateUtil {
 	}
 	
 	public static void rollback(Transaction tx) {
-		if (tx != null) tx.rollback();
+		try {
+			if (tx != null) tx.rollback();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void close(Session session) {
+		try {
 		if(session != null)
 			session.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static SessionFactory getSessionFactory() {

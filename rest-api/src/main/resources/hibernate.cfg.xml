@@ -4,15 +4,15 @@
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password"></property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/OREGONASKDB</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-		
-		<property name="show_sql">false</property>
-		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
-		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
+		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
+		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_8eb80c9c578bbca?reconnect=true</property>
+		<property name="hibernate.hikari.dataSource.user">bb92c176ec1b61</property>
+		<property name="hibernate.hikari.dataSource.password">07032e18</property>
+		<property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
+		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
+		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
+		<property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
 		
 		<mapping class="org.oregonask.entities.School"></mapping>
 		<mapping class="org.oregonask.entities.Sponsor"></mapping>

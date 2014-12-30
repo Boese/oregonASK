@@ -13,8 +13,6 @@ import org.oregonask.utils.JsonTransformer;
 
 
 public class MainController {
-	private final AuthService authService = AuthService.getInstance();
-	private final RestService restService = new RestService();
 	
 	public MainController() {
 		options("/*", (request, response) -> {
@@ -22,36 +20,36 @@ public class MainController {
 		});
 		// api/login -> login
 		get("/api/login", (request, response) -> {
-			return authService.login(request);
+			return AuthService.getInstance().login(request);
 		});
 		
 		// api/login -> create account
 		put("api/login", (request, response) -> {
-			return authService.createAccount(request);
+			return AuthService.getInstance().createAccount(request);
 		},  new JsonTransformer());
 		
 		// authorized
 		// api/* -> return all *
 		// api/* /:id -> return * with id
 		get("/api/*", (request, response) -> {
-			return restService.get(request);
+			return new RestService().get(request);
 		}, new JsonTransformer());
 
 		// authorized
 		// api/* -> create or update *
 		put("/api/*", (request, response) -> {
-			return restService.put(request);
+			return new RestService().put(request);
 		}, new JsonTransformer());
 
 		// authorized
 		// api/*/:id -> delete * where id=:id
 		delete("/api/*/:id", (request, response) -> {
-			return restService.delete(request);
+			return new RestService().delete(request);
 		}, new JsonTransformer());
 		before((req,res) -> {
 			// Authorize all requests (ignore options case)
 			if(!req.requestMethod().equalsIgnoreCase("options"))
-				authService.authorize(req);
+				AuthService.getInstance().authorize(req);
 		});
 		after((req, res) -> {
 			res.type("application/json");
