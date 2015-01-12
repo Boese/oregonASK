@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
+		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
+		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_8eb80c9c578bbca?reconnect=true</property>
+		<property name="hibernate.hikari.dataSource.user">bb92c176ec1b61</property>
+		<property name="hibernate.hikari.dataSource.password">07032e18</property>
+		<property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
+		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
+		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
+		<property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
+		
+		<mapping class="org.oregonask.entities.School"></mapping>
+		<mapping class="org.oregonask.entities.Sponsor"></mapping>
+		<mapping class="org.oregonask.entities.SchoolInfo"></mapping>
+		<mapping class="org.oregonask.entities.Nutrition"></mapping>
+		<mapping class="org.oregonask.entities.NutritionInfo"></mapping>
+		<mapping class="org.oregonask.entities.Summerfood"></mapping>
+		<mapping class="org.oregonask.entities.SummerfoodInfo"></mapping>
+		<mapping class="org.oregonask.entities.Program"></mapping>
+		<mapping class="org.oregonask.entities.ProgramInfo"></mapping>
+		<mapping class="org.oregonask.entities.User"></mapping>
+	</session-factory>
+</hibernate-configuration>
