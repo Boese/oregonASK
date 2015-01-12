@@ -8,3 +8,5 @@
 2015-01-12 15:01:27,877 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
 2015-01-12 15:17:26,798 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
 2015-01-12 15:17:26,889 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-12 15:27:32,358 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-12 15:27:32,453 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
