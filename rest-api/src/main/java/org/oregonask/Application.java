@@ -30,6 +30,7 @@ public class Application {
 		
 		
 		HibernateUtil.getSessionFactory();
+		
 		new MainController();
 	}
 }

@@ -1,11 +1,13 @@
 package org.oregonask.services;
 
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.type.Type;
 import org.oregonask.entities.IEntity;
-import org.oregonask.entities.IUpdateLastEditBy;
 import org.oregonask.utils.HibernateUtil;
 import org.oregonask.utils.ReturnMessage;
 
@@ -35,6 +37,32 @@ public class RestService {
 				session.getTransaction().commit();
 				return objects;
 			case 2:
+				// get /api/Entity/new -> return entity properties
+				if(params[1].equalsIgnoreCase("new")) {
+					Class<?> clazz = HibernateUtil.getClass(params[0]);
+					ClassMetadata metadata = HibernateUtil.getSessionFactory().getClassMetadata(clazz);
+					
+					String[] propertyNames = metadata.getPropertyNames();
+					Type[] propertyTypes = metadata.getPropertyTypes();
+					
+					// get a Map of all properties
+					Map<String,Object> namedValues = new HashMap<String,Object>();
+					for ( int i=0; i<propertyNames.length; i++ ) {
+						if (propertyNames[i].contains("FK"))
+							break;
+						// Object
+						if (propertyTypes[i].isEntityType()) {
+							namedValues.put( propertyNames[i].toUpperCase().replace("_",""), new Object());
+						// Array
+					    } else if (propertyTypes[i].isCollectionType()) {
+					    	namedValues.put( propertyNames[i].toUpperCase().replace("_",""), new String[0]);
+					    // Property
+					    } else {
+					    	namedValues.put( propertyNames[i].toUpperCase().replace("_",""), "" );
+					    }
+					}
+					return namedValues;
+				}
 				// Normal get /api/Entity/id -> return single entity where id=:id
 				session.beginTransaction();
 				object = session.createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
@@ -55,12 +83,12 @@ public class RestService {
 		try {
 			String token = request.headers("Token").toString().replace('"',' ').trim();
 			String email = AuthService.getInstance().getUserEmail(token);
-			Class<?> clazz = Class.forName("org.oregonask.entities." + request.splat()[0]);
-			Object obj = mapper.readValue(request.body(), clazz);
-			((IUpdateLastEditBy) obj).setLastEditBy(email);
-			((IUpdateLastEditBy) obj).setTimeStamp((new java.sql.Timestamp(Calendar.getInstance().getTime().getTime())).toString());
+			Class<?> clazz = HibernateUtil.getClass(request.splat()[0]);
 			session.beginTransaction();
-			session.saveOrUpdate(obj);
+			Object obj = mapper.readValue(request.body(), clazz);
+			//((IUpdateLastEditBy) obj).setLastEditBy(email);
+			//((IUpdateLastEditBy) obj).setTimeStamp((new java.sql.Timestamp(Calendar.getInstance().getTime().getTime())).toString());
+			session.merge(obj);
 			session.getTransaction().commit();
 			return new ReturnMessage("success");
 		} catch (Exception e) {

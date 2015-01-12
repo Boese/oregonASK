@@ -1,18 +1,22 @@
 package org.oregonask.utils;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 	
 	private static SessionFactory sessionFactory;
-	
 	private static Logger logger = Logger.getLogger(HibernateUtil.class);
+	
+	private static Map<String, ClassMetadata> clazzez = (Map<String, ClassMetadata>) HibernateUtil.getSessionFactory().getAllClassMetadata();
 	
 	private static SessionFactory buildSessionFactory() {
 		try {
@@ -54,5 +58,19 @@ public class HibernateUtil {
 	public static SessionFactory getSessionFactory() {
 		if (sessionFactory == null) sessionFactory = buildSessionFactory();
 		return sessionFactory;
+	}
+	
+	public static Class<?> getClass(String classname) {
+		classname = "org.oregonask.entities." + classname;
+		Class<?> clazz = null;
+		for (String className : clazzez.keySet()) {
+			if(className.equalsIgnoreCase(classname)) {
+				try {
+					clazz = Class.forName(className);
+					break;
+				} catch (ClassNotFoundException e) {}
+			}
+		}
+		return clazz;
 	}
 }
