@@ -10,9 +10,9 @@
 		<!-- Heroku config -->
 		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
 		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
-		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_26dbf525535ddb5?reconnect=true</property>
-		<property name="hibernate.hikari.dataSource.user">ba887eb478952a</property>
-		<property name="hibernate.hikari.dataSource.password">7b96a826</property>
+		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_1ed0cb91fff7262?reconnect=true</property>
+		<property name="hibernate.hikari.dataSource.user">b7c6e147118189</property>
+		<property name="hibernate.hikari.dataSource.password">f5c6192bcb1bd31</property>
 		<property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
