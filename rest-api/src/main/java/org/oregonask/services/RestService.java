@@ -1,5 +1,6 @@
 package org.oregonask.services;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.type.Type;
 import org.oregonask.entities.IEntity;
+import org.oregonask.entities.IUpdateLastEditBy;
 import org.oregonask.utils.HibernateUtil;
 import org.oregonask.utils.ReturnMessage;
 
@@ -86,8 +88,8 @@ public class RestService {
 			Class<?> clazz = HibernateUtil.getClass(request.splat()[0]);
 			session.beginTransaction();
 			Object obj = mapper.readValue(request.body(), clazz);
-			//((IUpdateLastEditBy) obj).setLastEditBy(email);
-			//((IUpdateLastEditBy) obj).setTimeStamp((new java.sql.Timestamp(Calendar.getInstance().getTime().getTime())).toString());
+			((IUpdateLastEditBy) obj).setLastEditBy(email);
+			((IUpdateLastEditBy) obj).setTimeStamp((new java.sql.Timestamp(Calendar.getInstance().getTime().getTime())).toString());
 			session.merge(obj);
 			session.getTransaction().commit();
 			return new ReturnMessage("success");
