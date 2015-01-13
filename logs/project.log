@@ -10,3 +10,12 @@
 2015-01-12 15:17:26,889 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
 2015-01-12 15:27:32,358 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
 2015-01-12 15:27:32,453 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-12 16:01:19,408 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-12 16:01:19,492 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-12 16:01:20,391 -0800 [main] ERROR (HibernateUtil.java:35) - Initial SessionFactory creation failed.org.hibernate.HibernateException: java.lang.RuntimeException: Fail-fast during pool initialization
+2015-01-12 16:01:39,683 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-12 16:01:39,772 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-12 16:03:47,870 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-12 16:03:47,952 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 12:05:26,901 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 12:05:26,991 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.

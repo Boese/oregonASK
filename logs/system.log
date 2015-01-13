@@ -78,3 +78,53 @@
 2015-01-12 15:27:34,498 -0800 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
 2015-01-12 15:27:34,730 -0800 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
 2015-01-12 15:27:34,737 -0800 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
+2015-01-12 16:01:19,282 -0800 [main] INFO  (JavaReflectionManager.java:66) - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2015-01-12 16:01:19,298 -0800 [main] INFO  (Version.java:54) - HHH000412: Hibernate Core {4.3.5.Final}
+2015-01-12 16:01:19,303 -0800 [main] INFO  (Environment.java:239) - HHH000206: hibernate.properties not found
+2015-01-12 16:01:19,305 -0800 [main] INFO  (Environment.java:346) - HHH000021: Bytecode provider name : javassist
+2015-01-12 16:01:19,341 -0800 [main] INFO  (Configuration.java:2073) - HHH000043: Configuring from resource: hibernate.cfg.xml
+2015-01-12 16:01:19,341 -0800 [main] INFO  (Configuration.java:2092) - HHH000040: Configuration resource: hibernate.cfg.xml
+2015-01-12 16:01:19,408 -0800 [main] INFO  (Configuration.java:2214) - HHH000041: Configured SessionFactory: null
+2015-01-12 16:01:19,499 -0800 [main] INFO  (ConnectionProviderInitiator.java:190) - HHH000130: Instantiating explicit connection provider: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+2015-01-12 16:01:39,559 -0800 [main] INFO  (JavaReflectionManager.java:66) - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2015-01-12 16:01:39,573 -0800 [main] INFO  (Version.java:54) - HHH000412: Hibernate Core {4.3.5.Final}
+2015-01-12 16:01:39,577 -0800 [main] INFO  (Environment.java:239) - HHH000206: hibernate.properties not found
+2015-01-12 16:01:39,579 -0800 [main] INFO  (Environment.java:346) - HHH000021: Bytecode provider name : javassist
+2015-01-12 16:01:39,612 -0800 [main] INFO  (Configuration.java:2073) - HHH000043: Configuring from resource: hibernate.cfg.xml
+2015-01-12 16:01:39,612 -0800 [main] INFO  (Configuration.java:2092) - HHH000040: Configuration resource: hibernate.cfg.xml
+2015-01-12 16:01:39,683 -0800 [main] INFO  (Configuration.java:2214) - HHH000041: Configured SessionFactory: null
+2015-01-12 16:01:39,780 -0800 [main] INFO  (ConnectionProviderInitiator.java:190) - HHH000130: Instantiating explicit connection provider: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+2015-01-12 16:01:41,659 -0800 [main] INFO  (Dialect.java:145) - HHH000400: Using dialect: org.hibernate.dialect.MySQLInnoDBDialect
+2015-01-12 16:01:41,667 -0800 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2015-01-12 16:01:41,886 -0800 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-01-12 16:01:41,891 -0800 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
+2015-01-12 16:03:47,748 -0800 [main] INFO  (JavaReflectionManager.java:66) - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2015-01-12 16:03:47,760 -0800 [main] INFO  (Version.java:54) - HHH000412: Hibernate Core {4.3.5.Final}
+2015-01-12 16:03:47,765 -0800 [main] INFO  (Environment.java:239) - HHH000206: hibernate.properties not found
+2015-01-12 16:03:47,767 -0800 [main] INFO  (Environment.java:346) - HHH000021: Bytecode provider name : javassist
+2015-01-12 16:03:47,798 -0800 [main] INFO  (Configuration.java:2073) - HHH000043: Configuring from resource: hibernate.cfg.xml
+2015-01-12 16:03:47,799 -0800 [main] INFO  (Configuration.java:2092) - HHH000040: Configuration resource: hibernate.cfg.xml
+2015-01-12 16:03:47,870 -0800 [main] INFO  (Configuration.java:2214) - HHH000041: Configured SessionFactory: null
+2015-01-12 16:03:47,959 -0800 [main] INFO  (ConnectionProviderInitiator.java:190) - HHH000130: Instantiating explicit connection provider: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+2015-01-12 16:03:50,544 -0800 [main] INFO  (Dialect.java:145) - HHH000400: Using dialect: org.hibernate.dialect.MySQLInnoDBDialect
+2015-01-12 16:03:50,554 -0800 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2015-01-12 16:03:50,772 -0800 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-01-12 16:03:50,778 -0800 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
+2015-01-12 16:04:05,608 -0800 [qtp2104135693-34] WARN  (SqlExceptionHelper.java:144) - SQL Error: 1142, SQLState: 42000
+2015-01-12 16:04:05,609 -0800 [qtp2104135693-34] ERROR (SqlExceptionHelper.java:146) - SELECT command denied to user 'b4441f981ca4ab'@'67.139.72.178' for table 'contact'
+2015-01-12 16:05:06,999 -0800 [qtp2104135693-34] WARN  (SqlExceptionHelper.java:144) - SQL Error: 1142, SQLState: 42000
+2015-01-12 16:05:07,003 -0800 [qtp2104135693-34] ERROR (SqlExceptionHelper.java:146) - SELECT command denied to user 'b4441f981ca4ab'@'67.139.72.178' for table 'contact'
+2015-01-12 16:05:19,794 -0800 [qtp2104135693-38] WARN  (SqlExceptionHelper.java:144) - SQL Error: 1142, SQLState: 42000
+2015-01-12 16:05:19,795 -0800 [qtp2104135693-38] ERROR (SqlExceptionHelper.java:146) - SELECT command denied to user 'b4441f981ca4ab'@'67.139.72.178' for table 'category'
+2015-01-13 12:05:26,776 -0800 [main] INFO  (JavaReflectionManager.java:66) - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2015-01-13 12:05:26,793 -0800 [main] INFO  (Version.java:54) - HHH000412: Hibernate Core {4.3.5.Final}
+2015-01-13 12:05:26,800 -0800 [main] INFO  (Environment.java:239) - HHH000206: hibernate.properties not found
+2015-01-13 12:05:26,802 -0800 [main] INFO  (Environment.java:346) - HHH000021: Bytecode provider name : javassist
+2015-01-13 12:05:26,834 -0800 [main] INFO  (Configuration.java:2073) - HHH000043: Configuring from resource: hibernate.cfg.xml
+2015-01-13 12:05:26,834 -0800 [main] INFO  (Configuration.java:2092) - HHH000040: Configuration resource: hibernate.cfg.xml
+2015-01-13 12:05:26,901 -0800 [main] INFO  (Configuration.java:2214) - HHH000041: Configured SessionFactory: null
+2015-01-13 12:05:26,998 -0800 [main] INFO  (ConnectionProviderInitiator.java:190) - HHH000130: Instantiating explicit connection provider: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+2015-01-13 12:05:28,998 -0800 [main] INFO  (Dialect.java:145) - HHH000400: Using dialect: org.hibernate.dialect.MySQLInnoDBDialect
+2015-01-13 12:05:29,007 -0800 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2015-01-13 12:05:29,237 -0800 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-01-13 12:05:29,244 -0800 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
