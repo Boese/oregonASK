@@ -88,8 +88,10 @@ public class RestService {
 			Class<?> clazz = HibernateUtil.getClass(request.splat()[0]);
 			session.beginTransaction();
 			Object obj = mapper.readValue(request.body(), clazz);
+			try {
 			((IUpdateLastEditBy) obj).setLastEditBy(email);
 			((IUpdateLastEditBy) obj).setTimeStamp((new java.sql.Timestamp(Calendar.getInstance().getTime().getTime())).toString());
+			} catch(Exception e) {}
 			session.merge(obj);
 			session.getTransaction().commit();
 			return new ReturnMessage("success");
