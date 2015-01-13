@@ -4,15 +4,13 @@
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>
-		<property name="show_sql">false</property>
 	
 		<!-- Heroku config -->
 		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
 		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
-		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_441aab29f3e4f18?reconnect=true</property>
-		<property name="hibernate.hikari.dataSource.user">b4441f981ca4ab</property>
-		<property name="hibernate.hikari.dataSource.password">11c711d6</property>
+		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_81301b928a7b951?reconnect=true</property>
+		<property name="hibernate.hikari.dataSource.user">bb463ffa3c6c83</property>
+		<property name="hibernate.hikari.dataSource.password">ae14b11f</property>
 		<property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
