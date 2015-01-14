@@ -39,3 +39,22 @@
 2015-01-13 15:29:55,621 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
 2015-01-13 15:32:06,787 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
 2015-01-13 15:32:06,873 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:05:33,971 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:05:34,063 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:05:36,078 -0800 [main] ERROR (HibernateUtil.java:35) - Initial SessionFactory creation failed.org.hibernate.HibernateException: java.lang.RuntimeException: Fail-fast during pool initialization
+2015-01-13 16:06:15,515 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:06:15,602 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:10:01,547 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:10:01,630 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:10:45,968 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:10:46,055 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:11:34,508 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:11:34,561 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:14:30,468 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:14:30,559 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:16:17,196 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:16:17,249 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-13 16:30:10,246 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-13 16:30:10,331 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.
+2015-01-14 09:01:24,219 -0800 [main] INFO  (HibernateUtil.java:26) - Hibernate Configuration loaded.
+2015-01-14 09:01:24,309 -0800 [main] INFO  (HibernateUtil.java:29) - Hibernate serviceRegistry created.

@@ -136,7 +136,7 @@ public class Contact implements java.io.Serializable,IEntity {
 		this.notes = notes;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "CATEGORY_JOIN", joinColumns = { 
 			@JoinColumn(name = "CONTACT_FK", nullable = false, updatable = false) }, 
 			inverseJoinColumns = { @JoinColumn(name = "CATEGORY_FK", 

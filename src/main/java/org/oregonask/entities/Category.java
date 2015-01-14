@@ -4,12 +4,18 @@ package org.oregonask.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,6 +34,7 @@ public class Category implements java.io.Serializable,IEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
+	private Set<Contact> contacts;
 	private String name;
 
 	public Category() {
@@ -44,6 +51,15 @@ public class Category implements java.io.Serializable,IEntity {
 		this.id = id;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categorys")
+	public Set<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(Set<Contact> contacts) {
+		this.contacts = contacts;
+	}
+
 	@Column(name = "NAME", unique = true, nullable = false, length = 100)
 	@JsonProperty("NAME")
 	public String getName() {
@@ -56,6 +72,7 @@ public class Category implements java.io.Serializable,IEntity {
 
 	@Override
 	public void initialize() {
+		Hibernate.initialize(this.getContacts());
 	}
 
 }
