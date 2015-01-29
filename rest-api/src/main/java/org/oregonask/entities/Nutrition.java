@@ -216,5 +216,4 @@ public class Nutrition implements java.io.Serializable, IEntity, IUpdateLastEdit
 		Hibernate.initialize(this.getSponsor());
 		Hibernate.initialize(this.getNutritioninfos());
 	}
-
 }

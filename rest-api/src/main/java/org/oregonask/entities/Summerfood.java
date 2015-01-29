@@ -8,11 +8,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -45,8 +43,8 @@ public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditB
 	private String county;
 	private String timeStamp;
 	private String lastEditBy;
-	private School school;
-	private Sponsor sponsor;
+	private Integer schoolId;
+	private Integer sponsorId;
 	private Set<SummerfoodInfo> SummerFoodInfo;
 
 	public Summerfood() {
@@ -153,26 +151,46 @@ public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditB
 		this.lastEditBy = lastEditBy;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SCHOOL_ID")
-	@JsonProperty("School")
-	public School getSchool() {
-		return school;
-	}
-
-	public void setSchool(School school) {
-		this.school = school;
-	}
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name = "SCHOOL_ID")
+//	@JsonProperty("School")
+//	public School getSchool() {
+//		return school;
+//	}
+//
+//	public void setSchool(School school) {
+//		this.school = school;
+//	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SPONSOR_ID")
-	@JsonProperty("Sponsor")
-	public Sponsor getSponsor() {
-		return sponsor;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name = "SPONSOR_ID")
+//	@JsonProperty("Sponsor")
+//	public Sponsor getSponsor() {
+//		return sponsor;
+//	}
+//
+//	public void setSponsor(Sponsor sponsor) {
+//		this.sponsor = sponsor;
+//	}
+
+	@Column(name = "SCHOOL_ID")
+	@JsonProperty("SCHOOL_ID")
+	public Integer getSchoolId() {
+		return schoolId;
 	}
 
-	public void setSponsor(Sponsor sponsor) {
-		this.sponsor = sponsor;
+	public void setSchoolId(Integer schoolId) {
+		this.schoolId = schoolId;
+	}
+
+	@Column(name = "SPONSOR_ID")
+	@JsonProperty("SPONSOR_ID")
+	public Integer getSponsorId() {
+		return sponsorId;
+	}
+
+	public void setSponsorId(Integer sponsorId) {
+		this.sponsorId = sponsorId;
 	}
 
 	@OneToMany(cascade = {CascadeType.ALL})
@@ -182,14 +200,12 @@ public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditB
 		return SummerFoodInfo;
 	}
 
-	public void setSummerfoodinfos(Set<SummerfoodInfo> summerfoodinfos) {
-		this.SummerFoodInfo = summerfoodinfos;
+	public void setSummerfoodinfos(Set<SummerfoodInfo> SummerFoodInfo) {
+		this.SummerFoodInfo = SummerFoodInfo;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSchool());
-		Hibernate.initialize(this.getSponsor());
 		Hibernate.initialize(this.getSummerfoodinfos());
 	}
 }

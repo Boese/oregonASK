@@ -1,5 +1,6 @@
 package org.oregonask.services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.type.Type;
+import org.oregonask.entities.DataTableInfo;
 import org.oregonask.entities.IEntity;
 import org.oregonask.entities.IUpdateLastEditBy;
 import org.oregonask.utils.HibernateUtil;
@@ -31,17 +33,28 @@ public class RestService {
 			String[] params = wildcard[0].split("/");
 			List<?> objects;
 			Object object;
+			Class<?> clazz = HibernateUtil.getClass(params[0]);
 			switch(params.length) {
 			// Normal get /api/Entity -> return all entities
-			case 1: 
-				session.beginTransaction();
-				objects = session.createQuery("from " + params[0]).list();
-				session.getTransaction().commit();
-				return objects;
+			case 1:
+				if(params[0].equalsIgnoreCase("initialize")) {
+					List<DataTableInfo> dataBaseTableInfos = new ArrayList<DataTableInfo>();
+					dataBaseTableInfos.add(new DataTableInfo().setModel("School").setFirst("NAME").setSecond("CITY").setThird("COUNTY"));
+					dataBaseTableInfos.add(new DataTableInfo().setModel("Sponsor").setFirst("NAME").setSecond("AGR_NUMBER").setThird("SPONSOR_TYPE"));
+					dataBaseTableInfos.add(new DataTableInfo().setModel("Summerfood").setFirst("SITE_NAME").setSecond("SITE_NUMBER").setThird("CITY"));
+					dataBaseTableInfos.add(new DataTableInfo().setModel("Nutrition").setFirst("SITE_NAME").setSecond("SITE_NUMBER").setThird("CITY"));
+					dataBaseTableInfos.add(new DataTableInfo().setModel("Program").setFirst("NAME").setSecond("LICENSE_NUMBER").setThird("CITY"));
+					return dataBaseTableInfos;
+				}
+				else {
+					session.beginTransaction();
+					objects = session.createQuery("from " + clazz.getSimpleName()).list();
+					session.getTransaction().commit();
+					return objects;
+				}
 			case 2:
 				// get /api/Entity/new -> return entity properties
 				if(params[1].equalsIgnoreCase("new")) {
-					Class<?> clazz = HibernateUtil.getClass(params[0]);
 					ClassMetadata metadata = HibernateUtil.getSessionFactory().getClassMetadata(clazz);
 					
 					String[] propertyNames = metadata.getPropertyNames();
@@ -63,11 +76,15 @@ public class RestService {
 					    	namedValues.put( propertyNames[i].toUpperCase().replace("_",""), "" );
 					    }
 					}
+					namedValues.remove("TIMESTAMP");
+					namedValues.remove("LASTEDITBY");
 					return namedValues;
 				}
 				// Normal get /api/Entity/id -> return single entity where id=:id
 				session.beginTransaction();
-				object = session.createQuery("from " + params[0] + " where id=" + params[1]).uniqueResult();
+				System.out.println(clazz.getSimpleName());
+				System.out.println(params[1]);
+				object = session.createQuery("from " + clazz.getSimpleName() + " where id=" + params[1]).uniqueResult();
 				((IEntity) object).initialize();
 				session.getTransaction().commit();
 				return object;
@@ -106,8 +123,9 @@ public class RestService {
 	
 	public Object delete(Request request) {
 		try {
+			Class<?> clazz = HibernateUtil.getClass(request.splat()[0]);
 			session.beginTransaction();
-			Object obj = session.createQuery("from " + request.splat()[0] + " where id=" + request.params(":id")).uniqueResult();
+			Object obj = session.createQuery("from " + clazz.getSimpleName() + " where id=" + request.params(":id")).uniqueResult();
 			session.delete(obj);
 			session.getTransaction().commit();
 			return new ReturnMessage("success");

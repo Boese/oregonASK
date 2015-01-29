@@ -56,8 +56,7 @@ public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 	private Set<Nutrition> Nutrition;
 	private Set<Program> Program;
 
-	public School() {
-	}
+	public School() {}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -210,7 +209,7 @@ public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 		this.lastEditBy = lastEditBy;
 	}
 
-	@OneToMany(cascade = {CascadeType.ALL})
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name="school_id")
 	@JsonProperty("SCHOOL_INFO")
 	public Set<SchoolInfo> getSchoolInfo() {
@@ -221,8 +220,8 @@ public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 		SchoolInfo = schoolInfo;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
-	@JsonProperty("SUMMERFOOD")
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="school_id")
 	public Set<Summerfood> getSummerfoods() {
 		return SummerFood;
 	}

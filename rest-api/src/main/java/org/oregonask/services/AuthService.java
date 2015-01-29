@@ -122,7 +122,7 @@ public class AuthService {
 		
 		User user = new User();
 		user.setEmail(email);
-		String salt = BCrypt.gensalt(12);
+		String salt = BCrypt.gensalt(10);
 		String password = BCrypt.hashpw(pass, salt);
 		user.setPassword(password);
 		user.setSalt(salt);

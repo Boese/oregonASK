@@ -248,5 +248,4 @@ public class Program implements java.io.Serializable,IEntity,IUpdateLastEditBy {
 		Hibernate.initialize(this.getSponsor());
 		Hibernate.initialize(this.getPrograminfos());
 	}
-
 }
