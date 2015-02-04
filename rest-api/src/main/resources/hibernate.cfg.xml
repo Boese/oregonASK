@@ -5,7 +5,7 @@
 <hibernate-configuration>
 	<session-factory>
 	
-		<!-- Heroku config 
+		<!-- Heroku config -->
 		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
 		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
 		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_81301b928a7b951?reconnect=true</property>
@@ -15,8 +15,8 @@
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
 		<property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
-		-->
-		<!-- Localhost config -->
+		
+		<!-- Localhost config 
 		
 		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
 		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
@@ -27,7 +27,7 @@
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
 		<property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
-		
+		-->
 		
 		<mapping class="org.oregonask.entities.School"></mapping>
 		<mapping class="org.oregonask.entities.Sponsor"></mapping>
@@ -40,11 +40,7 @@
 		<mapping class="org.oregonask.entities.ProgramInfo"></mapping>
 		<mapping class="org.oregonask.entities.User"></mapping>
 		
-		<mapping class="org.oregonask.entities.Category"></mapping>
-		<mapping class="org.oregonask.entities.Contact"></mapping>
-		<mapping class="org.oregonask.entities.Association"></mapping>
-		<mapping class="org.oregonask.entities.EmailAlternate"></mapping>
-		<mapping class="org.oregonask.entities.PhoneAlternate"></mapping>
-		<mapping class="org.oregonask.entities.Training"></mapping>
+		
+		
 	</session-factory>
 </hibernate-configuration>

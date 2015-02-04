@@ -33,6 +33,7 @@ public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditB
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String siteName;
 	private String siteNumber;
@@ -150,28 +151,6 @@ public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditB
 	public void setLastEditBy(String lastEditBy) {
 		this.lastEditBy = lastEditBy;
 	}
-	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name = "SCHOOL_ID")
-//	@JsonProperty("School")
-//	public School getSchool() {
-//		return school;
-//	}
-//
-//	public void setSchool(School school) {
-//		this.school = school;
-//	}
-	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name = "SPONSOR_ID")
-//	@JsonProperty("Sponsor")
-//	public Sponsor getSponsor() {
-//		return sponsor;
-//	}
-//
-//	public void setSponsor(Sponsor sponsor) {
-//		this.sponsor = sponsor;
-//	}
 
 	@Column(name = "SCHOOL_ID")
 	@JsonProperty("SCHOOL_ID")
@@ -196,16 +175,16 @@ public class Summerfood implements java.io.Serializable,IEntity,IUpdateLastEditB
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="summerfood_id")
 	@JsonProperty("SUMMERFOOD_INFO")
-	public Set<SummerfoodInfo> getSummerfoodinfos() {
+	public Set<SummerfoodInfo> getSummerfoodinfo() {
 		return SummerFoodInfo;
 	}
 
-	public void setSummerfoodinfos(Set<SummerfoodInfo> SummerFoodInfo) {
+	public void setSummerfoodinfo(Set<SummerfoodInfo> SummerFoodInfo) {
 		this.SummerFoodInfo = SummerFoodInfo;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSummerfoodinfos());
+		Hibernate.initialize(this.getSummerfoodinfo());
 	}
 }

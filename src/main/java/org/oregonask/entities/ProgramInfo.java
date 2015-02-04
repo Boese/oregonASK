@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -52,7 +50,7 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	private Boolean foodProvidedAfterSchool;
 	private Boolean foodProvidedDuringBreaks;
 	private Boolean stemOffered;
-	private Program program;
+	private Integer programId;
 
 	public ProgramInfo() {
 	}
@@ -268,20 +266,19 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 		this.stemOffered = stemOffered;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="program_id", insertable=false, updatable=false)
-	@JsonProperty("PROGRAM")
-	public Program getProgram() {
-		return program;
+	@Column(name = "PROGRAM_ID")
+	@JsonProperty("PROGRAM_ID")
+	public Integer getProgramId() {
+		return programId;
 	}
 
-	public void setProgram(Program program) {
-		this.program = program;
+	public void setProgramId(Integer programId) {
+		this.programId = programId;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getProgram());
+		Hibernate.initialize(this.getProgramId());
 	}
 
 }

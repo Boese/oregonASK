@@ -56,8 +56,7 @@ public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 	private Set<Nutrition> Nutrition;
 	private Set<Program> Program;
 
-	public School() {
-	}
+	public School() {}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -210,7 +209,7 @@ public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 		this.lastEditBy = lastEditBy;
 	}
 
-	@OneToMany(cascade = {CascadeType.ALL})
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name="school_id")
 	@JsonProperty("SCHOOL_INFO")
 	public Set<SchoolInfo> getSchoolInfo() {
@@ -221,41 +220,44 @@ public class School implements java.io.Serializable, IEntity,IUpdateLastEditBy {
 		SchoolInfo = schoolInfo;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="school_id")
 	@JsonProperty("SUMMERFOOD")
-	public Set<Summerfood> getSummerfoods() {
+	public Set<Summerfood> getSummerfood() {
 		return SummerFood;
 	}
 
-	public void setSummerfoods(Set<Summerfood> summerfoods) {
-		this.SummerFood = summerfoods;
+	public void setSummerfood(Set<Summerfood> summerfood) {
+		this.SummerFood = summerfood;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="school_id")
 	@JsonProperty("NUTRITION")
-	public Set<Nutrition> getNutritions() {
+	public Set<Nutrition> getNutrition() {
 		return Nutrition;
 	}
 
-	public void setNutritions(Set<Nutrition> nutritions) {
-		this.Nutrition = nutritions;
+	public void setNutrition(Set<Nutrition> nutrition) {
+		this.Nutrition = nutrition;
 	}
 
-	@OneToMany(mappedBy="school", fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="school_id")
 	@JsonProperty("PROGRAM")
-	public Set<Program> getPrograms() {
+	public Set<Program> getProgram() {
 		return Program;
 	}
 
-	public void setPrograms(Set<Program> programs) {
-		this.Program = programs;
+	public void setProgram(Set<Program> program) {
+		this.Program = program;
 	}
 
 	@Override
 	public void initialize() {
 		Hibernate.initialize(this.getSchoolInfo());
-		Hibernate.initialize(this.getSummerfoods());
-		Hibernate.initialize(this.getNutritions());
-		Hibernate.initialize(this.getPrograms());
+		Hibernate.initialize(this.getSummerfood());
+		Hibernate.initialize(this.getNutrition());
+		Hibernate.initialize(this.getProgram());
 	}
 }

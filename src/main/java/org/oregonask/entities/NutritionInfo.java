@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -51,7 +49,7 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 	private Boolean oprOct;
 	private Boolean oprNov;
 	private Boolean oprDec;
-	private Nutrition nutrition;
+	private Integer NutritionId;
 
 	public NutritionInfo() {
 	}
@@ -257,20 +255,19 @@ public class NutritionInfo implements java.io.Serializable, IEntity {
 		this.oprDec = oprDec;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="nutrition_id", insertable=false, updatable=false)
-	@JsonProperty("NUTRITION")
-	public Nutrition getNutrition() {
-		return nutrition;
+	@Column(name = "NUTRITION_ID")
+	@JsonProperty("NUTRITION_ID")
+	public Integer getNutritionId() {
+		return NutritionId;
 	}
 
-	public void setNutrition(Nutrition nutrition) {
-		this.nutrition = nutrition;
+	public void setNutritionId(Integer nutritionId) {
+		NutritionId = nutritionId;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getNutrition());
+		Hibernate.initialize(this.getNutritionId());
 	}
 
 }

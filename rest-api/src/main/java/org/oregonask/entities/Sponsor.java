@@ -110,43 +110,43 @@ public class Sponsor implements java.io.Serializable, IEntity,IUpdateLastEditBy 
 		this.lastEditBy = lastEditBy;
 	}
 
-	
-	//@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
-	//@JsonProperty("SUMMERFOOD")
 	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name="sponsor_id")
-	public Set<Summerfood> getSummerfoods() {
+	@JsonProperty("SUMMERFOOD")
+	public Set<Summerfood> getSummerfood() {
 		return SummerFood;
 	}
 
-	public void setSummerfoods(Set<Summerfood> summerfoods) {
-		this.SummerFood = summerfoods;
+	public void setSummerfood(Set<Summerfood> summerfood) {
+		this.SummerFood = summerfood;
 	}
 
-	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="sponsor_id")
 	@JsonProperty("NUTRITION")
-	public Set<Nutrition> getNutritions() {
+	public Set<Nutrition> getNutrition() {
 		return Nutrition;
 	}
 
-	public void setNutritions(Set<Nutrition> nutritions) {
-		this.Nutrition = nutritions;
+	public void setNutrition(Set<Nutrition> nutrition) {
+		this.Nutrition = nutrition;
 	}
 
-	@OneToMany(mappedBy="sponsor", fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name="sponsor_id")
 	@JsonProperty("PROGRAM")
-	public Set<Program> getPrograms() {
+	public Set<Program> getProgram() {
 		return Program;
 	}
 
-	public void setPrograms(Set<Program> programs) {
-		this.Program = programs;
+	public void setProgram(Set<Program> program) {
+		this.Program = program;
 	}
 	
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSummerfoods());
-		Hibernate.initialize(this.getNutritions());
-		Hibernate.initialize(this.getPrograms());
+		Hibernate.initialize(this.getSummerfood());
+		Hibernate.initialize(this.getNutrition());
+		Hibernate.initialize(this.getProgram());
 	}
 }

@@ -7,12 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -44,7 +40,7 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	private String percentFr;
 	private String loGradeOffered;
 	private String hiGradeOffered;
-	private School School;
+	private Integer SchoolID;
 
 	public SchoolInfo() {
 	}
@@ -159,20 +155,18 @@ public class SchoolInfo implements java.io.Serializable, IEntity {
 	public void setHiGradeOffered(String hiGradeOffered) {
 		this.hiGradeOffered = hiGradeOffered;
 	}
-	
-	@ManyToOne
-	@JoinColumn(name="school_id", insertable=false, updatable=false)
-	@JsonProperty("SCHOOL")
-	public School getSchool() {
-		return School;
+
+	@Column(name = "SCHOOL_ID")
+	@JsonProperty("SCHOOL_ID")
+	public Integer getSchoolID() {
+		return SchoolID;
 	}
 
-	public void setSchool(School school) {
-		this.School = school;
+	public void setSchoolID(Integer schoolID) {
+		SchoolID = schoolID;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSchool());
 	}
 }

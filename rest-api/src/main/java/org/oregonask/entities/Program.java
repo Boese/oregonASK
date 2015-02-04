@@ -8,11 +8,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -51,8 +49,8 @@ public class Program implements java.io.Serializable,IEntity,IUpdateLastEditBy {
 	private String schoolServed;
 	private String timeStamp;
 	private String lastEditBy;
-	private School school;
-	private Sponsor sponsor;
+	private Integer schoolId;
+	private Integer sponsorId;
 	private Set<ProgramInfo> ProgramInfo;
 
 	public Program() {
@@ -208,44 +206,40 @@ public class Program implements java.io.Serializable,IEntity,IUpdateLastEditBy {
 	public void setLastEditBy(String lastEditBy) {
 		this.lastEditBy = lastEditBy;
 	}
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SCHOOL_ID")
-	@JsonProperty("School")
-	public School getSchool() {
-		return school;
+
+	@Column(name = "SCHOOL_ID")
+	@JsonProperty("SCHOOL_ID")
+	public Integer getSchoolId() {
+		return schoolId;
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
-	}
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SPONSOR_ID")
-	@JsonProperty("Sponsor")
-	public Sponsor getSponsor() {
-		return sponsor;
+	public void setSchoolId(Integer schoolId) {
+		this.schoolId = schoolId;
 	}
 
-	public void setSponsor(Sponsor sponsor) {
-		this.sponsor = sponsor;
+	@Column(name = "SPONSOR_ID")
+	@JsonProperty("SPONSOR_ID")
+	public Integer getSponsorId() {
+		return sponsorId;
+	}
+
+	public void setSponsorId(Integer sponsorId) {
+		this.sponsorId = sponsorId;
 	}
 
 	@OneToMany(cascade = {CascadeType.ALL})
 	@JoinColumn(name="PROGRAM_ID")
 	@JsonProperty("PROGRAM_INFO")
-	public Set<ProgramInfo> getPrograminfos() {
+	public Set<ProgramInfo> getPrograminfo() {
 		return ProgramInfo;
 	}
 
-	public void setPrograminfos(Set<ProgramInfo> programinfos) {
-		this.ProgramInfo = programinfos;
+	public void setPrograminfo(Set<ProgramInfo> programinfo) {
+		this.ProgramInfo = programinfo;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSchool());
-		Hibernate.initialize(this.getSponsor());
-		Hibernate.initialize(this.getPrograminfos());
+		Hibernate.initialize(this.getPrograminfo());
 	}
 }

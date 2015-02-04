@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -38,7 +36,7 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 	private String supper;
 	private String amSnack;
 	private String pmSnack;
-	private Summerfood summerfood;
+	private Integer summerfoodId;
 
 	public SummerfoodInfo() {
 	}
@@ -114,20 +112,19 @@ public class SummerfoodInfo implements java.io.Serializable, IEntity {
 		this.pmSnack = pmSnack;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="summerfood_id", insertable = false, updatable = false)
-	@JsonProperty("SUMMERFOOD")
-	public Summerfood getSummerfood() {
-		return summerfood;
+	@Column(name = "SUMMERFOOD_ID")
+	@JsonProperty("SUMMERFOOD_ID")
+	public Integer getSummerfoodId() {
+		return summerfoodId;
 	}
 
-	public void setSummerfood(Summerfood summerfood) {
-		this.summerfood = summerfood;
+	public void setSummerfoodId(Integer summerfoodId) {
+		this.summerfoodId = summerfoodId;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSummerfood());
+		Hibernate.initialize(this.getSummerfoodId());
 	}
 
 }

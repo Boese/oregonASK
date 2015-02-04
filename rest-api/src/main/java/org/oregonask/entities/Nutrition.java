@@ -8,11 +8,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -49,8 +47,8 @@ public class Nutrition implements java.io.Serializable, IEntity, IUpdateLastEdit
 	private String county;
 	private String timeStamp;
 	private String lastEditBy;
-	private School school;
-	private Sponsor sponsor;
+	private Integer schoolId;
+	private Integer sponsorId;
 	private Set<NutritionInfo> NutritionInfo;
 
 	public Nutrition() {
@@ -177,43 +175,39 @@ public class Nutrition implements java.io.Serializable, IEntity, IUpdateLastEdit
 		this.lastEditBy = lastEditBy;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SCHOOL_ID")
-	@JsonProperty("School")
-	public School getSchool() {
-		return school;
+	@Column(name = "SCHOOL_ID")
+	@JsonProperty("SCHOOL_ID")
+	public Integer getSchoolId() {
+		return schoolId;
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
+	public void setSchoolId(Integer schoolId) {
+		this.schoolId = schoolId;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "SPONSOR_ID")
-	@JsonProperty("Sponsor")
-	public Sponsor getSponsor() {
-		return sponsor;
+	@Column(name = "SPONSOR_ID")
+	@JsonProperty("SPONSOR_ID")
+	public Integer getSponsorId() {
+		return sponsorId;
 	}
 
-	public void setSponsor(Sponsor sponsor) {
-		this.sponsor = sponsor;
+	public void setSponsorId(Integer sponsorId) {
+		this.sponsorId = sponsorId;
 	}
 
 	@OneToMany(cascade = {CascadeType.ALL})
-	@JoinColumn(name="nutrition_id")
+	@JoinColumn(name="NUTRITION_ID")
 	@JsonProperty("NUTRITION_INFO")
-	public Set<NutritionInfo> getNutritioninfos() {
+	public Set<NutritionInfo> getNutritioninfo() {
 		return NutritionInfo;
 	}
 
-	public void setNutritioninfos(Set<NutritionInfo> nutritioninfos) {
-		this.NutritionInfo = nutritioninfos;
+	public void setNutritioninfo(Set<NutritionInfo> nutritioninfo) {
+		this.NutritionInfo = nutritioninfo;
 	}
 
 	@Override
 	public void initialize() {
-		Hibernate.initialize(this.getSchool());
-		Hibernate.initialize(this.getSponsor());
-		Hibernate.initialize(this.getNutritioninfos());
+		Hibernate.initialize(this.getNutritioninfo());
 	}
 }
