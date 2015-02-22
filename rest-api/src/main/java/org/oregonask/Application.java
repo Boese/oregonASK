@@ -5,6 +5,7 @@ import static spark.SparkBase.staticFileLocation;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.oregonask.controllers.MainController;
+import org.oregonask.controllers.MySqlCtrl;
 import org.oregonask.utils.HibernateUtil;
 
 
@@ -31,6 +32,7 @@ public class Application {
 		
 		HibernateUtil.getSessionFactory();
 		
-		new MainController();
+		//new MainController();
+        new MySqlCtrl();
 	}
 }

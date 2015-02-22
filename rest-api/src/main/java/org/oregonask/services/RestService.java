@@ -96,6 +96,11 @@ public class RestService {
 	
 	public Object delete(Request request) {
 		try {
+			String[] wildcard = request.splat();
+			String[] params = wildcard[0].split("/");
+			for(String param : params) {
+				System.out.println(param);
+			}
 			Class<?> clazz = HibernateUtil.getClass(request.splat()[0]);
 			session.beginTransaction();
 			Object obj = session.createQuery("from " + clazz.getSimpleName() + " where id=" + request.params(":id")).uniqueResult();
@@ -133,7 +138,8 @@ public class RestService {
 			    	JSONObject joinObject = new JSONObject(new JsonTransformer().render(clazzJoin.newInstance()));
 			    	Map<String,Object> joinProperties = new HashMap<String,Object>();
 			    	for (String name : JSONObject.getNames(joinObject)) {
-						joinProperties.put(name, "");
+			    		if(!name.equalsIgnoreCase("LAST_EDIT_BY") && !name.equalsIgnoreCase("TIME_STAMP"))
+			    			joinProperties.put(name, "");
 					}
 			    	Object[] temp = new Object[1];
 			    	temp[0] = joinProperties;
@@ -147,7 +153,7 @@ public class RestService {
 			    		properties.put(propertyName.replace("_ID", ""), temp);
 					}
 					// Property
-					else
+					else if(!propertyName.equalsIgnoreCase("LAST_EDIT_BY") && !propertyName.equalsIgnoreCase("TIME_STAMP"))
 						properties.put(propertyName, "");
 				}
 			}
