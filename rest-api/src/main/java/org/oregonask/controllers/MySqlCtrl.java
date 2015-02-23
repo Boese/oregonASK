@@ -9,7 +9,7 @@ import static spark.Spark.post;
 import static spark.Spark.put;
 
 import org.json.JSONObject;
-import org.oregonask.mysqlService.DatabaseCreator;
+import org.oregonask.mysqlService.DatabaseDriver;
 import org.oregonask.services.AuthService;
 import org.oregonask.services.ContactService;
 import org.oregonask.utils.JsonTransformer;
@@ -17,7 +17,7 @@ import org.oregonask.utils.ReturnMessage;
 
 public class MySqlCtrl {
 	private ContactService contactService = new ContactService();
-	private DatabaseCreator creator = new DatabaseCreator();
+	private DatabaseDriver creator = new DatabaseDriver();
 	
 	public MySqlCtrl() {
 		

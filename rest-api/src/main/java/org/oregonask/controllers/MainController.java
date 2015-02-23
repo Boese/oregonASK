@@ -8,7 +8,7 @@ import static spark.Spark.options;
 import static spark.Spark.put;
 import static spark.Spark.post;
 
-import org.oregonask.mysqlService.DatabaseCreator;
+import org.oregonask.mysqlService.DatabaseDriver;
 import org.oregonask.services.AuthService;
 import org.oregonask.services.ContactService;
 import org.oregonask.services.RestService;

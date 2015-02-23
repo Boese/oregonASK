@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ResultSetConverter {
-public static JSONArray convert(ResultSet rs) throws SQLException,
+public static JSONArray convert(ResultSet rs, Boolean search) throws SQLException,
         JSONException {
     JSONArray json = new JSONArray();
     ResultSetMetaData rsmd = rs.getMetaData();
@@ -19,7 +19,11 @@ public static JSONArray convert(ResultSet rs) throws SQLException,
         JSONObject obj = new JSONObject();
 
         for (int i = 1; i < numColumns + 1; i++) {
-            String column_name = rsmd.getColumnName(i);
+        	String column_name = "";
+        	if(search)
+        		column_name = rsmd.getColumnLabel(i);
+        	else
+        		column_name = rsmd.getColumnName(i);
 
             if (rsmd.getColumnType(i) == java.sql.Types.ARRAY) {
                 obj.put(column_name, rs.getArray(i));
