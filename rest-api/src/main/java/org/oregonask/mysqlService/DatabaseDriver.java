@@ -85,11 +85,8 @@ public class DatabaseDriver {
 		ResultSet rs = null;
 		try {
 			con = dataSource.getConnection();
-			// SET PROPERTIES
-			for(int i = 0; i < JSONObject.getNames(properties).length; i++) {
-				if(JSONObject.getNames(properties)[i].equalsIgnoreCase(tableName))
-					tableName = JSONObject.getNames(properties)[i];
-			}
+			
+			tableName = getTableName(tableName);
 			JSONArray arr = properties.getJSONArray(tableName);
 			for(int i = 0; i < arr.length(); i++)
 				object.put(arr.getJSONObject(i).getString("COLUMN_NAME"), "");
@@ -525,6 +522,15 @@ public class DatabaseDriver {
 			JSONObject o = new JSONObject(object.toString());
 			String alterTable = "ALTER TABLE " + o.getString("name");
 			
+			// RENAME COLUMNS
+			if(o.optJSONArray("rename") != null) {
+				for(int i = 0; i < o.getJSONArray("rename").length(); i++) {
+					String oldCol = o.getJSONArray("rename").getJSONObject(i).getString("old");
+					String newCol = o.getJSONArray("rename").getJSONObject(i).getString("new");
+					alterTable += " CHANGE " + oldCol + " " + newCol + " " + getPropertyType(o.getString("name"), oldCol) + ","; 
+				}
+			}
+			
 			// ADD COLUMNS ( for now varchar(500) )
 			if(o.optJSONArray("add") != null) {
 				for(int i = 0; i < o.getJSONArray("add").length(); i++) {
@@ -615,6 +621,17 @@ public class DatabaseDriver {
 		return null;
 	}
 	
+	// GET PROPERTY TYPE FROM PROPERTY NAME AND TABLE
+	private String getPropertyType(String tableName, String property) {
+		JSONArray arr = properties.getJSONArray(getTableName(tableName));
+		for(int i = 0; i < arr.length(); i++) {
+			JSONObject obj = arr.getJSONObject(i);
+			if(obj.getString("COLUMN_NAME").equalsIgnoreCase(property))
+				return obj.getString("COLUMN_TYPE");
+		}
+		return null;
+	}
+	
 	// GET CHILDREN BASED ON REFERENCED PARENT TABLE NAME
 	private JSONArray getChildrenNames(String tableName) {
 		JSONArray arr = new JSONArray();
@@ -626,7 +643,7 @@ public class DatabaseDriver {
 	}
 	
 	// GET FILTER STRING BASED OFF CHILD TABLE AND SEARCH TABLES
-	public String getFilter(String tableName, List<String> tables) {
+	private String getFilter(String tableName, List<String> tables) {
 		String filter = "";
 		for(int i = 0; i < fks.length(); i++) {
 			if(fks.getJSONObject(i).getString("TABLE_NAME").equalsIgnoreCase(tableName)) {
@@ -642,6 +659,16 @@ public class DatabaseDriver {
 			}
 		}
 		return filter;
+	}
+	
+	// GET TABLE FROM STRING
+	private String getTableName(String table) {
+		String tableName = "";
+		for(int i = 0; i < JSONObject.getNames(properties).length; i++) {
+			if(JSONObject.getNames(properties)[i].equalsIgnoreCase(table))
+				tableName = JSONObject.getNames(properties)[i];
+		}
+		return tableName;
 	}
 	
 	//********************* INITIALIZATION OF DATABASE INFORMATION *********************//
@@ -684,7 +711,6 @@ public class DatabaseDriver {
 	        
 	        new ResultSetConverter();
 	        properties.put(tableName, ResultSetConverter.convert(rs,false));
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally{
