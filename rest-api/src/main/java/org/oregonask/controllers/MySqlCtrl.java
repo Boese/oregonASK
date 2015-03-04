@@ -8,6 +8,7 @@ import static spark.Spark.options;
 import static spark.Spark.post;
 import static spark.Spark.put;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.oregonask.mysqlService.DatabaseDriver;
 import org.oregonask.services.AuthService;
@@ -17,7 +18,7 @@ import org.oregonask.utils.ReturnMessage;
 
 public class MySqlCtrl {
 	private ContactService contactService = new ContactService();
-	private DatabaseDriver creator = new DatabaseDriver();
+	private DatabaseDriver driver = new DatabaseDriver();
 	
 	public MySqlCtrl() {
 		
@@ -68,15 +69,15 @@ public class MySqlCtrl {
 			switch(params.length) {
 			case 1: 
 				if(params[0].equalsIgnoreCase("initialize"))
-					return creator.getTables();
+					return driver.getTables();
 				else
-					return creator.get(params[0]);
+					return driver.get(params[0]);
 			case 2:
 				if(params[1].equalsIgnoreCase("new"))
-					return creator.getProperties(params[0].toString(), new JSONObject());
+					return driver.getProperties(params[0].toString());
 				
 				else
-					return creator.getOne(params[0], Integer.parseInt(params[1]));
+					return driver.getOne(params[0], Integer.parseInt(params[1]));
 			}
 			return new ReturnMessage("failed");
 		});
@@ -89,13 +90,13 @@ public class MySqlCtrl {
 			String email = AuthService.getInstance().getUserEmail(token);
 			
 			if(params[0].equalsIgnoreCase("create_table"))
-				return creator.addTable(request.body());
+				return driver.addTable(request.body());
 			else if(params[0].equalsIgnoreCase("alter_table"))
-				return creator.alterTable(request.body());
+				return driver.alterTable(request.body());
 			else if(params[0].equalsIgnoreCase("search_database"))
-				return creator.search(request.body());
+				return driver.search(request.body());
 			else
-				return creator.post(request.body(), request.splat()[0]);
+				return driver.post(request.body(), request.splat()[0]);
 		});
 	
 		// authorized
@@ -104,11 +105,11 @@ public class MySqlCtrl {
 			String[] params = request.splat()[0].split("/");
 			
 			if(params[0].equalsIgnoreCase("delete_table"))
-				return creator.deleteTable(params[1]);
+				return driver.deleteTable(params[1]);
 			else {
 				int id = Integer.parseInt(params[0]);
 				Object table = request.splat()[0];
-				return creator.delete(id, table);
+				return driver.delete(id, table);
 			}
 		});
 		// --------------------------------------------------->

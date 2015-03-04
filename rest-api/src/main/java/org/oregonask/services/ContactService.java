@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.oregonask.utils.ReturnMessage;
 
 import spark.Request;
 
@@ -189,17 +190,22 @@ public class ContactService {
 	}
 	
 	// GET (all contacts,lists,and campaigns are pre-loaded)
-	public String getRequest(Request request) {
+	public Object getRequest(Request request) {
 		String response = "";
-		if(request.splat()[0].equalsIgnoreCase("contacts"))
-			response = contacts.toString();
-		else if(request.splat()[0].equalsIgnoreCase("lists"))
-			response = lists.toString();
-		else if(request.splat()[0].equalsIgnoreCase("campaigns"))
-			response = emailCampaigns.toString();
-		else
-			response = getCustomRequest(request);
-		return response;
+		try {
+			if(request.splat()[0].equalsIgnoreCase("contacts"))
+				response = contacts.toString();
+			else if(request.splat()[0].equalsIgnoreCase("lists"))
+				response = lists.toString();
+			else if(request.splat()[0].equalsIgnoreCase("campaigns"))
+				response = emailCampaigns.toString();
+			else
+				response = getCustomRequest(request);
+			return response;
+		} catch(Exception e) {
+			return new JSONObject(new ReturnMessage("Contacts are unavailable"));
+		}
+		
 	}
 	
 	// PUT

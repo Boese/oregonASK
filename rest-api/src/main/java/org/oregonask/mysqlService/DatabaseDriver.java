@@ -78,33 +78,42 @@ public class DatabaseDriver {
 	    }
 	}
 	
+	// GET PROPERTIES FOR TABLE USE RECURSIVE METHOD BELOW
+	public Object getProperties(String tableName) {
+		try {
+			return getProperties(tableName, new JSONArray()).get(0);
+		} catch(Exception e) {
+			return new JSONObject(new ReturnMessage(tableName + " doesn't exist"));
+		}
+	}
+	
 	// GET PROPERTIES FOR TABLE WITH NESTED CHILDREN RECURSIVELY
-	public Object getProperties(String tableName, JSONObject object) {
+	private JSONArray getProperties(String tableName, JSONArray object) {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
 			con = dataSource.getConnection();
-			
+			JSONObject obj = new JSONObject();
 			tableName = getTableName(tableName);
 			JSONArray arr = properties.getJSONArray(tableName);
 			for(int i = 0; i < arr.length(); i++)
-				object.put(arr.getJSONObject(i).getString("COLUMN_NAME"), "");
+				obj.put(arr.getJSONObject(i).getString("COLUMN_NAME"), "");
 			
 			// REMOVE UNNECESSARY FIELDS
-			object.remove("LAST_EDIT_BY");
-			object.remove("TIME_STAMP");
-			object.remove("id");
+			obj.remove("LAST_EDIT_BY");
+			obj.remove("TIME_STAMP");
+			obj.remove("id");
 			
 			// GET CHILDREN TABLES, RECURSE TO INSERT NESTED CHILDREN PROPERTIES
 			JSONArray children = getChildrenNames(tableName);
 			for(int i = 0; i < children.length(); i++)
-				object.put(children.getString(i), getProperties(children.getString(i), new JSONObject()));
-			
+				obj.put(children.getString(i), getProperties(children.getString(i), new JSONArray()));
+			object.put(obj);
 			return object;
 		} catch(Exception e) {
 			e.printStackTrace();
-			return new JSONObject(new ReturnMessage(tableName + " doesn't exist"));
+			return null;
 		} finally{
 		       try {
 		    	   if(rs != null) {rs.close();}
@@ -235,7 +244,6 @@ public class DatabaseDriver {
 
 			new ResultSetConverter();
 			JSONObject object = ResultSetConverter.convert(rs,false).getJSONObject(0);
-
 
 			// add One to Many relationships
 			addChildren(object,tableName);
