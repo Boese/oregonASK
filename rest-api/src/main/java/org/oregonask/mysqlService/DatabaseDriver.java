@@ -124,6 +124,26 @@ public class DatabaseDriver {
 	}
 	
 	// SEARCH FOR ANY DATA
+	/*
+		 {
+			"tables":[
+	        	{
+	            	"name":"school",
+	                "columns":["name","middle","county"]
+	            },
+	            {
+	            	"name":"program",
+	                "columns":["name","county","city"]
+	            }
+	        ],
+	        "filters":[
+	          {
+	            "name":"school.county",
+	            "values":["Washington","marion"]
+	          }
+	        ]
+		  }
+	 */
 	public Object search(Object object) {
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -140,7 +160,8 @@ public class DatabaseDriver {
 			}
 			
 			List<String> tableSearch = new ArrayList<String>();
-			List<String> filterSearch = new ArrayList<String>();
+			List<JSONObject> filterSearch = new ArrayList<JSONObject>();
+			List<String> joinSearch = new ArrayList<String>();
 			
 			String search = "SELECT ";
 			
@@ -168,27 +189,47 @@ public class DatabaseDriver {
 				for(int i = 0; i < tables.length(); i++) {
 					String filter = getFilter(_tableNames.get(i), _tableNames);
 					if(!filter.equalsIgnoreCase(""))
-						filterSearch.add(filter);
+						joinSearch.add(filter);
 				}
 			}
 			
 			if(filters != null) {
 				for(int i = 0; i < filters.length(); i++) {
-					filterSearch.add(filters.getString(i));
+					filterSearch.add(filters.getJSONObject(i));
 				}
 			}
 			
 			if(filterSearch.size() > 0) {
-				search += " WHERE ";
-				for(String s : filterSearch) {
-					search += s + " && ";
+				search += " WHERE";
+				for(JSONObject j : filterSearch) {
+					search += "(";
+					for(int i = 0; i < j.getJSONArray("values").length(); i++) {
+						search += j.getString("name") + " LIKE ";
+						if(i == j.getJSONArray("values").length() - 1)
+							search += "'%" + j.getJSONArray("values").getString(i) + "%'";
+						else
+							search += "'%" + j.getJSONArray("values").getString(i) + "%'" + " OR ";
+					}
+					search += ") && ";
+				}
+				if(search.endsWith(" && "))
+					search = search.substring(0, search.length() - 4);
+			}
+			
+			if(joinSearch.size() > 0) {
+				if(filterSearch.size() < 1)
+					search += " WHERE ";
+				else
+					search += " && ";
+				for(String join : joinSearch) {
+					search += join + " && ";
 				}
 				if(search.endsWith(" && "))
 					search = search.substring(0, search.length() - 4);
 			}
 			
 			search += ";";
-			
+			System.out.println(search);
 			pst = con.prepareStatement(search);
 			rs = pst.executeQuery();
 			

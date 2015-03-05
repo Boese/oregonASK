@@ -44,7 +44,12 @@ public static JSONArray convert(ResultSet rs, Boolean search) throws SQLExceptio
             } else if (rsmd.getColumnType(i) == java.sql.Types.NVARCHAR) {
                 obj.put(column_name, rs.getNString(i));
             } else if (rsmd.getColumnType(i) == java.sql.Types.VARCHAR) {
-                obj.put(column_name, rs.getString(i));
+            	String val = rs.getString(i);
+            	if(val == null) {
+            		obj.put(column_name, "");
+            	} else {
+            		obj.put(column_name, val);
+            	}
             } else if (rsmd.getColumnType(i) == java.sql.Types.CHAR) {
                 obj.put(column_name, rs.getString(i));
             } else if (rsmd.getColumnType(i) == java.sql.Types.NCHAR) {
