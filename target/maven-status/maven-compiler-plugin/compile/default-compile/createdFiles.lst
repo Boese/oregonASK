@@ -2,13 +2,16 @@ org/oregonask/entities/User.class
 org/oregonask/entities/IUpdateLastEditBy.class
 org/oregonask/services/AuthService$TimerToken.class
 org/oregonask/services/AuthService$UserSession.class
+org/oregonask/mysqlService/DatabaseDriver.class
 org/oregonask/utils/JsonTransformer.class
 org/oregonask/entities/Sponsor.class
 org/oregonask/entities/SchoolInfo.class
+org/oregonask/utils/DataSourceFactory.class
 org/oregonask/exceptions/DataAccessLayerException.class
 org/oregonask/utils/ReturnMessage.class
 org/oregonask/entities/IEntity.class
 org/oregonask/services/ContactService$1.class
+org/oregonask/controllers/MySqlCtrl.class
 org/oregonask/utils/HibernateUtil.class
 org/oregonask/entities/Program.class
 org/oregonask/services/ContactService$ResyncContacts.class
@@ -18,6 +21,7 @@ org/oregonask/services/AuthService.class
 org/oregonask/services/RestService.class
 org/oregonask/entities/SummerfoodInfo.class
 org/oregonask/entities/NutritionInfo.class
+org/oregonask/mysqlService/ResultSetConverter.class
 org/oregonask/controllers/MainController.class
 org/oregonask/entities/ProgramInfo.class
 org/oregonask/entities/DataTableInfo.class

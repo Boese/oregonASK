@@ -21,9 +21,9 @@ public class DataSourceFactory {
         
         // Heroku instance
         else {
-        	mySqlDataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_81301b928a7b951?reconnect=true");
-        	mySqlDataSource.setUser("bb463ffa3c6c83");
-        	mySqlDataSource.setPassword("ae14b11f");
+        	mySqlDataSource.setUrl("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_a986a0c0bbeefbc?reconnect=true");
+        	mySqlDataSource.setUser("baa8dbaf38d26d");
+        	mySqlDataSource.setPassword("1775ae61");
         }
     	mySqlDataSource.setCachePrepStmts(true);
     	mySqlDataSource.setPrepStmtCacheSize(250);

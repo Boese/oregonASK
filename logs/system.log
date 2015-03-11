@@ -7092,3 +7092,15 @@ line 1:45: unexpected token: %
 2015-03-11 13:04:02,509 -0700 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
 2015-03-11 13:04:02,690 -0700 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
 2015-03-11 13:04:02,693 -0700 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
+2015-03-11 15:38:26,177 -0700 [main] INFO  (JavaReflectionManager.java:66) - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2015-03-11 15:38:26,190 -0700 [main] INFO  (Version.java:54) - HHH000412: Hibernate Core {4.3.5.Final}
+2015-03-11 15:38:26,197 -0700 [main] INFO  (Environment.java:239) - HHH000206: hibernate.properties not found
+2015-03-11 15:38:26,198 -0700 [main] INFO  (Environment.java:346) - HHH000021: Bytecode provider name : javassist
+2015-03-11 15:38:26,233 -0700 [main] INFO  (Configuration.java:2073) - HHH000043: Configuring from resource: hibernate.cfg.xml
+2015-03-11 15:38:26,233 -0700 [main] INFO  (Configuration.java:2092) - HHH000040: Configuration resource: hibernate.cfg.xml
+2015-03-11 15:38:26,294 -0700 [main] INFO  (Configuration.java:2214) - HHH000041: Configured SessionFactory: null
+2015-03-11 15:38:26,386 -0700 [main] INFO  (ConnectionProviderInitiator.java:190) - HHH000130: Instantiating explicit connection provider: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+2015-03-11 15:38:27,147 -0700 [main] INFO  (Dialect.java:145) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2015-03-11 15:38:27,157 -0700 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2015-03-11 15:38:27,364 -0700 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2015-03-11 15:38:27,369 -0700 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
