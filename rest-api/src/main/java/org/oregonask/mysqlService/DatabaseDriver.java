@@ -30,7 +30,7 @@ public class DatabaseDriver {
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	public DatabaseDriver() {
-		dataSource = DataSourceFactory.getMySQLDataSource(false);
+		dataSource = DataSourceFactory.getMySQLDataSource(true);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.setSerializationInclusion(Include.NON_NULL);
