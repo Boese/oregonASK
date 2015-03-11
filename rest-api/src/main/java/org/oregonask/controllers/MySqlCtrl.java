@@ -8,8 +8,6 @@ import static spark.Spark.options;
 import static spark.Spark.post;
 import static spark.Spark.put;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.oregonask.mysqlService.DatabaseDriver;
 import org.oregonask.services.AuthService;
 import org.oregonask.services.ContactService;
@@ -95,8 +93,10 @@ public class MySqlCtrl {
 				return driver.alterTable(request.body());
 			else if(params[0].equalsIgnoreCase("search_database"))
 				return driver.search(request.body());
+			else if(params[0].equalsIgnoreCase("upload_data"))
+				return driver.uploadData(request.body(), params[1], email);
 			else
-				return driver.post(request.body(), request.splat()[0]);
+				return driver.post(request.body(), params[0], email);
 		});
 	
 		// authorized
@@ -107,8 +107,8 @@ public class MySqlCtrl {
 			if(params[0].equalsIgnoreCase("delete_table"))
 				return driver.deleteTable(params[1]);
 			else {
-				int id = Integer.parseInt(params[0]);
-				Object table = request.splat()[0];
+				int id = Integer.parseInt(params[1]);
+				Object table = params[0];
 				return driver.delete(id, table);
 			}
 		});

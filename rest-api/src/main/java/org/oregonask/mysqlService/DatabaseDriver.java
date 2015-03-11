@@ -30,7 +30,7 @@ public class DatabaseDriver {
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	public DatabaseDriver() {
-		dataSource = DataSourceFactory.getMySQLDataSource(true);
+		dataSource = DataSourceFactory.getMySQLDataSource(false);
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.setSerializationInclusion(Include.NON_NULL);
@@ -66,7 +66,7 @@ public class DatabaseDriver {
 					arr.put(tables.getJSONObject(i).getString("TABLE_NAME"));
 				}
 			}
-			return arr;
+			return new JSONArray(arr.toString().toUpperCase());
 		} catch(Exception e) {
 			return new JSONObject(new ReturnMessage("Couldn't load database tables"));
 		} finally{
@@ -81,7 +81,7 @@ public class DatabaseDriver {
 	// GET PROPERTIES FOR TABLE USE RECURSIVE METHOD BELOW
 	public Object getProperties(String tableName) {
 		try {
-			return getProperties(tableName, new JSONArray()).get(0);
+			return new JSONObject(getProperties(tableName, new JSONArray()).get(0).toString().toUpperCase());
 		} catch(Exception e) {
 			return new JSONObject(new ReturnMessage(tableName + " doesn't exist"));
 		}
@@ -104,6 +104,9 @@ public class DatabaseDriver {
 			obj.remove("LAST_EDIT_BY");
 			obj.remove("TIME_STAMP");
 			obj.remove("id");
+			obj.remove("ID");
+			obj.remove("iD");
+			obj.remove("Id");
 			
 			// GET CHILDREN TABLES, RECURSE TO INSERT NESTED CHILDREN PROPERTIES
 			JSONArray children = getChildrenNames(tableName);
@@ -149,7 +152,6 @@ public class DatabaseDriver {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			con = dataSource.getConnection();
 			JSONObject obj = new JSONObject(object.toString());
 			JSONArray tables = obj.optJSONArray("tables");
 			JSONArray filters = obj.optJSONArray("filters");
@@ -168,9 +170,13 @@ public class DatabaseDriver {
 			for(int i = 0; i < tables.length(); i++) {
 				JSONObject table = tables.getJSONObject(i);
 				String tableName = table.getString("name");
-				for(int j = 0; j < table.getJSONArray("columns").length(); j++) {
-					String columnName = table.getJSONArray("columns").getString(j);
-					tableSearch.add(tableName + "." + columnName + " AS '" + tableName.toUpperCase() + "." + columnName.toUpperCase() + "'");
+				if(table.getJSONArray("columns").length() < 1)
+					throw new Exception("invalid search");
+				else {
+					for(int j = 0; j < table.getJSONArray("columns").length(); j++) {
+						String columnName = table.getJSONArray("columns").getString(j);
+						tableSearch.add(tableName + "." + columnName + " AS '" + tableName.toUpperCase() + "." + columnName.toUpperCase() + "'");
+					}
 				}
 			}
 			
@@ -229,12 +235,12 @@ public class DatabaseDriver {
 			}
 			
 			search += ";";
-			System.out.println(search);
+			con = dataSource.getConnection();
 			pst = con.prepareStatement(search);
 			rs = pst.executeQuery();
 			
 			new ResultSetConverter();
-			return ResultSetConverter.convert(rs,true);
+			return new JSONArray(ResultSetConverter.convert(rs,true).toString().toUpperCase());
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new JSONObject(new ReturnMessage("invalid search"));
@@ -258,7 +264,7 @@ public class DatabaseDriver {
 			pst = con.prepareStatement(query);
 			rs = pst.executeQuery();
 			new ResultSetConverter();
-			return ResultSetConverter.convert(rs,false);
+			return new JSONArray(ResultSetConverter.convert(rs,false).toString().toUpperCase());
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new JSONObject(new ReturnMessage(tableName + " doesn't exist"));
@@ -291,7 +297,7 @@ public class DatabaseDriver {
 
 
 			// return object
-			return object;
+			return new JSONObject(object.toString().toUpperCase());
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -315,8 +321,13 @@ public class DatabaseDriver {
 				String refColName = fks.getJSONObject(i).getString("COLUMN_NAME");
 				String colName = fks.getJSONObject(i).getString("REFERENCED_COLUMN_NAME");
 				
-				int id = object.getInt(colName.toLowerCase());
-				object.put(childTableName, getOneToMany(childTableName, id, refColName));
+				int id = 0;
+				for(int j = 0; j < object.names().length(); j++) {
+					if(object.names().getString(j).equalsIgnoreCase(colName))
+						id = object.getInt(object.names().getString(j));
+				}
+				if(id != 0)
+					object.put(childTableName, getOneToMany(childTableName, id, refColName));
 			}
 		}
 	}
@@ -353,64 +364,127 @@ public class DatabaseDriver {
 		    }
 	}
 	
-	// CREATE OR UPDATE * TABLE
-	public Object post(Object object, Object table) {
+	// UPLOAD JSON TO SAVE TO DATABASE
+	public Object uploadData(Object object, Object table, String email) {
+		try {
+			JSONArray arr = new JSONArray(object.toString());
+			
+			for(int i = 0; i < arr.length(); i++) {
+				buildInsert(arr.getJSONObject(i), table.toString(), email);
+			}
+			
+			return new JSONObject(new ReturnMessage("success"));
+		} catch(Exception e) {
+			return new JSONObject(new ReturnMessage("failed"));
+		}
+	}
+	
+	private int insertData(JSONObject obj, String tableName, String email) {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		Map<String,JSONArray> children = new HashMap<String,JSONArray>();
-		
-		JSONObject obj = new JSONObject(object.toString());
-		String tableName = table.toString();
-		
-		List<Object> columns = new ArrayList<Object>();
-		
-		for(Object s : JSONObject.getNames(obj)) {
-			JSONArray arr = obj.optJSONArray(s.toString());
-			if(arr != null && arr.length() > 0) {
-				children.put(s.toString(), arr);
-				obj.remove(s.toString());
-			}
-			else {
-				columns.add(s);
-			}
-		}
-		
-		String insert = "INSERT INTO " + tableName  + " SET";
-		for(int i = 0; i < columns.size(); i++) {
-			insert += " " + columns.get(i) + " = ?,";
-		}
-		
-		if(insert.endsWith(","))
-			insert = insert.substring(0,insert.length() - 1);
-		
-		insert += " ON DUPLICATE KEY UPDATE";
-		for(int i = 0; i < columns.size(); i++) {
-			insert += " " + columns.get(i) + " = VALUES(" + columns.get(i) + "),";
-		}
-		
-		if(insert.endsWith(","))
-			insert = insert.substring(0,insert.length() - 1);
+		int id = 0;
 		
 		try {
+			obj.put("LAST_EDIT_BY", email);
+			List<Object> columns = new ArrayList<Object>();
+			
+			for(Object s : JSONObject.getNames(obj)) {
+				columns.add(s);
+			}
+			
+			String insert = "INSERT INTO " + tableName  + " SET";
+			for(int i = 0; i < columns.size(); i++) {
+				insert += " " + columns.get(i) + " = ?,";
+			}
+			
+			if(insert.endsWith(","))
+				insert = insert.substring(0,insert.length() - 1);
+			
+			insert += " ON DUPLICATE KEY UPDATE";
+			for(int i = 0; i < columns.size(); i++) {
+				insert += " " + columns.get(i) + " = VALUES(" + columns.get(i) + "),";
+			}
+			
+			if(insert.endsWith(","))
+				insert = insert.substring(0,insert.length() - 1);
+			
+			insert = insert.toUpperCase();
 			con = dataSource.getConnection();
 			pst = con.prepareStatement(insert,PreparedStatement.RETURN_GENERATED_KEYS);
 			for(int i = 1; i < columns.size()+1; i++) {
-				pst.setObject(i, obj.get(columns.get(i-1).toString()));
+				if(getTypeFromField(tableName, columns.get(i-1).toString()) != null) {
+					if(getTypeFromField(tableName, columns.get(i-1).toString()).contains("varchar"))
+						pst.setString(i, obj.getString(columns.get(i-1).toString()).toUpperCase());
+					else if(getTypeFromField(tableName, columns.get(i-1).toString()).contains("tiny")) {
+						if(obj.get(columns.get(i-1).toString()).toString().trim().isEmpty()) {
+							pst.setObject(i, null);
+						} else {
+							pst.setBoolean(i, obj.getBoolean(columns.get(i-1).toString()));
+						}
+					}
+					else if (getTypeFromField(tableName, columns.get(i-1).toString()).contains("int"))
+					{
+						int val = 0;
+						try {
+							val = Integer.parseInt(obj.get(columns.get(i-1).toString()).toString());
+						} catch(Exception e) {}
+						if(val != 0)
+							pst.setInt(i, obj.getInt(columns.get(i-1).toString()));
+						else
+							pst.setObject(i, null);
+					}
+					else
+						pst.setObject(i, obj.get(columns.get(i-1).toString()));
+				}
 			}
 			pst.executeUpdate();
 			rs = pst.getGeneratedKeys();
-			int parentId = 0;
 			if (rs.next()){
-				parentId = rs.getInt(1);
+				id = rs.getInt(1);
+			} else {
+				for(int i = 0; i < obj.names().length(); i++) {
+					if(obj.names().getString(i).equalsIgnoreCase("id"))
+						id = obj.getInt(obj.names().getString(i));
+				}
 			}
-			
-			for(Map.Entry<String, JSONArray> child : children.entrySet()) {
-				postChildren(child.getValue(), tableName, child.getKey(), parentId);
-			}
-		} catch (SQLException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
-			return new JSONObject(new ReturnMessage("failed"));
+		}
+		finally{
+		       try {
+		    	   if(rs != null) {rs.close();}
+				   if(pst != null) {pst.close();}
+				   if(con != null) {con.close();}
+				} catch (SQLException e) {}
+		    }
+		
+		return id;
+	}
+	
+	private int getParentId(String query) {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int id = 0;
+		
+		try {
+			con = dataSource.getConnection();
+			pst = con.prepareStatement(query);
+			rs = pst.executeQuery();
+			JSONArray arr = ResultSetConverter.convert(rs,false);
+			
+			if(arr != null) {
+				if(arr.length() > 0) {
+					JSONObject temp = arr.getJSONObject(0);
+					for(int i = 0; i < temp.names().length(); i++) {
+						if(temp.names().getString(i).equalsIgnoreCase("id"))
+							id = temp.getInt(temp.names().getString(i));
+					}
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally{
 		       try {
 		    	   if(rs != null) {rs.close();}
@@ -418,21 +492,115 @@ public class DatabaseDriver {
 				   if(con != null) {con.close();}
 				} catch (SQLException e) {}
 		    }
+		return id;
+	}
+	
+	private void buildInsert(JSONObject obj, String tableName, String email) {
+		try {
+			JSONObject tableFields = new JSONObject();
+			JSONObject parentFields = getParentFields(tableName);
+			JSONObject childrenFields = new JSONObject();
+			
+			// SET UP OBJECTS
+			JSONArray keys = obj.names();
+			for(int i = 0; i < keys.length(); i++) {
+				String table = keys.getString(i).substring(0, keys.getString(i).indexOf("."));
+				String key = keys.getString(i).substring(keys.getString(i).indexOf(".") + 1, keys.getString(i).length());
+				String val = obj.getString(keys.getString(i));
+				
+				if(containsString(parentFields.names(), table)) {
+					if(val != null && val.length() > 0)
+						parentFields.getJSONObject(table.toLowerCase()).put(key, obj.getString(keys.getString(i)));	
+				}
+				else if(!table.equalsIgnoreCase(tableName)) {
+					if(childrenFields.optJSONObject(table) == null)
+						childrenFields.put(table, new JSONObject());
+					childrenFields.getJSONObject(table).put(key, val);
+				}
+				else {
+					tableFields.put(key, val);
+				}
+					
+			}
+			
+			// LOOKUP PARENT FIELDS AND SET FK_IDS
+			if(parentFields.names() != null) {
+				for(int i = 0; i < parentFields.names().length(); i++) {
+					JSONObject temp = parentFields.getJSONObject(parentFields.names().getString(i));
+						if(temp.names() != null) {
+							String query = "SELECT ID FROM " + parentFields.names().getString(i) + " WHERE ";
+							for(int j = 0; j < temp.names().length(); j++) {
+								query += temp.names().getString(j) + " LIKE " + "\"%" + temp.getString(temp.names().getString(j)) + "%\"" + " && ";
+							}
+							if(query.endsWith(" && "))
+								query = query.substring(0, query.length() - 4);
+							query += " LIMIT 1;";
+							
+							int id = getParentId(query);
+							if(id != 0) {
+								tableFields.put(parentFields.names().getString(i) + "_ID", id);
+							}
+						}
+				}
+			}
+			
+			// INSERT INTO TABLE get last insert id
+			int parentId = insertData(tableFields, tableName, email);
+			
+			// SET CHILD PARENT FKS to last insert id
+			if(parentId != 0) {
+				if(childrenFields.names() != null) {
+					for(int i = 0; i < childrenFields.names().length(); i++) {
+						childrenFields.getJSONObject(childrenFields.names().getString(i)).put(tableName + "_ID", parentId);
+					}
+				}
+			}
+			
+			// INSERT INTO CHILD TABLES
+			if(childrenFields.names() != null) {
+				for(int i = 0; i < childrenFields.names().length(); i++) {
+					insertData(childrenFields.getJSONObject(childrenFields.names().getString(i)), childrenFields.names().getString(i), email);
+				}
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// CREATE OR UPDATE * TABLE
+	public Object post(Object object, Object table, String email) {
+		Map<String,JSONArray> children = new HashMap<String,JSONArray>();
+		
+		JSONObject obj = new JSONObject(object.toString());
+		String tableName = table.toString();
+		
+		for(Object s : JSONObject.getNames(obj)) {
+			JSONArray arr = obj.optJSONArray(s.toString());
+			if(arr != null && arr.length() > 0) {
+				children.put(s.toString(), arr);
+				obj.remove(s.toString());
+			}
+		}
+		
+		// INSERT INTO TABLE get last insert id
+		int parentId = insertData(obj, tableName, email);
+		
+		if(parentId != 0) {
+			for(Map.Entry<String, JSONArray> child : children.entrySet()) {
+				postChildren(child.getValue(), tableName, child.getKey(), parentId, email);
+			}
+		}
 		return new JSONObject(new ReturnMessage("success"));
 	}
 	
 	// RECURSIVELY CREATE OR UPDATE NESTED CHILDREN
-	private void postChildren(JSONArray arr, String parentTable, String childTable, int parentId) {
-		Connection con = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
+	private void postChildren(JSONArray arr, String parentTable, String childTable, int parentId, String email) {
 		Map<String,JSONArray> children = new HashMap<String,JSONArray>();
 		
 		for(int i = 0; i < arr.length(); i++) {
 			JSONObject obj = arr.getJSONObject(i);
-			obj.put(parentTable + "_id", parentId);
-			
-			List<Object> columns = new ArrayList<Object>();
+			obj.put(parentTable.toUpperCase() + "_ID", parentId);
 			
 			for(Object s : JSONObject.getNames(obj)) {
 				JSONArray arr2 = obj.optJSONArray(s.toString());
@@ -440,52 +608,16 @@ public class DatabaseDriver {
 					children.put(s.toString(), arr2);
 					obj.remove(s.toString());
 				}
-				else {
-					columns.add(s);
-				}
 			}
 			
-			String insert = "INSERT INTO " + childTable + " SET";
+			// INSERT INTO TABLE get last insert id
+			int childParentId = insertData(obj, childTable, email);
 			
-			for(int j = 0; j < columns.size(); j++) {
-				insert += " " + columns.get(j) + " = ?,";
-			}
-			
-			if(insert.endsWith(","))
-				insert = insert.substring(0,insert.length() - 1);
-			
-			insert += " ON DUPLICATE KEY UPDATE";
-			for(int j = 0; j < columns.size(); j++) {
-				insert += " " + columns.get(j) + " = VALUES(" + columns.get(j) + "),";
-			}
-			
-			if(insert.endsWith(","))
-				insert = insert.substring(0,insert.length() - 1);
-			
-			try {
-				con = dataSource.getConnection();
-				pst = con.prepareStatement(insert,PreparedStatement.RETURN_GENERATED_KEYS);
-				for(int j = 1; j < columns.size()+1; j++) {
-					pst.setObject(j, obj.get(columns.get(j-1).toString()));
-				}
-				pst.executeUpdate();
-				rs = pst.getGeneratedKeys();
-				int childParentId = 0;
-				if (rs.next()){
-					childParentId = rs.getInt(1);
-				}
+			if(childParentId != 0) {
 				for(Map.Entry<String, JSONArray> child : children.entrySet()) {
-					postChildren(child.getValue(), childTable, child.getKey(), childParentId);
+					postChildren(child.getValue(), childTable, child.getKey(), childParentId, email);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally{
-			       try {
-			    	   if(rs != null) {rs.close();}
-					   if(pst != null) {pst.close();}
-					   if(con != null) {con.close();}
-					} catch (SQLException e) {}
-			    }
+			}
 		}
 	}
 	
@@ -527,23 +659,27 @@ public class DatabaseDriver {
 			String createTable = "CREATE TABLE " + o.getString("name") + " (id int(11) NOT NULL AUTO_INCREMENT,";
 			
 			// COLUMNS ( for now varchar(500) )
-			if(o.optJSONArray("columns") != null) {
-				for(int i = 0; i < o.getJSONArray("columns").length(); i++) {
-					createTable += o.getJSONArray("columns").getString(i) + " varchar(500),";
+			if(o.optJSONArray("add") != null) {
+				for(int i = 0; i < o.getJSONArray("add").length(); i++) {
+					createTable += o.getJSONArray("add").getString(i) + " varchar(500),";
 				}
 			}
 			
+			createTable += "LAST_EDIT_BY varchar(100), ";
+			createTable += "TIME_STAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"; 
+			
 			// FORIEGN KEY TO PARENTS
-			if(o.optJSONArray("parents") != null) {
-				for(int i = 0; i < o.getJSONArray("parents").length(); i++) {
-					createTable += o.getJSONArray("parents").getString(i) + "_id" + " int DEFAULT NULL,";
-					createTable += "CONSTRAINT FK_" + o.getString("name") + "_" + o.getJSONArray("parents").getString(i)
-								+ " FOREIGN KEY (" + o.getJSONArray("parents").getString(i) + "_id)"
-								+ " REFERENCES " + o.getJSONArray("parents").getString(i) + " (id) ON DELETE SET NULL ON UPDATE NO ACTION,";
+			if(o.optJSONArray("addParents") != null) {
+				for(int i = 0; i < o.getJSONArray("addParents").length(); i++) {
+					createTable += o.getJSONArray("addParents").getString(i) + "_id" + " int DEFAULT NULL,";
+					createTable += "CONSTRAINT FK_" + o.getString("name") + "_" + o.getJSONArray("addParents").getString(i)
+								+ " FOREIGN KEY (" + o.getJSONArray("addParents").getString(i) + "_id)"
+								+ " REFERENCES " + o.getJSONArray("addParents").getString(i) + " (id) ON DELETE CASCADE ON UPDATE NO ACTION,";
 				}
 			}
 			
 			createTable += "PRIMARY KEY (id) );";
+			createTable = createTable.toUpperCase();
 			
 			pst = con.prepareStatement(createTable);
 			pst.executeUpdate();
@@ -600,7 +736,7 @@ public class DatabaseDriver {
 					alterTable += " ADD " + o.getJSONArray("addParents").getString(i) + "_id" + " int DEFAULT NULL,";
 					alterTable += " ADD CONSTRAINT FK_" + o.getString("name") + "_" + o.getJSONArray("addParents").getString(i)
 								+ " FOREIGN KEY (" + o.getJSONArray("addParents").getString(i) + "_id)"
-								+ " REFERENCES " + o.getJSONArray("addParents").getString(i) + " (id) ON DELETE SET NULL ON UPDATE NO ACTION,";
+								+ " REFERENCES " + o.getJSONArray("addParents").getString(i) + " (id) ON DELETE CASCADE ON UPDATE NO ACTION,";
 				}
 			}
 			
@@ -618,6 +754,7 @@ public class DatabaseDriver {
 				alterTable += ";";
 			}
 			
+			alterTable = alterTable.toUpperCase();
 			pst = con.prepareStatement(alterTable);
 			pst.executeUpdate();
 			initialize();
@@ -670,6 +807,28 @@ public class DatabaseDriver {
 		return null;
 	}
 	
+	// CHECK IF LIST OF STRINGS CONTAINS STRING OP
+	private Boolean containsString(JSONArray strings, String op) {
+		if(strings != null && op != null) {
+			for(int i = 0; i < strings.length(); i++) {
+				if(strings.getString(i).equalsIgnoreCase(op))
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	// GET PARENTS FK OBJECT BASED ON TABLE NAME
+	private JSONObject getParentFields(String tableName) {
+		JSONObject parentFields = new JSONObject();
+		for(int i = 0; i < fks.length(); i++) {
+			if(fks.getJSONObject(i).getString("TABLE_NAME").equalsIgnoreCase(tableName)) {
+				parentFields.put(fks.getJSONObject(i).getString("REFERENCED_TABLE_NAME").toLowerCase(), new JSONObject());
+			}
+		}
+		return parentFields;
+	}
+	
 	// GET PROPERTY TYPE FROM PROPERTY NAME AND TABLE
 	private String getPropertyType(String tableName, String property) {
 		JSONArray arr = properties.getJSONArray(getTableName(tableName));
@@ -677,6 +836,18 @@ public class DatabaseDriver {
 			JSONObject obj = arr.getJSONObject(i);
 			if(obj.getString("COLUMN_NAME").equalsIgnoreCase(property))
 				return obj.getString("COLUMN_TYPE");
+		}
+		return null;
+	}
+	
+	// GET JAVA PROPERTY TYPE FROM PROPERTY NAME AND TABLE
+	private String getTypeFromField(String tableName, String property) {
+		JSONArray arr = properties.getJSONArray(getTableName(tableName));
+		for(int i = 0; i < arr.length(); i++) {
+			JSONObject obj = arr.getJSONObject(i);
+			if(obj.getString("COLUMN_NAME").equalsIgnoreCase(property)) {
+				return obj.getString("COLUMN_TYPE");
+			}
 		}
 		return null;
 	}
