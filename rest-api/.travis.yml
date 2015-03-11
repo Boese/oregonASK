@@ -1,0 +1,6 @@
+language: java
+jdk:
+  - oraclejdk8
+script: "mvn -f rest-api/pom.xml install"
+notifications:
+  email: false
