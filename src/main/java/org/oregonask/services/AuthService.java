@@ -83,14 +83,15 @@ public class AuthService {
 			return null;
 		
 		UUID random = UUID.randomUUID();
+		String randomS = random.toString();
 		pass = BCrypt.hashpw(pass, user.getSalt());
 		if(pass.equals(user.getPassword())) {
 			TimerToken timertoken = new TimerToken();
 			timer.schedule(timertoken, TIME_OUT);
-			UserSession userSession = new UserSession(random.toString(),email);
+			UserSession userSession = new UserSession(randomS,email);
 			tokens.put(timertoken, userSession);
 			JSONObject tokenjson = new JSONObject();
-			tokenjson.put("Token", random.toString());
+			tokenjson.put("Token", randomS);
 			System.out.println("New user logged in : " + email);
 			return tokenjson;
 		}

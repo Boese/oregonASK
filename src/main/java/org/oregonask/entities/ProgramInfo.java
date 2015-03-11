@@ -280,5 +280,4 @@ public class ProgramInfo implements java.io.Serializable,IEntity {
 	public void initialize() {
 		Hibernate.initialize(this.getProgramId());
 	}
-
 }
