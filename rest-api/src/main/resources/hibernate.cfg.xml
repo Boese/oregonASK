@@ -5,19 +5,19 @@
 <hibernate-configuration>
 	<session-factory>
 	
-		<!-- Heroku config 
+		<!-- Heroku config -->
 		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
 		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
-		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_81301b928a7b951?reconnect=true</property>
-		<property name="hibernate.hikari.dataSource.user">bb463ffa3c6c83</property>
-		<property name="hibernate.hikari.dataSource.password">ae14b11f</property>
+		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_a986a0c0bbeefbc?reconnect=true</property>
+		<property name="hibernate.hikari.dataSource.user">baa8dbaf38d26d</property>
+		<property name="hibernate.hikari.dataSource.password">1775ae61</property>
 		<property name="hibernate.hikari.dataSource.cachePrepStmts">true</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSize">250</property>
 		<property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit">2048</property>
 		<property name="hibernate.hikari.dataSource.useServerPrepStmts">true</property>
-		-->
 		
-		<!-- Localhost config -->
+		
+		<!-- Localhost config 
 		<property name="hibernate.connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
 		<property name="hibernate.hikari.dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</property>
 		<property name="hibernate.hikari.dataSource.url">jdbc:mysql://localhost:3306/OREGONASKDB</property>
@@ -38,6 +38,7 @@
 		<mapping class="org.oregonask.entities.SummerfoodInfo"></mapping>
 		<mapping class="org.oregonask.entities.Program"></mapping>
 		<mapping class="org.oregonask.entities.ProgramInfo"></mapping>
+		-->
 		<mapping class="org.oregonask.entities.User"></mapping>
 		
 		

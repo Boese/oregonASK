@@ -1,7 +1,9 @@
 package org.oregonask;
 
 import static spark.SparkBase.setPort;
+
 import org.oregonask.controllers.MySqlCtrl;
+import org.oregonask.utils.HibernateUtil;
 
 
 public class Application {
@@ -21,7 +23,7 @@ public class Application {
 		//staticFileLocation("/public/app");
 		
 		
-		//HibernateUtil.getSessionFactory();
+		HibernateUtil.getSessionFactory();
 		
 		//new MainController();
         new MySqlCtrl();
